@@ -1,0 +1,75 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "bcde9448-0818-48c2-8308-62cd9823b48d",
+  "files": [],
+  "subMetas": {
+    "77f2a": {
+      "importer": "gltf-mesh",
+      "uuid": "bcde9448-0818-48c2-8308-62cd9823b48d@77f2a",
+      "displayName": "",
+      "id": "77f2a",
+      "name": "Sphere01.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 644
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "8d8cf": {
+      "importer": "gltf-scene",
+      "uuid": "bcde9448-0818-48c2-8308-62cd9823b48d@8d8cf",
+      "displayName": "",
+      "id": "8d8cf",
+      "name": "Sphere01.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "bcde9448-0818-48c2-8308-62cd9823b48d@77f2a"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "bcde9448-0818-48c2-8308-62cd9823b48d@8d8cf"
+      ]
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "__type__": "cc.Material",
+  "_name": "mat_ADD_FX_TX_FlamesNoise_02",
+  "_effectAsset": {
+    "__uuid__": "dd27c790-f5f6-4e10-b4dd-60988594c37d"
+  },
+  "_techIdx": 0,
+  "_defines": [
+    {}
+  ],
+  "_states": [
+    {}
+  ],
+  "_props": [
+    {
+      "mainTexture": {
+        "__uuid__": "2a14c0ce-5bf3-4cab-b4a1-69c09c2eac46@6c48a"
+      },
+      "tintColor": {
+        "__type__": "cc.Color",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "a": 255
+      },
+      "mainTiling_Offset": {
+        "__type__": "cc.Vec4",
+        "x": 1,
+        "y": 0.1,
+        "z": 0,
+        "w": 0
+      },
+      "emissionScale": {
+        "__type__": "cc.Vec4",
+        "x": 1,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "speedMainTexUVNoiseZW": {
+        "__type__": "cc.Vec4",
+        "x": 0,
+        "y": -0.4,
+        "z": 0,
+        "w": 0
+      },
+      "distortSpeedXYPowerZW": {
+        "__type__": "cc.Vec4",
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 0
+      },
+      "noiseTexture": {
+        "__uuid__": "42f475d4-3fdd-4df9-a5e9-4d14d254321c@6c48a"
+      },
+      "maskTexture": {
+        "__uuid__": "012aec4c-53b0-4ca7-a3cb-072dda1d3f51@6c48a"
+      }
+    }
+  ]
+}
