@@ -23,8 +23,29 @@ window._tool = {
 exports.style = `#GameDiv, #Cocos3dGameContainer, #GameCanvas {
     width: 100%;
     height: 100%;
-  }`;
-exports.template = ` <div id="GameDiv">
+  }
+  #super-html-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2147483647;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(28, 28, 30, 0.88);
+    color: #e6e6e6;
+    font: 13px/1.4 Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  #super-html-bar input { width: 15px; height: 15px; cursor: pointer; }
+  #super-html-bar label { cursor: pointer; user-select: none; }`;
+exports.template = `<div id="super-html-bar">
+  <input type="checkbox" id="sh-opt-landscape" />
+  <label for="sh-opt-landscape">Hiển thị logo 2 bên khi build (chế độ ngang)</label>
+</div>
+<div id="GameDiv">
 <div id="Cocos3dGameContainer">
   <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"></canvas>
 </div>
@@ -35,6 +56,29 @@ exports.ready = async function () {
     var GameCanvas = dom.getElementById("GameCanvas");
     var GameDiv = dom.getElementById("GameDiv");
     var Cocos3dGameContainer = dom.getElementById("Cocos3dGameContainer");
+    // Option: hiển thị logo 2 bên khi build (lưu vào settings/super-html-options.json)
+    try {
+        const proj = Editor.Project.path || Editor.projectPath;
+        const opt_path = path_1.default.join(proj, "settings", "super-html-options.json");
+        const read_opt = () => {
+            try { if (fs_1.default.existsSync(opt_path)) return JSON.parse(fs_1.default.readFileSync(opt_path, "utf8")); } catch (e) { }
+            return {};
+        };
+        const cb = dom.getElementById("sh-opt-landscape");
+        if (cb) {
+            const opt = read_opt();
+            cb.checked = (opt.landscape_enable !== false); // mặc định bật
+            cb.addEventListener("change", () => {
+                const cur = read_opt();
+                cur.landscape_enable = cb.checked;
+                try { fs_1.default.writeFileSync(opt_path, JSON.stringify(cur, null, 2)); }
+                catch (e) { console.error("[super-html] lưu option lỗi:", e); }
+            });
+        }
+    }
+    catch (e) {
+        console.error("[super-html] options bar lỗi:", e);
+    }
     const getElementById = document.getElementById;
     document.getElementById = function (str) {
         if (str === "GameCanvas") {

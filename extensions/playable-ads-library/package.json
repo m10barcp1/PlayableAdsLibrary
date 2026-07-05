@@ -1,0 +1,117 @@
+{
+  "package_version": 2,
+  "version": "1.0.0",
+  "name": "vfx-browser",
+  "description": "Playable Ads Library — browse, bundle and reimport a multi-format asset library (VFX, Animation, Spine, FBX, Audio, Prefab, Texture)",
+  "main": "./dist/main.js",
+  "editor": ">=3.8.0",
+  "panels": {
+    "browser": {
+      "title": "Playable Ads Library",
+      "type": "dockable",
+      "main": "dist/panels/browser",
+      "size": {
+        "min-width": 800,
+        "min-height": 500,
+        "width": 1024,
+        "height": 600
+      }
+    },
+    "import-review": {
+      "title": "Import Review",
+      "type": "simple",
+      "main": "dist/panels/import-review",
+      "size": {
+        "min-width": 600,
+        "min-height": 400,
+        "width": 700,
+        "height": 500
+      }
+    }
+  },
+  "contributions": {
+    "menu": [
+      {
+        "path": "Extensions",
+        "label": "Playable Ads Library",
+        "message": "open-browser"
+      }
+    ],
+    "messages": {
+      "open-browser": {
+        "methods": [
+          "openBrowser"
+        ]
+      },
+      "open-import-review": {
+        "methods": [
+          "openImportReview"
+        ]
+      },
+      "start-import": {
+        "methods": [
+          "startImport"
+        ]
+      },
+      "import-complete": {
+        "methods": []
+      },
+      "getImportReviewData": {
+        "methods": ["getImportReviewData"]
+      },
+      "bundle-library": {
+        "methods": ["bundleLibrary"]
+      },
+      "reimport-library": {
+        "methods": ["reimportLibrary"]
+      },
+      "get-bundle-info": {
+        "methods": ["getBundleInfo"]
+      },
+      "sync-up": {
+        "methods": ["syncUpLibrary"]
+      },
+      "sync-down": {
+        "methods": ["syncDownLibrary"]
+      },
+      "get-sync-status": {
+        "methods": ["getSyncStatus"]
+      }
+    },
+    "profile": {
+      "project": {
+        "serverUrl": {
+          "default": "http://10.10.0.204:4649",
+          "label": "Server URL"
+        },
+        "importFolder": {
+          "default": "assets/library-extension/VFX",
+          "label": "Import Folder"
+        },
+        "syncUrl": {
+          "default": "http://127.0.0.1:4650",
+          "label": "Library Sync Server URL"
+        },
+        "syncToken": {
+          "default": "",
+          "label": "Library Sync Token"
+        }
+      }
+    },
+    "scene": {
+      "script": "./dist/scene.js"
+    },
+    "builder": "./html-export/3x/builder.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "clean-css": "^4.2.1",
+    "jszip": "^3.7.1",
+    "mime-types": "^2.1.32",
+    "uglify-js": "^3.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.2",
+    "typescript": "^6.0.3"
+  }
+}

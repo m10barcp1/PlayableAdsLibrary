@@ -8,13 +8,6 @@
     "main": "./dist/3x/main.js",
     "contributions": {
         "builder": "./dist/3x/builder.js",
-        "menu": [
-            {
-                "path": "i18n:menu.extension",
-                "label": "i18n:super-html.open_panel",
-                "message": "open-panel"
-            }
-        ],
         "messages": {
             "turn_off": {
                 "methods":[
@@ -31,9 +24,29 @@
                     "delete_node"
                 ]
             },
-            "open-panel": {
+            "open-main-scene": {
                 "methods": [
-                    "open_panel"
+                    "open_main_scene"
+                ]
+            },
+            "play-scene": {
+                "methods": [
+                    "play_scene"
+                ]
+            },
+            "pause-scene": {
+                "methods": [
+                    "pause_scene"
+                ]
+            },
+            "stop-scene": {
+                "methods": [
+                    "stop_scene"
+                ]
+            },
+            "build-project": {
+                "methods": [
+                    "build_project"
                 ]
             }
         },
@@ -52,6 +65,31 @@
                 "message": "delete_node",
                 "win": "ctrl+h",
                 "mac": "cmd+z"
+            },
+            {
+                "message": "open-main-scene",
+                "win": "ctrl+m",
+                "mac": "cmd+m"
+            },
+            {
+                "message": "play-scene",
+                "win": "ctrl+t",
+                "mac": "cmd+t"
+            },
+            {
+                "message": "pause-scene",
+                "win": "ctrl+y",
+                "mac": "cmd+y"
+            },
+            {
+                "message": "stop-scene",
+                "win": "ctrl+u",
+                "mac": "cmd+u"
+            },
+            {
+                "message": "build-project",
+                "win": "ctrl+b",
+                "mac": "cmd+b"
             }
         ]
     },
@@ -64,18 +102,6 @@
         "jszip": "^3.7.1",
         "mime-types": "^2.1.32",
         "uglify-js": "^3.6.0"
-    },
-    "panels": {
-        "default": {
-            "title": "super-html Default Panel",
-            "main": "dist/3x/panel",
-            "size": {
-                "min-width": 1200,
-                "min-height": 900,
-                "width": 1200,
-                "height": 900
-            }
-        }
     },
     "editor": ">=3.4.0",
     "scripts": {
