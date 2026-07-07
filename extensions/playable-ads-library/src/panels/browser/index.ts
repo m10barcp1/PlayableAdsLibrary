@@ -26,8 +26,13 @@ interface CategoryNode {
 
 // Library albums — one per supported asset format, each backed by a subfolder
 // of assets/library-extension (see library/asset-types.ts).
+// Kinds temporarily hidden from the album rail (chưa dùng tới). Their ASSET_TYPES
+// definitions stay intact so the importer/lookup still know them — to show a kind
+// again just remove its key here. Currently hidden: Effect (.effect) + Script (.ts).
+const HIDDEN_ALBUM_KEYS = new Set(['effect', 'script']);
 const ALBUMS: Array<{ key: string; label: string; def: AssetTypeDef }> =
-    ASSET_TYPES.map((t) => ({ key: t.key, label: t.label, def: t }));
+    ASSET_TYPES.filter((t) => !HIDDEN_ALBUM_KEYS.has(t.key))
+        .map((t) => ({ key: t.key, label: t.label, def: t }));
 
 // Thumbnail capture/encode quality profile — shared by every render-previewed
 // asset (VFX particles, Prefabs, Spine). Higher fidelity than the original
@@ -54,7 +59,8 @@ module.exports = Editor.Panel.define({
             <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span class="brand-name">Playable Ads Library</span><span class="brand-author" title="Author">by ThânNV</span></div>
             <div class="tabs">
                 <div class="tab active" id="tabLocal">Library</div>
-                <div class="tab" id="tabAll">VFX Hub</div>
+                <!-- VFX Hub tạm ẩn (chưa dùng). Logic được giữ nguyên để tái dùng: bỏ style="display:none" để bật lại tab. -->
+                <div class="tab" id="tabAll" style="display:none">VFX Hub</div>
                 <div class="tab" id="tabMcp">Cocos MCP</div>
                 <div class="tab" id="tabSettings">Settings</div>
             </div>
@@ -82,11 +88,14 @@ module.exports = Editor.Panel.define({
         <div class="settings-page" id="settingsPage" style="display:none">
             <div class="settings-inner">
                 <h2 class="settings-title">Settings</h2>
-                <section class="settings-group">
+                <!-- VFX Hub tạm ẩn (chưa dùng). Section ẩn nhưng #serverUrl vẫn nằm trong DOM để
+                     toàn bộ logic Hub (_fetchCatalog / _startImport / _importAll) không lỗi null và
+                     tái dùng được ngay. Bỏ style="display:none" để bật lại. -->
+                <section class="settings-group" style="display:none">
                     <div class="settings-group-title">VFX Hub</div>
                     <div class="settings-row">
                         <label class="settings-label" for="serverUrl">Server URL</label>
-                        <input type="text" id="serverUrl" class="settings-input" value="http://10.10.0.204:4649" placeholder="http://host:port" />
+                        <input type="text" id="serverUrl" class="settings-input" value="" placeholder="http://host:port" />
                     </div>
                     <div class="settings-hint">Địa chỉ VFX Hub server dùng để duyệt và import VFX.</div>
                 </section>
