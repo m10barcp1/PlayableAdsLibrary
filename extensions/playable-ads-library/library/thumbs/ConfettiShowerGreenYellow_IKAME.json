@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-confetti-shower-confettishowergreenyellow-ikame",
+  "name": "ConfettiShowerGreenYellow_IKAME",
+  "category": "EpicToonFX/Environment/Confetti/Shower",
+  "particleCount": 1,
+  "fileSize": 6772,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ConfettiShowerGreenYellow_IKAME/prefab/ConfettiShowerGreenYellow_IKAME.prefab",
+  "prefabUuid": "808ffc84-2569-4224-8e0a-c00574394fce",
+  "importedAt": 1782725344154,
+  "thumb": "ConfettiShowerGreenYellow_IKAME.webm"
+}

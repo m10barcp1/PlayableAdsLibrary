@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-confetti-blast-confettiblastorangegreen-ikame",
+  "name": "ConfettiBlastOrangeGreen_IKAME",
+  "category": "EpicToonFX/Environment/Confetti/Blast",
+  "particleCount": 3,
+  "fileSize": 17288,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ConfettiBlastOrangeGreen_IKAME/prefab/ConfettiBlastOrangeGreen_IKAME.prefab",
+  "prefabUuid": "bd721481-f670-4fe9-8f81-79322f6fd8ee",
+  "importedAt": 1782726090416,
+  "thumb": "ConfettiBlastOrangeGreen_IKAME.webm"
+}

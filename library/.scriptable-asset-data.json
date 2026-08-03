@@ -1,0 +1,17 @@
+{
+  "164c89b1-a1c5-4e83-935c-424dce9c7712": {
+    "url": "db://scriptable-asset/scriptable_runtime",
+    "value": {},
+    "versionCode": 1
+  },
+  "e57573d3-f12a-4da2-a11d-2d6d1777160f": {
+    "url": "db://scriptable-asset/cc_extend.d.ts",
+    "value": {},
+    "versionCode": 1
+  },
+  "92ec69d6-f398-4ade-9442-c7327e9e3fae": {
+    "url": "db://scriptable-asset/scriptable_runtime/index.ts",
+    "value": {},
+    "versionCode": 1
+  }
+}

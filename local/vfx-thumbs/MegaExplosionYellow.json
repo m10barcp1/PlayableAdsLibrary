@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-megaexplosion-megaexplosionyellow-ikame",
+  "name": "MegaExplosionYellow",
+  "category": "EpicToonFX/Combat/Explosions/MegaExplosion",
+  "particleCount": 10,
+  "fileSize": 46879,
+  "prefabPath": "db://assets/_VFX/Imported/MegaExplosionYellow/prefab/MegaExplosionYellow.prefab",
+  "prefabUuid": "d670d7a4-f20c-48b7-a25f-904ff3022e27",
+  "importedAt": 1782962753752,
+  "thumb": "MegaExplosionYellow.webm"
+}

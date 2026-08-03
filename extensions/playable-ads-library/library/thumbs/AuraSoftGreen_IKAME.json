@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-magic-aura-soft-aurasoftgreen-ikame",
+  "name": "AuraSoftGreen_IKAME",
+  "category": "EpicToonFX/Combat/Magic/Aura Soft",
+  "particleCount": 2,
+  "fileSize": 9301,
+  "prefabPath": "db://assets/_IKameVFX/Imported/AuraSoftGreen_IKAME/prefab/AuraSoftGreen_IKAME.prefab",
+  "prefabUuid": "7d797684-8146-4874-ad11-52574ec3085d",
+  "importedAt": 1782724633697,
+  "thumb": "AuraSoftGreen_IKAME.webm"
+}

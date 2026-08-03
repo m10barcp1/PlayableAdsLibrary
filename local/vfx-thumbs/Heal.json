@@ -1,0 +1,11 @@
+{
+  "id": "ikame-casual-prefabs-oneshot-beamup-heal",
+  "name": "Heal",
+  "category": "iKame/Casual/Prefabs/OneShot/BeamUp",
+  "particleCount": 8,
+  "fileSize": 44271,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/iKame/Casual/Prefabs/OneShot/BeamUp/Heal/prefab/Heal.prefab",
+  "prefabUuid": "0a818ee8-aa88-44c8-b0d8-f58d4f7cab59",
+  "importedAt": 1782991928633,
+  "thumb": "Heal.webm"
+}

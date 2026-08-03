@@ -1,0 +1,177 @@
+7-5-2026 23:13:00-log: Cannot access game frame or container.
+7-5-2026 23:13:01-debug: asset-db:require-engine-code (626ms)
+7-5-2026 23:13:01-log: meshopt wasm decoder initialized
+7-5-2026 23:13:01-log: [box2d]:box2d wasm lib loaded.
+7-5-2026 23:13:01-log: [bullet]:bullet wasm lib loaded.
+7-5-2026 23:13:01-log: Cocos Creator v3.8.7
+7-5-2026 23:13:01-log: Using legacy pipeline
+7-5-2026 23:13:01-debug: [Assets Memory track]: asset-db:worker-init: initEngine start:32.37MB, end 79.94MB, increase: 47.58MB
+7-5-2026 23:13:01-log: Forward render pipeline initialized.
+7-5-2026 23:13:01-warn: [Register scriptable-asset]contribution.importer is deprecated in 3.8.3. Please use contribution.asset-handler instead
+7-5-2026 23:13:03-debug: [Assets Memory track]: asset-db:worker-init: initPlugin start:80.01MB, end 275.39MB, increase: 195.37MB
+7-5-2026 23:13:03-debug: run package(taobao-mini-game) handler(enable) start
+7-5-2026 23:13:03-debug: run package(taobao-mini-game) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(vivo-mini-game) handler(enable) start
+7-5-2026 23:13:03-debug: run package(vivo-mini-game) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(web-mobile) handler(enable) start
+7-5-2026 23:13:03-debug: run package(web-desktop) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(web-mobile) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(wechatgame) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(wechatgame) handler(enable) start
+7-5-2026 23:13:03-debug: run package(web-desktop) handler(enable) start
+7-5-2026 23:13:03-debug: run package(wechatprogram) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(windows) handler(enable) start
+7-5-2026 23:13:03-debug: run package(wechatprogram) handler(enable) start
+7-5-2026 23:13:03-debug: run package(xiaomi-quick-game) handler(enable) start
+7-5-2026 23:13:03-debug: run package(cocos-service) handler(enable) start
+7-5-2026 23:13:03-debug: run package(xiaomi-quick-game) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(cocos-service) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(im-plugin) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(im-plugin) handler(enable) start
+7-5-2026 23:13:03-debug: run package(windows) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(cocos-mcp-server) handler(enable) start
+7-5-2026 23:13:03-debug: run package(scriptable-asset) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(vfx-browser) handler(enable) start
+7-5-2026 23:13:03-debug: run package(cocos-mcp-server) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(vfx-browser) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(scriptable-asset) handler(enable) start
+7-5-2026 23:13:03-debug: asset-db:worker-init: initPlugin (2550ms)
+7-5-2026 23:13:03-debug: run package(super-html) handler(enable) start
+7-5-2026 23:13:03-debug: run package(super-html) handler(enable) success!
+7-5-2026 23:13:03-debug: run package(placeholder) handler(enable) start
+7-5-2026 23:13:03-debug: run package(placeholder) handler(enable) success!
+7-5-2026 23:13:03-debug: [Assets Memory track]: asset-db:worker-init start:32.36MB, end 276.60MB, increase: 244.24MB
+7-5-2026 23:13:03-debug: Run asset db hook programming:beforePreStart success!
+7-5-2026 23:13:03-debug: Run asset db hook engine-extends:beforePreStart success!
+7-5-2026 23:13:03-debug: Preimport db  success
+7-5-2026 23:13:03-debug: Run asset db hook engine-extends:beforePreStart ...
+7-5-2026 23:13:03-debug: Run asset db hook programming:beforePreStart ...
+7-5-2026 23:13:03-debug: Preimport db  success
+7-5-2026 23:13:03-debug: Run asset db hook programming:afterPreStart ...
+7-5-2026 23:13:03-debug: Preimport db  success
+7-5-2026 23:13:03-debug: starting packer-driver...
+7-5-2026 23:13:03-debug: asset-db:worker-init (3460ms)
+7-5-2026 23:13:03-debug: asset-db-hook-programming-beforePreStart (156ms)
+7-5-2026 23:13:03-debug: asset-db-hook-engine-extends-beforePreStart (155ms)
+7-5-2026 23:13:04-debug: initialize scripting environment...
+7-5-2026 23:13:04-debug: [[Executor]] prepare before lock
+7-5-2026 23:13:04-debug: Set detail map pack:///resolution-detail-map.json: {}
+7-5-2026 23:13:04-debug: Run asset db hook programming:afterPreStart success!
+7-5-2026 23:13:04-debug: Run asset db hook engine-extends:afterPreStart success!
+7-5-2026 23:13:04-debug: [Assets Memory track]: asset-db:worker-init: preStart start:276.61MB, end 290.07MB, increase: 13.46MB
+7-5-2026 23:13:04-debug: Run asset db hook engine-extends:afterPreStart ...
+7-5-2026 23:13:04-debug: [[Executor]] prepare after unlock
+7-5-2026 23:13:04-debug: Start up the 'internal' database...
+7-5-2026 23:13:04-debug: asset-db-hook-programming-afterPreStart (366ms)
+7-5-2026 23:13:04-debug: asset-db:worker-effect-data-processing (78ms)
+7-5-2026 23:13:04-debug: asset-db-hook-engine-extends-afterPreStart (78ms)
+7-5-2026 23:13:04-log: [scriptable-asset]:[importer]:windowsLoad
+7-5-2026 23:13:04-debug: Run asset db hook engine-extends:afterStartDB ...
+7-5-2026 23:13:05-debug: recompile effect.bin success
+7-5-2026 23:13:05-debug: Run asset db hook engine-extends:afterStartDB success!
+7-5-2026 23:13:05-debug: Start up the 'assets' database...
+7-5-2026 23:13:05-debug: asset-db:worker-effect-data-processing (870ms)
+7-5-2026 23:13:05-debug: asset-db-hook-engine-extends-afterStartDB (871ms)
+7-5-2026 23:13:05-debug: Run asset db hook engine-extends:afterStartDB ...
+7-5-2026 23:13:06-debug: recompile effect.bin success
+7-5-2026 23:13:06-debug: Start up the 'scriptable-asset' database...
+7-5-2026 23:13:06-debug: Run asset db hook engine-extends:afterStartDB success!
+7-5-2026 23:13:06-debug: asset-db:worker-effect-data-processing (258ms)
+7-5-2026 23:13:06-debug: asset-db-hook-engine-extends-afterStartDB (259ms)
+7-5-2026 23:13:06-debug: Run asset db hook engine-extends:afterStartDB ...
+7-5-2026 23:13:06-debug: recompile effect.bin success
+7-5-2026 23:13:06-debug: lazy register asset handler *
+7-5-2026 23:13:06-debug: Run asset db hook engine-extends:afterStartDB success!
+7-5-2026 23:13:06-debug: lazy register asset handler text
+7-5-2026 23:13:06-debug: lazy register asset handler directory
+7-5-2026 23:13:06-debug: lazy register asset handler spine-data
+7-5-2026 23:13:06-debug: lazy register asset handler dragonbones-atlas
+7-5-2026 23:13:06-debug: lazy register asset handler terrain
+7-5-2026 23:13:06-debug: lazy register asset handler dragonbones
+7-5-2026 23:13:06-debug: lazy register asset handler typescript
+7-5-2026 23:13:06-debug: lazy register asset handler json
+7-5-2026 23:13:06-debug: lazy register asset handler javascript
+7-5-2026 23:13:06-debug: lazy register asset handler sprite-frame
+7-5-2026 23:13:06-debug: lazy register asset handler prefab
+7-5-2026 23:13:06-debug: lazy register asset handler tiled-map
+7-5-2026 23:13:06-debug: lazy register asset handler buffer
+7-5-2026 23:13:06-debug: lazy register asset handler sign-image
+7-5-2026 23:13:06-debug: lazy register asset handler alpha-image
+7-5-2026 23:13:06-debug: lazy register asset handler texture
+7-5-2026 23:13:06-debug: lazy register asset handler scene
+7-5-2026 23:13:06-debug: lazy register asset handler texture-cube
+7-5-2026 23:13:06-debug: lazy register asset handler render-texture
+7-5-2026 23:13:06-debug: lazy register asset handler erp-texture-cube
+7-5-2026 23:13:06-debug: lazy register asset handler texture-cube-face
+7-5-2026 23:13:06-debug: lazy register asset handler rt-sprite-frame
+7-5-2026 23:13:06-debug: lazy register asset handler image
+7-5-2026 23:13:06-debug: lazy register asset handler gltf-mesh
+7-5-2026 23:13:06-debug: lazy register asset handler gltf-animation
+7-5-2026 23:13:06-debug: lazy register asset handler gltf
+7-5-2026 23:13:06-debug: lazy register asset handler gltf-skeleton
+7-5-2026 23:13:06-debug: lazy register asset handler gltf-scene
+7-5-2026 23:13:06-debug: lazy register asset handler fbx
+7-5-2026 23:13:06-debug: lazy register asset handler gltf-embeded-image
+7-5-2026 23:13:06-debug: lazy register asset handler physics-material
+7-5-2026 23:13:06-debug: lazy register asset handler material
+7-5-2026 23:13:06-debug: lazy register asset handler gltf-material
+7-5-2026 23:13:06-debug: lazy register asset handler effect-header
+7-5-2026 23:13:06-debug: lazy register asset handler audio-clip
+7-5-2026 23:13:06-debug: lazy register asset handler animation-graph
+7-5-2026 23:13:06-debug: lazy register asset handler animation-clip
+7-5-2026 23:13:06-debug: lazy register asset handler animation-graph-variant
+7-5-2026 23:13:06-debug: lazy register asset handler ttf-font
+7-5-2026 23:13:06-debug: lazy register asset handler particle
+7-5-2026 23:13:06-debug: lazy register asset handler bitmap-font
+7-5-2026 23:13:06-debug: lazy register asset handler animation-mask
+7-5-2026 23:13:06-debug: lazy register asset handler sprite-atlas
+7-5-2026 23:13:06-debug: lazy register asset handler auto-atlas
+7-5-2026 23:13:06-debug: lazy register asset handler render-pipeline
+7-5-2026 23:13:06-debug: lazy register asset handler label-atlas
+7-5-2026 23:13:06-debug: lazy register asset handler render-stage
+7-5-2026 23:13:06-debug: lazy register asset handler instantiation-material
+7-5-2026 23:13:06-debug: lazy register asset handler instantiation-mesh
+7-5-2026 23:13:06-debug: lazy register asset handler instantiation-skeleton
+7-5-2026 23:13:06-debug: lazy register asset handler render-flow
+7-5-2026 23:13:06-debug: lazy register asset handler instantiation-animation
+7-5-2026 23:13:06-debug: lazy register asset handler video-clip
+7-5-2026 23:13:06-debug: lazy register asset handler effect
+7-5-2026 23:13:06-debug: asset-db:worker-effect-data-processing (279ms)
+7-5-2026 23:13:06-debug: asset-db-hook-engine-extends-afterStartDB (279ms)
+7-5-2026 23:13:06-debug: asset-db:start-database (2554ms)
+7-5-2026 23:13:06-debug: asset-db:ready (8474ms)
+7-5-2026 23:13:06-debug: init worker message success
+7-5-2026 23:13:06-debug: programming:execute-script (5ms)
+7-5-2026 23:13:07-warn: the importerscriptable_asset version need to upgrade.
+7-5-2026 23:13:07-debug: [Build Memory track]: builder:worker-init start:236.34MB, end 288.21MB, increase: 51.86MB
+7-5-2026 23:13:07-debug: builder:worker-init (1171ms)
+7-5-2026 23:13:08-log: [scriptable-asset]:[importer]:场景关闭了
+7-5-2026 23:13:09-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:true
+7-5-2026 23:13:09-log: Manager.Utils.queryAssets is deprecated in 3.8.3. Please use Manager.assetManager.queryAssets instead
+7-5-2026 23:13:09-log: [scriptable-asset]:[importer]:afterRefresh, execSceneFunced:false
+7-5-2026 23:38:15-log: [scriptable-asset]:[importer]:场景关闭了
+7-5-2026 23:38:17-log: [scriptable-asset]:[importer]:windowsLoad
+7-5-2026 23:38:17-warn: the importerscriptable_asset version need to upgrade.
+7-5-2026 23:38:20-log: [scriptable-asset]:[importer]:场景关闭了
+7-5-2026 23:38:20-log: Manager.Utils.queryAssets is deprecated in 3.8.3. Please use Manager.assetManager.queryAssets instead
+7-5-2026 23:38:20-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:true
+7-5-2026 23:38:20-log: [scriptable-asset]:[importer]:afterRefresh, execSceneFunced:false
+7-5-2026 23:48:04-debug: refresh db internal success
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\flash.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\gaussian.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\flash-light.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\glow-inner-v1.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\FollowSpot.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\Mosaic.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\sprite-glow-outter.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\SpriteDissolve.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\SpriteHighLight.gifbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effectbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect\README.mdbackground: #aaff85; color: #000;color: #000;
+7-5-2026 23:48:04-debug: refresh db assets success
+7-5-2026 23:48:04-debug: refresh db scriptable-asset success
+7-5-2026 23:48:04-debug: Run asset db hook engine-extends:afterRefresh ...
+7-5-2026 23:48:04-debug: Run asset db hook engine-extends:afterRefresh success!
+7-5-2026 23:48:04-debug: asset-db:refresh-all-database (550ms)
+7-5-2026 23:48:04-debug: asset-db:worker-effect-data-processing (1ms)
+7-5-2026 23:48:04-debug: asset-db-hook-engine-extends-afterRefresh (1ms)

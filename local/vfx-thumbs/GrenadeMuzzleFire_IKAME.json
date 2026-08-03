@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-muzzleflash-grenademuzzle-grenademuzzlefire-ikame",
+  "name": "GrenadeMuzzleFire_IKAME",
+  "category": "EpicToonFX/Combat/Muzzleflash/GrenadeMuzzle",
+  "particleCount": 4,
+  "fileSize": 20186,
+  "prefabPath": "db://assets/_IKameVFX/Imported/GrenadeMuzzleFire_IKAME/prefab/GrenadeMuzzleFire_IKAME.prefab",
+  "prefabUuid": "3fea3f29-85d0-4d2a-8b11-23699e713ff0",
+  "importedAt": 1782724750641,
+  "thumb": "GrenadeMuzzleFire_IKAME.webm"
+}

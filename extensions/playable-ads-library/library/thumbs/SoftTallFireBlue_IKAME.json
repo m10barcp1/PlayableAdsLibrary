@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-fire-soft-tall-softtallfireblue-ikame",
+  "name": "SoftTallFireBlue_IKAME",
+  "category": "EpicToonFX/Environment/Fire/Soft/Tall",
+  "particleCount": 3,
+  "fileSize": 14862,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SoftTallFireBlue_IKAME/prefab/SoftTallFireBlue_IKAME.prefab",
+  "prefabUuid": "7335130b-e4bd-47ca-b4a4-ec37f63daf29",
+  "importedAt": 1782719356739,
+  "thumb": "SoftTallFireBlue_IKAME.webm"
+}

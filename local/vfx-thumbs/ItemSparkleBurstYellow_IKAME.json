@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-interactive-loot-itemsparkleburst-itemsparkleburstyellow-ikame",
+  "name": "ItemSparkleBurstYellow_IKAME",
+  "category": "EpicToonFX/Interactive/Loot/ItemSparkleBurst",
+  "particleCount": 2,
+  "fileSize": 9751,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ItemSparkleBurstYellow_IKAME/prefab/ItemSparkleBurstYellow_IKAME.prefab",
+  "prefabUuid": "34e6b47c-8fc9-400c-9cdb-04a4712e4217",
+  "importedAt": 1782726344851,
+  "thumb": "ItemSparkleBurstYellow_IKAME.webm"
+}

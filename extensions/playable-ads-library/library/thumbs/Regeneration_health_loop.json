@@ -1,0 +1,11 @@
+{
+  "id": "lana-studio-casual-rpg-vfx-regeneration-regeneration-health-loop-ikame",
+  "name": "Regeneration_health_loop",
+  "category": "Lana Studio/Casual RPG VFX/Regeneration",
+  "particleCount": 6,
+  "fileSize": 30312,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/Lana Studio/Casual RPG VFX/Regeneration/Regeneration_health_loop/prefab/Regeneration_health_loop.prefab",
+  "prefabUuid": "ae1d41bb-ade7-4600-b7f1-99728f89e1f5",
+  "importedAt": 1782992316011,
+  "thumb": "Regeneration_health_loop.webm"
+}

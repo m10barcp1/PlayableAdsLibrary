@@ -1,0 +1,11 @@
+{
+  "id": "ikame-rpg-slash-slash-slashnormalup",
+  "name": "SlashNormalUp",
+  "category": "iKame/RPG/Slash/Slash",
+  "particleCount": 11,
+  "fileSize": 57045,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/iKame/RPG/Slash/Slash/SlashNormalUp/prefab/SlashNormalUp.prefab",
+  "prefabUuid": "28f1784d-094e-4ff6-af11-e2e1bc23ef93",
+  "importedAt": 1782992081454,
+  "thumb": "SlashNormalUp.webm"
+}

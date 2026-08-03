@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-fruitexplosion-strawberryexplosion-ikame",
+  "name": "StrawberryExplosion",
+  "category": "EpicToonFX/Combat/Explosions/FruitExplosion",
+  "particleCount": 5,
+  "fileSize": 28650,
+  "prefabPath": "db://assets/_VFX/Imported/StrawberryExplosion/prefab/StrawberryExplosion.prefab",
+  "prefabUuid": "0bf028c8-0170-4a46-9c4b-6014a98866b6",
+  "importedAt": 1782962653162,
+  "thumb": "StrawberryExplosion.webm"
+}

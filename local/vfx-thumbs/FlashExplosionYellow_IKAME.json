@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-flashexplosion-flashexplosionyellow-ikame",
+  "name": "FlashExplosionYellow_IKAME",
+  "category": "EpicToonFX/Combat/Explosions/FlashExplosion",
+  "particleCount": 6,
+  "fileSize": 29580,
+  "prefabPath": "db://assets/_IKameVFX/Imported/FlashExplosionYellow_IKAME/prefab/FlashExplosionYellow_IKAME.prefab",
+  "prefabUuid": "4a2fc32d-987f-400b-acb1-0d0e260da37f",
+  "importedAt": 1782723396883,
+  "thumb": "FlashExplosionYellow_IKAME.webm"
+}

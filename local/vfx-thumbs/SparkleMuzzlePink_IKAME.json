@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-muzzleflash-sparklemuzzle-sparklemuzzlepink-ikame",
+  "name": "SparkleMuzzlePink_IKAME",
+  "category": "EpicToonFX/Combat/Muzzleflash/SparkleMuzzle",
+  "particleCount": 2,
+  "fileSize": 9825,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SparkleMuzzlePink_IKAME/prefab/SparkleMuzzlePink_IKAME.prefab",
+  "prefabUuid": "b64055c8-0dc4-4175-a692-3ea8efeb02f6",
+  "importedAt": 1782723623020,
+  "thumb": "SparkleMuzzlePink_IKAME.webm"
+}

@@ -1,0 +1,27 @@
+{
+  "version": "1.0.1",
+  "map": {
+    "scriptable_runtime": {
+      "time": 1783006994316.7664,
+      "uuid": "164c89b1-a1c5-4e83-935c-424dce9c7712"
+    },
+    "cc_extend.d.ts": {
+      "time": 1768726857325.273,
+      "uuid": "e57573d3-f12a-4da2-a11d-2d6d1777160f"
+    },
+    "scriptable_runtime\\index.ts": {
+      "time": 1768726857325.273,
+      "uuid": "92ec69d6-f398-4ade-9442-c7327e9e3fae"
+    },
+    "scriptable_runtime.meta": {
+      "time": 1768726857325.273
+    },
+    "cc_extend.d.ts.meta": {
+      "time": 1768726857325.273
+    },
+    "scriptable_runtime\\index.ts.meta": {
+      "time": 1768726857326.2905
+    }
+  },
+  "missing": {}
+}

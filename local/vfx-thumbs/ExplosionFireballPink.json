@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-fireballroundexplosion-explosionfireballpink-ikame",
+  "name": "ExplosionFireballPink",
+  "category": "EpicToonFX/Combat/Explosions/FireballRoundExplosion",
+  "particleCount": 5,
+  "fileSize": 27340,
+  "prefabPath": "db://assets/_VFX/Imported/ExplosionFireballPink/prefab/ExplosionFireballPink.prefab",
+  "prefabUuid": "765ccaad-0c7e-4036-9246-5f77000754d0",
+  "importedAt": 1782962490077,
+  "thumb": "ExplosionFireballPink.webm"
+}

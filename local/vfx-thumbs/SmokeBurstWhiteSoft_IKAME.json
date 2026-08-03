@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-smoke-white-smokeburstwhitesoft-ikame",
+  "name": "SmokeBurstWhiteSoft_IKAME",
+  "category": "EpicToonFX/Environment/Smoke/White",
+  "particleCount": 2,
+  "fileSize": 10319,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SmokeBurstWhiteSoft_IKAME/prefab/SmokeBurstWhiteSoft_IKAME.prefab",
+  "prefabUuid": "a93f70a2-43c8-46bb-b78c-02fec8732b70",
+  "importedAt": 1782724947045,
+  "thumb": "SmokeBurstWhiteSoft_IKAME.webm"
+}

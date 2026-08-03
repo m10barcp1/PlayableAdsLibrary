@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-fire-soft-big-softfirebiggreen-ikame",
+  "name": "SoftFireBigGreen_IKAME",
+  "category": "EpicToonFX/Environment/Fire/Soft/Big",
+  "particleCount": 4,
+  "fileSize": 20467,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SoftFireBigGreen_IKAME/prefab/SoftFireBigGreen_IKAME.prefab",
+  "prefabUuid": "9b7402df-28b2-4f80-9f00-ce655a480cc9",
+  "importedAt": 1782719340020,
+  "thumb": "SoftFireBigGreen_IKAME.webm"
+}

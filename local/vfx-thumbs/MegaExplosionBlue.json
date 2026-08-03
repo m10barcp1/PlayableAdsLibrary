@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-megaexplosion-megaexplosionblue-ikame",
+  "name": "MegaExplosionBlue",
+  "category": "EpicToonFX/Combat/Explosions/MegaExplosion",
+  "particleCount": 10,
+  "fileSize": 46821,
+  "prefabPath": "db://assets/_VFX/Imported/MegaExplosionBlue/prefab/MegaExplosionBlue.prefab",
+  "prefabUuid": "c63ff9b7-e887-4600-b6bb-24887982d7e6",
+  "importedAt": 1782962707897,
+  "thumb": "MegaExplosionBlue.webm"
+}

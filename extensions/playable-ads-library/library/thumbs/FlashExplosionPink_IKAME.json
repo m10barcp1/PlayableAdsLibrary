@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-flashexplosion-flashexplosionpink-ikame",
+  "name": "FlashExplosionPink_IKAME",
+  "category": "EpicToonFX/Combat/Explosions/FlashExplosion",
+  "particleCount": 6,
+  "fileSize": 29556,
+  "prefabPath": "db://assets/_IKameVFX/Imported/FlashExplosionPink_IKAME/prefab/FlashExplosionPink_IKAME.prefab",
+  "prefabUuid": "8c689120-6280-4ce9-99a1-2bdeb77bd4b0",
+  "importedAt": 1782723390412,
+  "thumb": "FlashExplosionPink_IKAME.webm"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-brawling-toon-directional-toonpunchlight-ikame",
+  "name": "ToonPunchLight_IKAME",
+  "category": "EpicToonFX/Combat/Brawling/Toon/Directional",
+  "particleCount": 4,
+  "fileSize": 20929,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ToonPunchLight_IKAME/prefab/ToonPunchLight_IKAME.prefab",
+  "prefabUuid": "e6f0530c-57d7-4ab9-956e-f693000c6902",
+  "importedAt": 1782718530135,
+  "thumb": "ToonPunchLight_IKAME.webm"
+}

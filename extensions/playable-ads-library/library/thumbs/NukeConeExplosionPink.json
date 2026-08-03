@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-nukeconeexplosion-nukeconeexplosionpink-ikame",
+  "name": "NukeConeExplosionPink",
+  "category": "EpicToonFX/Combat/Explosions/NukeConeExplosion",
+  "particleCount": 9,
+  "fileSize": 46609,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/EpicToonFX/Combat/Explosions/NukeConeExplosion/NukeConeExplosionPink/prefab/NukeConeExplosionPink.prefab",
+  "prefabUuid": "f4a3dfa9-c390-4dae-accc-767fd0c90879",
+  "importedAt": 1782994309456,
+  "thumb": "NukeConeExplosionPink.webm"
+}

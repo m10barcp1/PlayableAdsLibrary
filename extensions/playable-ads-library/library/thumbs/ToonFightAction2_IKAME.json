@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-brawling-toon-toonfightaction2-ikame",
+  "name": "ToonFightAction2_IKAME",
+  "category": "EpicToonFX/Combat/Brawling/Toon",
+  "particleCount": 3,
+  "fileSize": 14110,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ToonFightAction2_IKAME/prefab/ToonFightAction2_IKAME.prefab",
+  "prefabUuid": "7f298ef6-92e8-4122-b318-7f0a142c5529",
+  "importedAt": 1782718549796,
+  "thumb": "ToonFightAction2_IKAME.webm"
+}

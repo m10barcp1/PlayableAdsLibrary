@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-fireballsoftexplosion-explosionfireballsoftgreen-ikame",
+  "name": "ExplosionFireballSoftGreen_IKAME",
+  "category": "EpicToonFX/Combat/Explosions/FireballSoftExplosion",
+  "particleCount": 4,
+  "fileSize": 20222,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ExplosionFireballSoftGreen_IKAME/prefab/ExplosionFireballSoftGreen_IKAME.prefab",
+  "prefabUuid": "4ec4a333-1b45-4d22-9479-eae7cd45cf26",
+  "importedAt": 1782723311636,
+  "thumb": "ExplosionFireballSoftGreen_IKAME.webm"
+}

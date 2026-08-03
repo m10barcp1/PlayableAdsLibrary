@@ -1,0 +1,10 @@
+{
+    "version": "1.0.1",
+    "data": {
+        "paths": [
+            "scriptable_runtime",
+            "cc_extend.d.ts",
+            "scriptable_runtime\\index.ts"
+        ]
+    }
+}

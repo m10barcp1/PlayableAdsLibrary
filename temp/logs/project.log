@@ -1,0 +1,77 @@
+7-24-2026 22:29:27 - log: Load engine in C:\ProgramData\cocos\editors\Creator\3.8.7\resources\resources\3d\engine
+7-24-2026 22:29:28 - log: Register native engine in C:\ProgramData\cocos\editors\Creator\3.8.7\resources\resources\3d\engine\native
+7-24-2026 22:29:29 - log: Request namespace: device-list
+7-24-2026 22:30:14 - log: Cocos MCP Server extension loaded
+7-24-2026 22:30:14 - log: [VersionDetector] Cocos Creator version: 3.8.7 (confirmed)
+7-24-2026 22:30:14 - log: [MCP插件] Version check: installed=1.7.6, current=1.7.6
+7-24-2026 22:30:14 - log: [MCP插件] Version matches (v1.7.6), no migration needed.
+7-24-2026 22:30:14 - log: [CocosTools] getTools() returned 16 tools: scene, node, component, prefab, asset, editor, view, composite, knowledge, validate, template, capture, builder, animation, spine, label
+7-24-2026 22:30:14 - log: [ToolManager] Initialized 16 cocos tools
+7-24-2026 22:30:14 - log: [Settings] Loaded settings: {
+  port: 3000,
+  autoStart: false,
+  enableDebugLog: false,
+  allowedOrigins: [ '*' ],
+  maxConnections: 10
+}
+7-24-2026 22:30:14 - log: [MCP插件] Plugin load - initial settings: {
+  port: 3000,
+  autoStart: false,
+  enableDebugLog: false,
+  allowedOrigins: [ '*' ],
+  maxConnections: 10
+}
+7-24-2026 22:30:14 - log: [MCP插件] Plugin load - transport: Streamable HTTP
+7-24-2026 22:30:14 - log: [MCPServer] Constructor received settings: {
+  port: 3000,
+  autoStart: false,
+  enableDebugLog: false,
+  allowedOrigins: [ '*' ],
+  maxConnections: 10
+}
+7-24-2026 22:30:14 - log: [MCPServer] Transport: Streamable HTTP (MCP 2025-03-26)
+7-24-2026 22:30:14 - log: [MCPServer] Initializing unified CocosTools...
+7-24-2026 22:30:14 - log: [MCPServer] CocosTools initialized: 12 intent-level tools
+7-24-2026 22:30:14 - log: [MCPServer] Bound to project: D:\Tool\PlayableAdsLibrary
+7-24-2026 22:30:14 - log: [MCPServer] Updating enabled tools: 16 tools
+7-24-2026 22:30:14 - log: [CocosTools] getTools() returned 16 tools: scene, node, component, prefab, asset, editor, view, composite, knowledge, validate, template, capture, builder, animation, spine, label
+7-24-2026 22:30:14 - log: [MCPServer] Setup tools: 16 tools available
+7-24-2026 22:30:15 - warn: [MCP Auth] License expired
+7-24-2026 22:30:15 - log: [MCP Auth] Local license invalid or expired
+7-24-2026 22:30:15 - log: [MCP插件] AutoStart disabled, server initialized but not started.
+7-24-2026 22:30:15 - log: [MCP插件] No valid license - server functions restricted
+7-24-2026 22:30:15 - log: [Playable Ads Library] Extension loaded
+7-24-2026 22:30:15 - log: [VFX] Effect up to date: vfx-particle.effect
+7-24-2026 22:30:16 - log: [MCP插件] Loaded 40 built-in prefab UUIDs (8 UI types) [attempt 1]
+7-24-2026 22:30:15 - warn: [Assets] [Register scriptable-asset]contribution.importer is deprecated in 3.8.3. Please use contribution.asset-handler insteadWarn: [Assets] [Register scriptable-asset]contribution.importer is deprecated in 3.8.3. Please use contribution.asset-handler instead
+    at console.warn (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@sentry\core\src\utils-hoist\instrument\console.ts:40:14)
+    at NewConsole.warn (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\console.ccc:1:1637)
+    at PluginManager.onPackageRegister (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\manager\plugin.ccc:1:2176)
+    at C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\manager\plugin.ccc:1:829
+    at Array.map (<anonymous>)
+    at PluginManager.init (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\manager\plugin.ccc:1:804)
+    at AssetDBManager.init (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\asset-db-manager.ccc:1:3244)
+    at Object.init (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\messages\database.ccc:1:3134)
+    at Ipc.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\ipc.ccc:1:555)
+7-24-2026 22:30:17 - log: [Library] Scaffolded assets/library-extension/ format folders
+7-24-2026 22:31:36 - log: [Scene] meshopt wasm decoder initialized
+7-24-2026 22:31:36 - log: [Scene] [bullet]:bullet wasm lib loaded.
+7-24-2026 22:31:36 - log: [Scene] [box2d]:box2d wasm lib loaded.
+7-24-2026 22:31:36 - log: [Scene] [PHYSICS]: using builtin.
+7-24-2026 22:31:51 - warn: [Assets] the importerscriptable_asset version need to upgrade.Warn: [Assets] the importerscriptable_asset version need to upgrade.
+    at console.warn (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\node_modules\@sentry\core\src\utils-hoist\instrument\console.ts:40:14)
+    at NewConsole.warn (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\console.ccc:1:1637)
+    at AssetHandlerManager.queryAllAssetTypes (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\manager\asset-handler-manager.ccc:1:13492)
+    at Object.query-all-asset-types (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\messages\operation.ccc:1:1908)
+    at C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\index.ccc:1:552
+    at Ipc.<anonymous> (C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar\builtin\asset-db\dist\worker\ipc.ccc:1:561)
+7-24-2026 22:31:52 - log: [Scene] Cocos Creator v3.8.7
+7-24-2026 22:31:52 - log: [Scene] Using custom pipeline: Builtin
+7-24-2026 22:31:52 - log: [Scene] [PHYSICS]: switch from builtin to bullet.
+7-24-2026 22:31:52 - log: [Scene] [PHYSICS2D]: switch from builtin to box2d.
+7-24-2026 22:31:53 - log: [Scene] [VFX Browser] Scene script loaded
+7-24-2026 22:31:53 - log: [Scene] [scriptable-asset]:[scene]: release all scriptable_asset_cache
+7-24-2026 22:31:53 - log: [Scene] [scriptable-asset]:[scene]: release all scriptable_asset_cache
+7-24-2026 22:31:53 - log: [Scene] [scriptable-asset]:[scene]: release all scriptable_asset_cache
+7-24-2026 22:31:53 - log: [Scene] [scriptable-asset]:[scene]: release all scriptable_asset_cache
+7-24-2026 23:48:30 - warn: process is killed by user

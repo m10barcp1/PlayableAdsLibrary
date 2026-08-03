@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-magic-circle-magiccircleblue-ikame",
+  "name": "MagicCircleBlue_IKAME",
+  "category": "EpicToonFX/Combat/Magic/Circle",
+  "particleCount": 4,
+  "fileSize": 18663,
+  "prefabPath": "db://assets/_IKameVFX/Imported/MagicCircleBlue_IKAME/prefab/MagicCircleBlue_IKAME.prefab",
+  "prefabUuid": "69e81c39-7f61-4217-a903-83eb48f2bda8",
+  "importedAt": 1782724655927,
+  "thumb": "MagicCircleBlue_IKAME.webm"
+}

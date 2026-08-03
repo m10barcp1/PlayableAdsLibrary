@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-fire-trails-toonfiretrail-ikame",
+  "name": "ToonFireTrail_IKAME",
+  "category": "EpicToonFX/Environment/Fire/Trails",
+  "particleCount": 3,
+  "fileSize": 16640,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ToonFireTrail_IKAME/prefab/ToonFireTrail_IKAME.prefab",
+  "prefabUuid": "5c9e078c-108c-4e5f-80e0-e5306082ad2e",
+  "importedAt": 1782724481256,
+  "thumb": "ToonFireTrail_IKAME.webm"
+}

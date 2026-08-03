@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-confetti-blast-confettiblastrainbow-ikame",
+  "name": "ConfettiBlastRainbow_IKAME",
+  "category": "iKame",
+  "particleCount": 3,
+  "fileSize": 17270,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ConfettiBlastRainbow_IKAME/prefab/ConfettiBlastRainbow_IKAME.prefab",
+  "prefabUuid": "b62420d3-f800-4b05-834b-8f1e045884a5",
+  "importedAt": 1782726098974,
+  "thumb": "ConfettiBlastRainbow_IKAME.webm"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ikame-casual-prefabs-oneshot-beamup-powerupyellow",
+  "name": "PowerUpYellow",
+  "category": "iKame/Casual/Prefabs/OneShot/BeamUp",
+  "particleCount": 10,
+  "fileSize": 52887,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/iKame/Casual/Prefabs/OneShot/BeamUp/PowerUpYellow/prefab/PowerUpYellow.prefab",
+  "prefabUuid": "a824dfd5-8457-423b-b453-2ec1b0b04234",
+  "importedAt": 1782991980936,
+  "thumb": "PowerUpYellow.webm"
+}

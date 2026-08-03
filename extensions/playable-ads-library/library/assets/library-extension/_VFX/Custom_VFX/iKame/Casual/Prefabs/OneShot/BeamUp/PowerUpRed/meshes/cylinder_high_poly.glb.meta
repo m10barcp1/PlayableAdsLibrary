@@ -1,0 +1,75 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "e5315eec-d7f6-4bbb-befe-a33d9c4be08a",
+  "files": [],
+  "subMetas": {
+    "f04c0": {
+      "importer": "gltf-mesh",
+      "uuid": "e5315eec-d7f6-4bbb-befe-a33d9c4be08a@f04c0",
+      "displayName": "",
+      "id": "f04c0",
+      "name": "cylinder_high_poly.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 64
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "c37b6": {
+      "importer": "gltf-scene",
+      "uuid": "e5315eec-d7f6-4bbb-befe-a33d9c4be08a@c37b6",
+      "displayName": "",
+      "id": "c37b6",
+      "name": "cylinder_high_poly.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "e5315eec-d7f6-4bbb-befe-a33d9c4be08a@f04c0"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "e5315eec-d7f6-4bbb-befe-a33d9c4be08a@c37b6"
+      ]
+    }
+  }
+}

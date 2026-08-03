@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-confetti-directional-confettidirectionalrainbow-ikame",
+  "name": "ConfettiDirectionalRainbow_IKAME",
+  "category": "EpicToonFX/Environment/Confetti/Directional",
+  "particleCount": 3,
+  "fileSize": 17303,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ConfettiDirectionalRainbow_IKAME/prefab/ConfettiDirectionalRainbow_IKAME.prefab",
+  "prefabUuid": "236b1772-b6fc-4bf8-a600-b05a4e23dd08",
+  "importedAt": 1782724898246,
+  "thumb": "ConfettiDirectionalRainbow_IKAME.webm"
+}

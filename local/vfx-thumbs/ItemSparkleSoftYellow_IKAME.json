@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-interactive-loot-itemsparklesoft-itemsparklesoftyellow-ikame",
+  "name": "ItemSparkleSoftYellow_IKAME",
+  "category": "EpicToonFX/Interactive/Loot/ItemSparkleSoft",
+  "particleCount": 2,
+  "fileSize": 9535,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ItemSparkleSoftYellow_IKAME/prefab/ItemSparkleSoftYellow_IKAME.prefab",
+  "prefabUuid": "66dad8d6-c2ad-4ec1-8bed-367879bc778e",
+  "importedAt": 1782726168574,
+  "thumb": "ItemSparkleSoftYellow_IKAME.webm"
+}

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "createdAt": 1783104651735,
+  "importFolder": "assets/library-extension/VFX",
+  "roots": [
+    "assets/library-extension"
+  ],
+  "files": [
+    "assets/effects/vfx-particle.effect"
+  ],
+  "thumbs": true,
+  "totalFiles": 7843,
+  "totalBytes": 199605260
+}

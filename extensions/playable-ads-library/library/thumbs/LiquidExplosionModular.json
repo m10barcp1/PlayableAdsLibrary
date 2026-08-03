@@ -1,0 +1,11 @@
+{
+  "id": "sci-fi-arsenal-combat-explosions-liquid-liquidexplosionmodular-ikame",
+  "name": "LiquidExplosionModular",
+  "category": "Sci-Fi Arsenal/Combat/Explosions/Liquid",
+  "particleCount": 3,
+  "fileSize": 15312,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/Sci-Fi Arsenal/Combat/Explosions/Liquid/LiquidExplosionModular/prefab/LiquidExplosionModular.prefab",
+  "prefabUuid": "4f56d773-cc5a-40a5-ab73-5e2d986189eb",
+  "importedAt": 1782991716823,
+  "thumb": "LiquidExplosionModular.webm"
+}

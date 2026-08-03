@@ -1,0 +1,15 @@
+{
+  "skins": [
+    "default"
+  ],
+  "animations": [
+    "Apear_in",
+    "Apear_out",
+    "idle",
+    "Logo_Demo",
+    "Logo_win",
+    "Water_pipe_win"
+  ],
+  "defaultSkin": "default",
+  "defaultAnim": "idle"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-nova-standard-novablue-ikame",
+  "name": "NovaBlue_IKAME",
+  "category": "Sci-Fi Arsenal/Combat/Nova",
+  "particleCount": 5,
+  "fileSize": 28234,
+  "prefabPath": "db://assets/_IKameVFX/Imported/NovaBlue_IKAME/prefab/NovaBlue_IKAME.prefab",
+  "prefabUuid": "d5733400-6012-42e8-b886-a44499eaaf5a",
+  "importedAt": 1782723833399,
+  "thumb": "NovaBlue_IKAME.webm"
+}

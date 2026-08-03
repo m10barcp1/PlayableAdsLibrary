@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-brawling-toon-directional-toonpunchextreme-ikame",
+  "name": "ToonPunchExtreme_IKAME",
+  "category": "EpicToonFX/Combat/Brawling/Toon/Directional",
+  "particleCount": 4,
+  "fileSize": 21031,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ToonPunchExtreme_IKAME/prefab/ToonPunchExtreme_IKAME.prefab",
+  "prefabUuid": "99feee9f-e4e2-45e3-a391-ebce36a854e1",
+  "importedAt": 1782718520681,
+  "thumb": "ToonPunchExtreme_IKAME.webm"
+}

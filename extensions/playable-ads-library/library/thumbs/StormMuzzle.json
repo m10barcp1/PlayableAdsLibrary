@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-muzzleflash-stormmuzzle-stormmuzzle-ikame",
+  "name": "StormMuzzle",
+  "category": "EpicToonFX/Combat/Muzzleflash/StormMuzzle",
+  "particleCount": 4,
+  "fileSize": 20948,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/EpicToonFX/Combat/Muzzleflash/StormMuzzle/StormMuzzle/prefab/StormMuzzle.prefab",
+  "prefabUuid": "8935a972-2a91-4a58-a660-83b990b60401",
+  "importedAt": 1782991432261,
+  "thumb": "StormMuzzle.webm"
+}

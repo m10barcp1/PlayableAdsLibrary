@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-megaexplosion-megaexplosionpink-ikame",
+  "name": "MegaExplosionPink",
+  "category": "EpicToonFX/Combat/Explosions/MegaExplosion",
+  "particleCount": 10,
+  "fileSize": 46832,
+  "prefabPath": "db://assets/_VFX/Imported/MegaExplosionPink/prefab/MegaExplosionPink.prefab",
+  "prefabUuid": "c20e0097-6d64-474c-bf06-1e9d0da58203",
+  "importedAt": 1782962731511,
+  "thumb": "MegaExplosionPink.webm"
+}

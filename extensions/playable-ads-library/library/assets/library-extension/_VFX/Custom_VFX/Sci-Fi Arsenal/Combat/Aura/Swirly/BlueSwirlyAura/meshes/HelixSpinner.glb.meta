@@ -1,0 +1,75 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "7b732441-c32b-4ce5-9bf6-3a4ee6ef2d67",
+  "files": [],
+  "subMetas": {
+    "47eb4": {
+      "importer": "gltf-mesh",
+      "uuid": "7b732441-c32b-4ce5-9bf6-3a4ee6ef2d67@47eb4",
+      "displayName": "",
+      "id": "47eb4",
+      "name": "HelixSpinner.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 92
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "9f6d4": {
+      "importer": "gltf-scene",
+      "uuid": "7b732441-c32b-4ce5-9bf6-3a4ee6ef2d67@9f6d4",
+      "displayName": "",
+      "id": "9f6d4",
+      "name": "HelixSpinner.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "7b732441-c32b-4ce5-9bf6-3a4ee6ef2d67@47eb4"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "7b732441-c32b-4ce5-9bf6-3a4ee6ef2d67@9f6d4"
+      ]
+    }
+  }
+}

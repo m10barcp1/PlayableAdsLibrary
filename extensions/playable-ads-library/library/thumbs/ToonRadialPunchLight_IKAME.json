@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-brawling-toon-radial-toonradialpunchlight-ikame",
+  "name": "ToonRadialPunchLight_IKAME",
+  "category": "EpicToonFX/Combat/Brawling/Toon/Radial",
+  "particleCount": 3,
+  "fileSize": 14028,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ToonRadialPunchLight_IKAME/prefab/ToonRadialPunchLight_IKAME.prefab",
+  "prefabUuid": "e51ecf41-a198-4241-a838-74b7089c3527",
+  "importedAt": 1782718543944,
+  "thumb": "ToonRadialPunchLight_IKAME.webm"
+}

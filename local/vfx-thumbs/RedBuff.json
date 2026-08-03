@@ -1,0 +1,11 @@
+{
+  "id": "sci-fi-arsenal-combat-buff-v1-redbuff-ikame",
+  "name": "RedBuff",
+  "category": "Sci-Fi Arsenal/Combat/Buff/V1",
+  "particleCount": 6,
+  "fileSize": 28452,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/Sci-Fi Arsenal/Combat/Buff/V1/RedBuff/prefab/RedBuff.prefab",
+  "prefabUuid": "80db6408-df78-4bf3-8195-5154c5b1c10a",
+  "importedAt": 1782994212275,
+  "thumb": "RedBuff.webm"
+}

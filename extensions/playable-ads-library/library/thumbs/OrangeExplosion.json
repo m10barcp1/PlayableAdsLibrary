@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-fruitexplosion-orangeexplosion-ikame",
+  "name": "OrangeExplosion",
+  "category": "EpicToonFX/Combat/Explosions/FruitExplosion",
+  "particleCount": 5,
+  "fileSize": 28642,
+  "prefabPath": "db://assets/_VFX/Imported/OrangeExplosion/prefab/OrangeExplosion.prefab",
+  "prefabUuid": "fec17e85-22eb-4a08-915b-1c69c34e0bb0",
+  "importedAt": 1782962629786,
+  "thumb": "OrangeExplosion.webm"
+}

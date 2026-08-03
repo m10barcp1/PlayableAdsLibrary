@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-mysticexplosion-mysticexplosionwhite-ikame",
+  "name": "MysticExplosionWhite_IKAME",
+  "category": "EpicToonFX/Combat/Explosions/MysticExplosion",
+  "particleCount": 7,
+  "fileSize": 32905,
+  "prefabPath": "db://assets/_IKameVFX/Imported/MysticExplosionWhite_IKAME/prefab/MysticExplosionWhite_IKAME.prefab",
+  "prefabUuid": "0d04cf83-eedd-4989-a221-1fb54a7980d1",
+  "importedAt": 1782705432130,
+  "thumb": "MysticExplosionWhite_IKAME.webm"
+}

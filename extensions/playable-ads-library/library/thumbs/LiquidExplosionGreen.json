@@ -1,0 +1,11 @@
+{
+  "id": "sci-fi-arsenal-combat-explosions-liquid-liquidexplosiongreen-ikame",
+  "name": "LiquidExplosionGreen",
+  "category": "Sci-Fi Arsenal/Combat/Explosions/Liquid",
+  "particleCount": 3,
+  "fileSize": 15277,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/Sci-Fi Arsenal/Combat/Explosions/Liquid/LiquidExplosionGreen/prefab/LiquidExplosionGreen.prefab",
+  "prefabUuid": "66e41dd1-895a-46fb-b067-1105f83da65d",
+  "importedAt": 1782991712536,
+  "thumb": "LiquidExplosionGreen.webm"
+}

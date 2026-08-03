@@ -1,0 +1,35 @@
+{
+  "__type__": "cc.Material",
+  "_name": "mat_AB_sickle05",
+  "_effectAsset": {
+    "__uuid__": "dd27c790-f5f6-4e10-b4dd-60988594c37d"
+  },
+  "_techIdx": 1,
+  "_defines": [
+    {}
+  ],
+  "_states": [
+    {}
+  ],
+  "_props": [
+    {
+      "mainTexture": {
+        "__uuid__": "fbbaed59-2d7a-4590-ad7f-c31b61b31311@6c48a"
+      },
+      "tintColor": {
+        "__type__": "cc.Color",
+        "r": 255,
+        "g": 255,
+        "b": 255,
+        "a": 255
+      },
+      "mainTiling_Offset": {
+        "__type__": "cc.Vec4",
+        "x": 1,
+        "y": 1,
+        "z": 0,
+        "w": 0
+      }
+    }
+  ]
+}

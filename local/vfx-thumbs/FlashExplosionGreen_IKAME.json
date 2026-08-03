@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-flashexplosion-flashexplosiongreen-ikame",
+  "name": "FlashExplosionGreen_IKAME",
+  "category": "EpicToonFX/Combat/Explosions/FlashExplosion",
+  "particleCount": 6,
+  "fileSize": 29587,
+  "prefabPath": "db://assets/_IKameVFX/Imported/FlashExplosionGreen_IKAME/prefab/FlashExplosionGreen_IKAME.prefab",
+  "prefabUuid": "254e7008-1058-4cc0-a78e-ed02d6319194",
+  "importedAt": 1782723384051,
+  "thumb": "FlashExplosionGreen_IKAME.webm"
+}

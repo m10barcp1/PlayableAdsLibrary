@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-nukeverticalexplosion-nukeverticalexplosionblue-ikame",
+  "name": "NukeVerticalExplosionBlue",
+  "category": "EpicToonFX/Combat/Explosions/NukeVerticalExplosion",
+  "particleCount": 9,
+  "fileSize": 48935,
+  "prefabPath": "db://assets/_VFX/Imported/NukeVerticalExplosionBlue/prefab/NukeVerticalExplosionBlue.prefab",
+  "prefabUuid": "a45531ea-703a-43ff-b72c-31fbd3898f1d",
+  "importedAt": 1782962133010,
+  "thumb": "NukeVerticalExplosionBlue.webm"
+}

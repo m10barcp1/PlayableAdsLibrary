@@ -1,0 +1,75 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "0283dc3f-9081-441d-b6e5-be215f11c381",
+  "files": [],
+  "subMetas": {
+    "fde83": {
+      "importer": "gltf-mesh",
+      "uuid": "0283dc3f-9081-441d-b6e5-be215f11c381@fde83",
+      "displayName": "",
+      "id": "fde83",
+      "name": "ETFX_AuraVerticalCentered.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 64
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "d4dde": {
+      "importer": "gltf-scene",
+      "uuid": "0283dc3f-9081-441d-b6e5-be215f11c381@d4dde",
+      "displayName": "",
+      "id": "d4dde",
+      "name": "ETFX_AuraVerticalCentered.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "0283dc3f-9081-441d-b6e5-be215f11c381@fde83"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "0283dc3f-9081-441d-b6e5-be215f11c381@d4dde"
+      ]
+    }
+  }
+}

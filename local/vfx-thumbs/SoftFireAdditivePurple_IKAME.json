@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-fire-soft-torch-additive-softfireadditivepurple-ikame",
+  "name": "SoftFireAdditivePurple_IKAME",
+  "category": "EpicToonFX/Environment/Fire/Soft/Torch Additive",
+  "particleCount": 4,
+  "fileSize": 20540,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SoftFireAdditivePurple_IKAME/prefab/SoftFireAdditivePurple_IKAME.prefab",
+  "prefabUuid": "ff8b8045-ee1f-4d29-aeed-37ad510c0723",
+  "importedAt": 1782719383489,
+  "thumb": "SoftFireAdditivePurple_IKAME.webm"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "sci-fi-arsenal-combat-buff-v1-bluebuff-ikame",
+  "name": "BlueBuff",
+  "category": "Sci-Fi Arsenal/Combat/Buff/V1",
+  "particleCount": 6,
+  "fileSize": 28470,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/Sci-Fi Arsenal/Combat/Buff/V1/BlueBuff/prefab/BlueBuff.prefab",
+  "prefabUuid": "55636bea-c29d-4dd2-a6ae-df09c22075e9",
+  "importedAt": 1782994181087,
+  "thumb": "BlueBuff.webm"
+}

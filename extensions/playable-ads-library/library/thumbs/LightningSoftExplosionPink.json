@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-lightningsoftexplosion-lightningsoftexplosionpink-ikame",
+  "name": "LightningSoftExplosionPink",
+  "category": "EpicToonFX/Combat/Explosions/LightningSoftExplosion",
+  "particleCount": 4,
+  "fileSize": 20033,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/EpicToonFX/Combat/Explosions/LightningSoftExplosion/LightningSoftExplosionPink/prefab/LightningSoftExplosionPink.prefab",
+  "prefabUuid": "9b49a9a1-e102-4a91-a8e5-2531cc14ef92",
+  "importedAt": 1782994263453,
+  "thumb": "LightningSoftExplosionPink.webm"
+}

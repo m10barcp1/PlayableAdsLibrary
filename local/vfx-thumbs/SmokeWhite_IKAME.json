@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-smoke-white-smokewhite-ikame",
+  "name": "SmokeWhite_IKAME",
+  "category": "EpicToonFX/Environment/Smoke/White",
+  "particleCount": 1,
+  "fileSize": 5815,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SmokeWhite_IKAME/prefab/SmokeWhite_IKAME.prefab",
+  "prefabUuid": "f24ab88c-09b9-4d33-9783-cce4779a94c7",
+  "importedAt": 1782101424270,
+  "thumb": "SmokeWhite_IKAME.webm"
+}

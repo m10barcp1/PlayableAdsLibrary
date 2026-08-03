@@ -1,0 +1,136 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 215,
+      "max": [
+        51.54338836669922,
+        2.4665136337280273,
+        11.437583923339844
+      ],
+      "min": [
+        -11.971835136413574,
+        -30.94956398010254,
+        -0.2814194858074188
+      ],
+      "name": "Loft001/POSITION",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 12,
+      "componentType": 5126,
+      "count": 215,
+      "name": "Loft001/NORMAL",
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 24,
+      "componentType": 5126,
+      "count": 215,
+      "name": "Loft001/TEXCOORD_0",
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5123,
+      "count": 1008,
+      "name": "Loft001/INDICES",
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "copyright": "Copyright (c) 2018-2020 Chukong Technologies Inc.",
+    "generator": "FBX-glTF-conv",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 6880,
+      "byteStride": 32,
+      "name": "Loft001",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 2016,
+      "byteOffset": 6880,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 8896,
+      "uri": "out.bin"
+    }
+  ],
+  "extras": {
+    "FBX-glTF-conv": {
+      "animationFrameRate": 30.0,
+      "fbxFileHeaderInfo": {
+        "creationTimeStamp": {
+          "day": 16,
+          "hour": 15,
+          "millisecond": 953,
+          "minute": 26,
+          "month": 12,
+          "second": 30,
+          "year": 2023
+        },
+        "creator": "FBX SDK/FBX Plugins version 2014.0.1",
+        "sceneInfo": {
+          "author": "",
+          "comment": "",
+          "keywords": "",
+          "original": {
+            "applicationName": "3ds Max",
+            "applicationVendor": "Autodesk",
+            "applicationVersion": "2014",
+            "fileName": "D:\\Users\\Administrator\\NewProject_1\\assets\\mesh\\trail4.FBX"
+          },
+          "revision": "",
+          "subject": "",
+          "title": "",
+          "url": "D:\\PlayableAdsLibrary\\assets\\library-extension\\_VFX\\UniversalCartoon\\mesh\\trail4.FBX"
+        }
+      }
+    }
+  },
+  "meshes": [
+    {
+      "name": "Loft001",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "Loft001",
+      "rotation": [
+        -0.7071067690849304,
+        -0.0,
+        0.0,
+        0.7071067690849304
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}

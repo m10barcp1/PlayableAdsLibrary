@@ -1,15 +1,9 @@
 
 #///////////////////////////
 # Cocos Creator 3D Project
-#///////////////////////////
-library/
 # The Cocos rule above ignores every folder named "library" at any depth. The
 # playable-ads-library extension keeps TypeScript source in src/library/, so
 # re-include it — otherwise asset-types.ts is never committed and gets lost.
-!extensions/playable-ads-library/src/library/
-temp/
-local/
-build/
 profiles/
 native
 #//////////////////////////

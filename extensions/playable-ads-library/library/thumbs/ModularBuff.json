@@ -1,0 +1,11 @@
+{
+  "id": "sci-fi-arsenal-combat-buff-v1-modularbuff-ikame",
+  "name": "ModularBuff",
+  "category": "Sci-Fi Arsenal/Combat/Buff/V1",
+  "particleCount": 6,
+  "fileSize": 28450,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/Sci-Fi Arsenal/Combat/Buff/V1/ModularBuff/prefab/ModularBuff.prefab",
+  "prefabUuid": "96574e83-196a-4d2a-a86b-b2906b7441ec",
+  "importedAt": 1782994196693,
+  "thumb": "ModularBuff.webm"
+}

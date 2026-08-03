@@ -1,0 +1,11 @@
+{
+  "skins": [
+    "default"
+  ],
+  "animations": [
+    "Tuto_Cham",
+    "Tuto_Nhanh"
+  ],
+  "defaultSkin": "default",
+  "defaultAnim": "Tuto_Cham"
+}

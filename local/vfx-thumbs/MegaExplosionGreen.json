@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-megaexplosion-megaexplosiongreen-ikame",
+  "name": "MegaExplosionGreen",
+  "category": "EpicToonFX/Combat/Explosions/MegaExplosion",
+  "particleCount": 10,
+  "fileSize": 46850,
+  "prefabPath": "db://assets/_VFX/Imported/MegaExplosionGreen/prefab/MegaExplosionGreen.prefab",
+  "prefabUuid": "74af783c-f1b5-4713-a3fb-b8cbf64453f8",
+  "importedAt": 1782962720256,
+  "thumb": "MegaExplosionGreen.webm"
+}

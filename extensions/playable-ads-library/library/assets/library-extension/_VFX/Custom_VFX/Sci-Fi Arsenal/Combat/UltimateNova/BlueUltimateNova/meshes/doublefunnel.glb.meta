@@ -1,0 +1,75 @@
+{
+  "ver": "2.3.14",
+  "importer": "gltf",
+  "imported": true,
+  "uuid": "bb4125d1-f782-49b9-af22-cd3e72708f91",
+  "files": [],
+  "subMetas": {
+    "34d08": {
+      "importer": "gltf-mesh",
+      "uuid": "bb4125d1-f782-49b9-af22-cd3e72708f91@34d08",
+      "displayName": "",
+      "id": "34d08",
+      "name": "doublefunnel.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 128
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "78cd3": {
+      "importer": "gltf-scene",
+      "uuid": "bb4125d1-f782-49b9-af22-cd3e72708f91@78cd3",
+      "displayName": "",
+      "id": "78cd3",
+      "name": "doublefunnel.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "imageMetas": [],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "bb4125d1-f782-49b9-af22-cd3e72708f91@34d08"
+      ],
+      "skeletons": [],
+      "textures": [],
+      "materials": [],
+      "scenes": [
+        "bb4125d1-f782-49b9-af22-cd3e72708f91@78cd3"
+      ]
+    }
+  }
+}

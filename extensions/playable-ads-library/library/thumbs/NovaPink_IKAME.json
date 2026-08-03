@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-nova-standard-novapink-ikame",
+  "name": "NovaPink_IKAME",
+  "category": "EpicToonFX/Combat/Nova/Standard",
+  "particleCount": 5,
+  "fileSize": 28231,
+  "prefabPath": "db://assets/_IKameVFX/Imported/NovaPink_IKAME/prefab/NovaPink_IKAME.prefab",
+  "prefabUuid": "30154395-7dbc-4bd1-ad55-194d8353860e",
+  "importedAt": 1782723856639,
+  "thumb": "NovaPink_IKAME.webm"
+}

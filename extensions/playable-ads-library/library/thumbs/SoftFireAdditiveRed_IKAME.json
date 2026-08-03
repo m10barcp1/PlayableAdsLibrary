@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-fire-soft-torch-additive-softfireadditivered-ikame",
+  "name": "SoftFireAdditiveRed_IKAME",
+  "category": "iKame",
+  "particleCount": 4,
+  "fileSize": 20576,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SoftFireAdditiveRed_IKAME/prefab/SoftFireAdditiveRed_IKAME.prefab",
+  "prefabUuid": "9d4b1290-d78a-4a3f-9c5e-0af49fb25017",
+  "importedAt": 1782719388024,
+  "thumb": "SoftFireAdditiveRed_IKAME.webm"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-fireballsharpexplosion-explosionfireballsharppink-ikame",
+  "name": "ExplosionFireballSharpPink",
+  "category": "EpicToonFX/Combat/Explosions/FireballSharpExplosion",
+  "particleCount": 4,
+  "fileSize": 24160,
+  "prefabPath": "db://assets/_VFX/Imported/ExplosionFireballSharpPink/prefab/ExplosionFireballSharpPink.prefab",
+  "prefabUuid": "47be93a8-6fa2-4176-82e5-1070938072b8",
+  "importedAt": 1782962533623,
+  "thumb": "ExplosionFireballSharpPink.webm"
+}

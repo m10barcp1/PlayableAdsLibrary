@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-brawling-soft-radial-softradialpunchlight-ikame",
+  "name": "SoftRadialPunchLight_IKAME",
+  "category": "EpicToonFX/Combat/Brawling/Soft/Radial",
+  "particleCount": 3,
+  "fileSize": 14381,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SoftRadialPunchLight_IKAME/prefab/SoftRadialPunchLight_IKAME.prefab",
+  "prefabUuid": "2ff3f4a3-b3f9-432a-8f89-0e13ad07ba89",
+  "importedAt": 1782720337598,
+  "thumb": "SoftRadialPunchLight_IKAME.webm"
+}

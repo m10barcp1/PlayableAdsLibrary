@@ -1,0 +1,11 @@
+{
+  "id": "ikame-casual-prefabs-oneshot-beamup-powerupred",
+  "name": "PowerUpRed",
+  "category": "iKame/Casual/Prefabs/OneShot/BeamUp",
+  "particleCount": 10,
+  "fileSize": 52973,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/iKame/Casual/Prefabs/OneShot/BeamUp/PowerUpRed/prefab/PowerUpRed.prefab",
+  "prefabUuid": "35211763-6555-4b14-81a5-f6545473d791",
+  "importedAt": 1782991954862,
+  "thumb": "PowerUpRed.webm"
+}

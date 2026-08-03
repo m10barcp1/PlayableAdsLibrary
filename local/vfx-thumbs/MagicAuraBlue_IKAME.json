@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-magic-aura-magicaurablue-ikame",
+  "name": "MagicAuraBlue_IKAME",
+  "category": "EpicToonFX/Combat/Magic/Aura",
+  "particleCount": 3,
+  "fileSize": 14413,
+  "prefabPath": "db://assets/_IKameVFX/Imported/MagicAuraBlue_IKAME/prefab/MagicAuraBlue_IKAME.prefab",
+  "prefabUuid": "a1744bc7-240f-4ecd-8127-ef4c89f8cc0b",
+  "importedAt": 1782725159831,
+  "thumb": "MagicAuraBlue_IKAME.webm"
+}

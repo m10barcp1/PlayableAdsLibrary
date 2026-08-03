@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-nova-fire-novafireblue-ikame",
+  "name": "NovaFireBlue_IKAME",
+  "category": "EpicToonFX/Combat/Nova/Fire",
+  "particleCount": 7,
+  "fileSize": 36441,
+  "prefabPath": "db://assets/_IKameVFX/Imported/NovaFireBlue_IKAME/prefab/NovaFireBlue_IKAME.prefab",
+  "prefabUuid": "3f93233c-5afd-408e-bdbb-ac27f0f66b49",
+  "importedAt": 1782724771506,
+  "thumb": "NovaFireBlue_IKAME.webm"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ikame-rpg-slash-slash-slashnormalpurple",
+  "name": "SlashNormalPurple",
+  "category": "iKame/RPG/Slash/Slash",
+  "particleCount": 14,
+  "fileSize": 73073,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/iKame/RPG/Slash/Slash/SlashNormalPurple/prefab/SlashNormalPurple.prefab",
+  "prefabUuid": "4159a54e-6743-442c-bda2-42542d4d02fe",
+  "importedAt": 1782992069434,
+  "thumb": "SlashNormalPurple.webm"
+}

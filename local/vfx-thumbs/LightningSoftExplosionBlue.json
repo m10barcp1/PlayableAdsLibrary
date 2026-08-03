@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-lightningsoftexplosion-lightningsoftexplosionblue-ikame",
+  "name": "LightningSoftExplosionBlue",
+  "category": "EpicToonFX/Combat/Explosions/LightningSoftExplosion",
+  "particleCount": 4,
+  "fileSize": 20043,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/EpicToonFX/Combat/Explosions/LightningSoftExplosion/LightningSoftExplosionBlue/prefab/LightningSoftExplosionBlue.prefab",
+  "prefabUuid": "202c2f4f-967f-4eb6-bbff-7eb68cb87a9e",
+  "importedAt": 1782994251901,
+  "thumb": "LightningSoftExplosionBlue.webm"
+}

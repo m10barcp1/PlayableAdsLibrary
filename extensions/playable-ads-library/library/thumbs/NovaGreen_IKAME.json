@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-nova-standard-novagreen-ikame",
+  "name": "NovaGreen_IKAME",
+  "category": "Sci-Fi Arsenal/Combat/Nova",
+  "particleCount": 5,
+  "fileSize": 28234,
+  "prefabPath": "db://assets/_IKameVFX/Imported/NovaGreen_IKAME/prefab/NovaGreen_IKAME.prefab",
+  "prefabUuid": "dddc9c0a-522c-40a2-8035-9c6fe509b815",
+  "importedAt": 1782723848542,
+  "thumb": "NovaGreen_IKAME.webm"
+}

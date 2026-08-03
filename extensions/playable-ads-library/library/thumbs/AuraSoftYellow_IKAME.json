@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-magic-aura-soft-aurasoftyellow-ikame",
+  "name": "AuraSoftYellow_IKAME",
+  "category": "EpicToonFX/Combat/Magic/Aura Soft",
+  "particleCount": 2,
+  "fileSize": 9333,
+  "prefabPath": "db://assets/_IKameVFX/Imported/AuraSoftYellow_IKAME/prefab/AuraSoftYellow_IKAME.prefab",
+  "prefabUuid": "77001521-7db8-4601-ba55-1659c9b72cad",
+  "importedAt": 1782724637242,
+  "thumb": "AuraSoftYellow_IKAME.webm"
+}

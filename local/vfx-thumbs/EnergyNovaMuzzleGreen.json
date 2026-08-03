@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-muzzleflash-energynovamuzzle-energynovamuzzlegreen-ikame",
+  "name": "EnergyNovaMuzzleGreen",
+  "category": "EpicToonFX/Combat/Muzzleflash/EnergyNovaMuzzle",
+  "particleCount": 5,
+  "fileSize": 23427,
+  "prefabPath": "db://assets/_VFX/Imported/EnergyNovaMuzzleGreen/prefab/EnergyNovaMuzzleGreen.prefab",
+  "prefabUuid": "e5d0fcba-8a5a-4f0a-9329-4b49261de14b",
+  "importedAt": 1782962030293,
+  "thumb": "EnergyNovaMuzzleGreen.webm"
+}

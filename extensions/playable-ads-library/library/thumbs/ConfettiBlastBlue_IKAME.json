@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-confetti-blast-confettiblastblue-ikame",
+  "name": "ConfettiBlastBlue_IKAME",
+  "category": "EpicToonFX/Environment/Confetti/Blast",
+  "particleCount": 3,
+  "fileSize": 17275,
+  "prefabPath": "db://assets/_IKameVFX/Imported/ConfettiBlastBlue_IKAME/prefab/ConfettiBlastBlue_IKAME.prefab",
+  "prefabUuid": "91e0b41a-2caf-41d5-901b-63e53ed3d46a",
+  "importedAt": 1782726082164,
+  "thumb": "ConfettiBlastBlue_IKAME.webm"
+}

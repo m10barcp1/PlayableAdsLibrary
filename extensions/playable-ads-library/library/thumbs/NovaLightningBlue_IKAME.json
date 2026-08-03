@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-nova-lightning-novalightningblue-ikame",
+  "name": "NovaLightningBlue_IKAME",
+  "category": "EpicToonFX/Combat/Nova/Lightning",
+  "particleCount": 5,
+  "fileSize": 26065,
+  "prefabPath": "db://assets/_IKameVFX/Imported/NovaLightningBlue_IKAME/prefab/NovaLightningBlue_IKAME.prefab",
+  "prefabUuid": "789ed557-c6c1-4fb3-9e4d-c0736cf93997",
+  "importedAt": 1782723644129,
+  "thumb": "NovaLightningBlue_IKAME.webm"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "ikame-casual-prefabs-oneshot-beamup-powerupblue",
+  "name": "PowerUpBlue",
+  "category": "iKame/Casual/Prefabs/OneShot/BeamUp",
+  "particleCount": 10,
+  "fileSize": 54632,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/iKame/Casual/Prefabs/OneShot/BeamUp/PowerUpBlue/prefab/PowerUpBlue.prefab",
+  "prefabUuid": "a479bdb3-4c63-4aba-be08-3c8709524666",
+  "importedAt": 1782991942247,
+  "thumb": "PowerUpBlue.webm"
+}

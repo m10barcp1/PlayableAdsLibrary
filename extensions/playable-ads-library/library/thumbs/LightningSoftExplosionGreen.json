@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-explosions-lightningsoftexplosion-lightningsoftexplosiongreen-ikame",
+  "name": "LightningSoftExplosionGreen",
+  "category": "EpicToonFX/Combat/Explosions/LightningSoftExplosion",
+  "particleCount": 4,
+  "fileSize": 20065,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/EpicToonFX/Combat/Explosions/LightningSoftExplosion/LightningSoftExplosionGreen/prefab/LightningSoftExplosionGreen.prefab",
+  "prefabUuid": "ea9be603-fee7-43ea-9973-e0ddfecb66ae",
+  "importedAt": 1782994257671,
+  "thumb": "LightningSoftExplosionGreen.webm"
+}

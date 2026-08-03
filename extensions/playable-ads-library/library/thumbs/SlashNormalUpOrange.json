@@ -1,0 +1,11 @@
+{
+  "id": "ikame-rpg-slash-slash-slashnormaluporange",
+  "name": "SlashNormalUpOrange",
+  "category": "iKame/RPG/Slash/Slash",
+  "particleCount": 11,
+  "fileSize": 56326,
+  "prefabPath": "db://assets/library-extension/_VFX/Custom_VFX/iKame/RPG/Slash/Slash/SlashNormalUpOrange/prefab/SlashNormalUpOrange.prefab",
+  "prefabUuid": "5fba4714-9855-4c76-8970-5f1faf5e646b",
+  "importedAt": 1782992092796,
+  "thumb": "SlashNormalUpOrange.webm"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-fire-soft-torch-alphablend-softfireabyellow-ikame",
+  "name": "SoftFireABYellow_IKAME",
+  "category": "EpicToonFX/Environment/Fire/Soft/Torch AlphaBlend",
+  "particleCount": 3,
+  "fileSize": 14979,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SoftFireABYellow_IKAME/prefab/SoftFireABYellow_IKAME.prefab",
+  "prefabUuid": "45cf4b4a-b868-47c1-9462-56e88b669f25",
+  "importedAt": 1782719409341,
+  "thumb": "SoftFireABYellow_IKAME.webm"
+}

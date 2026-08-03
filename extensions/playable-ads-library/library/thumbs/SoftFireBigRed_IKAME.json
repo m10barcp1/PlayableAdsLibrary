@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-environment-fire-soft-big-softfirebigred-ikame",
+  "name": "SoftFireBigRed_IKAME",
+  "category": "EpicToonFX/Environment/Fire/Soft/Big",
+  "particleCount": 4,
+  "fileSize": 20533,
+  "prefabPath": "db://assets/_IKameVFX/Imported/SoftFireBigRed_IKAME/prefab/SoftFireBigRed_IKAME.prefab",
+  "prefabUuid": "f4e593e2-4e5d-4138-9fda-6e6f5d2d86cd",
+  "importedAt": 1782719349125,
+  "thumb": "SoftFireBigRed_IKAME.webm"
+}

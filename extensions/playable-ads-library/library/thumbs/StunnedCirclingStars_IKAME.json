@@ -1,0 +1,11 @@
+{
+  "id": "epictoonfx-combat-brawling-stun-stunnedcirclingstars-ikame",
+  "name": "StunnedCirclingStars_IKAME",
+  "category": "EpicToonFX/Combat/Brawling/Stun",
+  "particleCount": 4,
+  "fileSize": 19285,
+  "prefabPath": "db://assets/_IKameVFX/Imported/StunnedCirclingStars_IKAME/prefab/StunnedCirclingStars_IKAME.prefab",
+  "prefabUuid": "b84d537f-3dd6-4f9c-a2f4-671247ae1a57",
+  "importedAt": 1782725036216,
+  "thumb": "StunnedCirclingStars_IKAME.webm"
+}
