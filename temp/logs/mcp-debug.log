@@ -148,3 +148,5 @@
 [2026-07-07T03:01:21.231Z] [INFO] [PrefabLoader] Loaded 40 built-in prefab UUIDs from C:\ProgramData\cocos\editors\Creator\3.8.7\resources\resources\3d\engine\editor\assets\default_prefab
 [2026-07-24T15:30:16.546Z] [INFO] [PrefabLoader] Editor.App.path = "C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar", version = "3.8.7"
 [2026-07-24T15:30:16.884Z] [INFO] [PrefabLoader] Loaded 40 built-in prefab UUIDs from C:\ProgramData\cocos\editors\Creator\3.8.7\resources\resources\3d\engine\editor\assets\default_prefab
+[2026-08-03T08:54:24.674Z] [INFO] [PrefabLoader] Editor.App.path = "C:\ProgramData\cocos\editors\Creator\3.8.7\resources\app.asar", version = "3.8.7"
+[2026-08-03T08:54:24.952Z] [INFO] [PrefabLoader] Loaded 40 built-in prefab UUIDs from C:\ProgramData\cocos\editors\Creator\3.8.7\resources\resources\3d\engine\editor\assets\default_prefab
