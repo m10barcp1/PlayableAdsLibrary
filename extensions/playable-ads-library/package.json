@@ -100,15 +100,11 @@
     },
     "scene": {
       "script": "./dist/scene.js"
-    },
-    "builder": "./html-export/3x/builder.js"
+    }
   },
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "clean-css": "^4.2.1",
-    "jszip": "^3.7.1",
-    "mime-types": "^2.1.32",
-    "uglify-js": "^3.6.0"
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
   },
   "devDependencies": {
     "@types/node": "^25.9.2",

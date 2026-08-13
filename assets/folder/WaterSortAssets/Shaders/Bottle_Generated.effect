@@ -1,0 +1,81 @@
+
+CCEffect %{
+  techniques:
+  - name: default
+    passes:
+    - vert: bottle-vert:vert
+      frag: bottle-frag:frag
+      rasterizerState:
+        cullMode: back
+      depthStencilState:
+        depthTest: true
+        depthWrite: false
+        depthFunc: lessEqual
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendSrcAlpha: src_alpha
+          blendDstAlpha: one_minus_src_alpha
+          blendColorMask: all
+      properties:
+        _Texture2D: { value: white }
+}%
+
+CCProgram bottle-vert %{
+  #include <builtin/uniforms/cc-local-batch>
+  #include <builtin/uniforms/cc-global>
+
+  precision highp float;
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec3 a_normal;
+
+  out vec2 v_uv;
+  out vec3 v_worldNormal;
+  out vec3 v_viewDir;
+
+  vec4 vert() {
+    mat4 matWorld, matWorldIT;
+    CCGetWorldMatrixFull(matWorld, matWorldIT);
+
+    vec4 worldPos = matWorld * vec4(a_position, 1.0);
+
+    gl_Position = cc_matViewProj * worldPos;
+    v_uv = a_texCoord;
+    v_worldNormal = normalize((matWorldIT * vec4(a_normal, 0.0)).xyz);
+
+    // Gốc Unity dùng IsPerspectiveProjection() để chọn giữa
+    //   perspective: normalize(_WorldSpaceCameraPos - TransformObjectToWorld(v.vertex))
+    //   orthographic: UNITY_MATRIX_V[2].xyz
+    // Cocos dùng cc_cameraPos, đúng cho cả hai trường hợp.
+    v_viewDir = normalize(cc_cameraPos.xyz - worldPos.xyz);
+
+    return gl_Position;
+  }
+}%
+
+CCProgram bottle-frag %{
+  precision highp float;
+
+  in vec2 v_uv;
+  in vec3 v_worldNormal;
+  in vec3 v_viewDir;
+
+  uniform sampler2D _Texture2D;
+
+  vec4 frag() {
+    vec3 worldNormal = normalize(v_worldNormal);
+    vec3 viewDir = normalize(v_viewDir);
+
+    // LƯU Ý: worldNormal và viewDir được tính nhưng không dùng trong
+    // màu đầu ra — đây là code dư do Shader Graph Unity sinh tự động.
+    // Giữ lại để sau này có thể mở rộng (lighting, rim…).
+
+    vec4 texColor = texture(_Texture2D, v_uv);
+    vec4 col = vec4(texColor.rgb, texColor.a);
+    return col;
+  }
+}%

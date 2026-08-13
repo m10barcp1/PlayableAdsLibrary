@@ -1,306 +1,0 @@
-7-7-2026 10:00:10-log: Cannot access game frame or container.
-7-7-2026 10:00:10-debug: asset-db:require-engine-code (711ms)
-7-7-2026 10:00:10-log: meshopt wasm decoder initialized
-7-7-2026 10:00:10-log: [bullet]:bullet wasm lib loaded.
-7-7-2026 10:00:10-log: [box2d]:box2d wasm lib loaded.
-7-7-2026 10:00:10-log: Cocos Creator v3.8.7
-7-7-2026 10:00:10-log: Using legacy pipeline
-7-7-2026 10:00:11-debug: [Assets Memory track]: asset-db:worker-init: initEngine start:29.83MB, end 79.93MB, increase: 50.10MB
-7-7-2026 10:00:10-log: Forward render pipeline initialized.
-7-7-2026 10:00:11-warn: [Register scriptable-asset]contribution.importer is deprecated in 3.8.3. Please use contribution.asset-handler instead
-7-7-2026 10:01:20-debug: [Assets Memory track]: asset-db:worker-init: initPlugin start:80.00MB, end 264.75MB, increase: 184.75MB
-7-7-2026 10:01:20-debug: run package(scriptable-asset) handler(enable) start
-7-7-2026 10:01:20-debug: run package(scriptable-asset) handler(enable) success!
-7-7-2026 10:01:20-debug: run package(cocos-mcp-server) handler(enable) success!
-7-7-2026 10:01:20-debug: run package(cocos-mcp-server) handler(enable) start
-7-7-2026 10:01:20-debug: run package(super-html) handler(enable) start
-7-7-2026 10:01:20-debug: run package(super-html) handler(enable) success!
-7-7-2026 10:01:20-debug: run package(vfx-browser) handler(enable) success!
-7-7-2026 10:01:20-debug: run package(placeholder) handler(enable) success!
-7-7-2026 10:01:20-debug: run package(vfx-browser) handler(enable) start
-7-7-2026 10:01:20-debug: run package(placeholder) handler(enable) start
-7-7-2026 10:01:20-debug: asset-db:worker-init: initPlugin (69604ms)
-7-7-2026 10:01:20-debug: [Assets Memory track]: asset-db:worker-init start:29.82MB, end 265.14MB, increase: 235.32MB
-7-7-2026 10:01:20-debug: Run asset db hook programming:beforePreStart ...
-7-7-2026 10:01:20-debug: Run asset db hook engine-extends:beforePreStart success!
-7-7-2026 10:01:20-debug: Preimport db  success
-7-7-2026 10:01:20-debug: Run asset db hook engine-extends:beforePreStart ...
-7-7-2026 10:01:20-debug: Preimport db  success
-7-7-2026 10:01:20-debug: Run asset db hook programming:beforePreStart success!
-7-7-2026 10:01:20-debug: starting packer-driver...
-7-7-2026 10:01:20-debug: Run asset db hook programming:afterPreStart ...
-7-7-2026 10:01:20-debug: Preimport db  success
-7-7-2026 10:01:20-debug: asset-db:worker-init (71144ms)
-7-7-2026 10:01:20-debug: asset-db-hook-programming-beforePreStart (266ms)
-7-7-2026 10:01:20-debug: asset-db-hook-engine-extends-beforePreStart (266ms)
-7-7-2026 10:01:21-debug: initialize scripting environment...
-7-7-2026 10:01:21-debug: [[Executor]] prepare before lock
-7-7-2026 10:01:21-debug: Set detail map pack:///resolution-detail-map.json: {}
-7-7-2026 10:01:21-debug: [[Executor]] prepare after unlock
-7-7-2026 10:01:21-debug: Run asset db hook engine-extends:afterPreStart ...
-7-7-2026 10:01:21-debug: Run asset db hook programming:afterPreStart success!
-7-7-2026 10:01:21-debug: Run asset db hook engine-extends:afterPreStart success!
-7-7-2026 10:01:21-debug: [Assets Memory track]: asset-db:worker-init: preStart start:265.16MB, end 280.04MB, increase: 14.88MB
-7-7-2026 10:01:21-debug: Start up the 'internal' database...
-7-7-2026 10:01:24-debug: asset-db-hook-programming-afterPreStart (3078ms)
-7-7-2026 10:01:24-debug: asset-db:worker-effect-data-processing (2543ms)
-7-7-2026 10:01:24-debug: asset-db-hook-engine-extends-afterPreStart (2543ms)
-7-7-2026 10:01:25-debug: Run asset db hook engine-extends:afterStartDB ...
-7-7-2026 10:01:25-debug: recompile effect.bin success
-7-7-2026 10:01:25-debug: Run asset db hook engine-extends:afterStartDB success!
-7-7-2026 10:01:25-debug: Start up the 'assets' database...
-7-7-2026 10:01:48-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extensionbackground: #aaff85; color: #000;color: #000;
-7-7-2026 10:01:48-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effectbackground: #aaff85; color: #000;color: #000;
-7-7-2026 10:01:48-debug: asset-db:worker-effect-data-processing (23417ms)
-7-7-2026 10:01:48-debug: asset-db-hook-engine-extends-afterStartDB (23418ms)
-7-7-2026 10:01:48-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Scriptsbackground: #aaff85; color: #000;color: #000;
-7-7-2026 10:01:49-debug: Run asset db hook engine-extends:afterStartDB ...
-7-7-2026 10:01:49-debug: recompile effect.bin success
-7-7-2026 10:01:49-debug: Start up the 'scriptable-asset' database...
-7-7-2026 10:01:49-debug: Run asset db hook engine-extends:afterStartDB success!
-7-7-2026 10:01:49-debug: asset-db:worker-effect-data-processing (290ms)
-7-7-2026 10:01:49-debug: asset-db-hook-engine-extends-afterStartDB (291ms)
-7-7-2026 10:01:49-debug: Run asset db hook engine-extends:afterStartDB ...
-7-7-2026 10:01:49-debug: recompile effect.bin success
-7-7-2026 10:01:49-debug: Run asset db hook engine-extends:afterStartDB success!
-7-7-2026 10:01:49-debug: lazy register asset handler directory
-7-7-2026 10:01:49-debug: lazy register asset handler json
-7-7-2026 10:01:49-debug: lazy register asset handler spine-data
-7-7-2026 10:01:49-debug: lazy register asset handler *
-7-7-2026 10:01:49-debug: lazy register asset handler dragonbones
-7-7-2026 10:01:49-debug: lazy register asset handler text
-7-7-2026 10:01:49-debug: lazy register asset handler dragonbones-atlas
-7-7-2026 10:01:49-debug: lazy register asset handler typescript
-7-7-2026 10:01:49-debug: lazy register asset handler javascript
-7-7-2026 10:01:49-debug: lazy register asset handler terrain
-7-7-2026 10:01:49-debug: lazy register asset handler sprite-frame
-7-7-2026 10:01:49-debug: lazy register asset handler prefab
-7-7-2026 10:01:49-debug: lazy register asset handler tiled-map
-7-7-2026 10:01:49-debug: lazy register asset handler scene
-7-7-2026 10:01:49-debug: lazy register asset handler sign-image
-7-7-2026 10:01:49-debug: lazy register asset handler image
-7-7-2026 10:01:49-debug: lazy register asset handler buffer
-7-7-2026 10:01:49-debug: lazy register asset handler alpha-image
-7-7-2026 10:01:49-debug: lazy register asset handler texture-cube
-7-7-2026 10:01:49-debug: lazy register asset handler erp-texture-cube
-7-7-2026 10:01:49-debug: lazy register asset handler texture-cube-face
-7-7-2026 10:01:49-debug: lazy register asset handler render-texture
-7-7-2026 10:01:49-debug: lazy register asset handler rt-sprite-frame
-7-7-2026 10:01:49-debug: lazy register asset handler texture
-7-7-2026 10:01:49-debug: lazy register asset handler gltf-mesh
-7-7-2026 10:01:49-debug: lazy register asset handler gltf-animation
-7-7-2026 10:01:49-debug: lazy register asset handler gltf-material
-7-7-2026 10:01:49-debug: lazy register asset handler gltf-skeleton
-7-7-2026 10:01:49-debug: lazy register asset handler gltf-scene
-7-7-2026 10:01:49-debug: lazy register asset handler gltf-embeded-image
-7-7-2026 10:01:49-debug: lazy register asset handler material
-7-7-2026 10:01:49-debug: lazy register asset handler fbx
-7-7-2026 10:01:49-debug: lazy register asset handler gltf
-7-7-2026 10:01:49-debug: lazy register asset handler physics-material
-7-7-2026 10:01:49-debug: lazy register asset handler audio-clip
-7-7-2026 10:01:49-debug: lazy register asset handler effect
-7-7-2026 10:01:49-debug: lazy register asset handler effect-header
-7-7-2026 10:01:49-debug: lazy register asset handler animation-clip
-7-7-2026 10:01:49-debug: lazy register asset handler animation-graph-variant
-7-7-2026 10:01:49-debug: lazy register asset handler ttf-font
-7-7-2026 10:01:49-debug: lazy register asset handler animation-mask
-7-7-2026 10:01:49-debug: lazy register asset handler animation-graph
-7-7-2026 10:01:49-debug: lazy register asset handler sprite-atlas
-7-7-2026 10:01:49-debug: lazy register asset handler bitmap-font
-7-7-2026 10:01:49-debug: lazy register asset handler auto-atlas
-7-7-2026 10:01:49-debug: lazy register asset handler label-atlas
-7-7-2026 10:01:49-debug: lazy register asset handler particle
-7-7-2026 10:01:49-debug: lazy register asset handler render-pipeline
-7-7-2026 10:01:49-debug: lazy register asset handler render-stage
-7-7-2026 10:01:49-debug: lazy register asset handler instantiation-material
-7-7-2026 10:01:49-debug: lazy register asset handler instantiation-skeleton
-7-7-2026 10:01:49-debug: lazy register asset handler instantiation-mesh
-7-7-2026 10:01:49-debug: lazy register asset handler render-flow
-7-7-2026 10:01:49-debug: lazy register asset handler instantiation-animation
-7-7-2026 10:01:49-debug: lazy register asset handler video-clip
-7-7-2026 10:01:49-debug: asset-db:worker-effect-data-processing (284ms)
-7-7-2026 10:01:49-debug: asset-db-hook-engine-extends-afterStartDB (285ms)
-7-7-2026 10:01:49-debug: asset-db:ready (103386ms)
-7-7-2026 10:01:49-debug: asset-db:start-database (29097ms)
-7-7-2026 10:01:49-debug: init worker message success
-7-7-2026 10:01:49-debug: programming:execute-script (6ms)
-7-7-2026 10:02:01-warn: the importerscriptable_asset version need to upgrade.
-7-7-2026 10:02:01-debug: [Build Memory track]: builder:worker-init start:243.95MB, end 290.49MB, increase: 46.54MB
-7-7-2026 10:02:02-debug: builder:worker-init (12216ms)
-7-7-2026 10:02:04-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:02:04-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:true
-7-7-2026 10:02:04-log: [scriptable-asset]:[importer]:afterRefresh, execSceneFunced:false
-7-7-2026 10:02:04-log: Manager.Utils.queryAssets is deprecated in 3.8.3. Please use Manager.assetManager.queryAssets instead
-7-7-2026 10:02:45-debug: programming:execute-script (2ms)
-7-7-2026 10:02:46-debug: start remove asset D:\Tool\PlayableAdsLibrary\assets\Scripts...
-7-7-2026 10:02:46-debug: refresh db internal success
-7-7-2026 10:02:46-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\Scriptsbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:46-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\Scripts\Spline\RoadSpline.tsbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:46-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\Scripts\Spline\SplineFollower.tsbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:46-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\Scripts\Spline\SplineMath.tsbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:46-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\Scripts\Splinebackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:46-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\Scripts\Spline\README.mdbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:46-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:02:46-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:false
-7-7-2026 10:02:46-log: The asset database is locked, asset operations(bound _refreshAsset) will delay response, please wait a moment.
-7-7-2026 10:02:46-debug: refresh db assets success
-7-7-2026 10:02:46-debug: refresh db scriptable-asset success
-7-7-2026 10:02:46-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:02:46-debug: start refresh asset from D:\Tool\PlayableAdsLibrary\assets\Scripts...
-7-7-2026 10:02:46-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:02:46-debug: asset-db:refresh-all-database (482ms)
-7-7-2026 10:02:46-debug: asset-db:worker-effect-data-processing (14ms)
-7-7-2026 10:02:46-debug: asset-db-hook-engine-extends-afterRefresh (14ms)
-7-7-2026 10:02:46-debug: refresh asset D:\Tool\PlayableAdsLibrary\assets success
-7-7-2026 10:02:46-debug: remove asset D:\Tool\PlayableAdsLibrary\assets\Scripts success
-7-7-2026 10:02:48-debug: programming:execute-script (2ms)
-7-7-2026 10:02:49-debug: start remove asset D:\Tool\PlayableAdsLibrary\assets\Srpite...
-7-7-2026 10:02:49-debug: refresh db internal success
-7-7-2026 10:02:49-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\Srpitebackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:49-log: The asset database is locked, asset operations(bound _refreshAsset) will delay response, please wait a moment.
-7-7-2026 10:02:49-debug: refresh db assets success
-7-7-2026 10:02:49-debug: refresh db scriptable-asset success
-7-7-2026 10:02:49-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:02:49-debug: start refresh asset from D:\Tool\PlayableAdsLibrary\assets\Srpite...
-7-7-2026 10:02:49-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:02:49-debug: asset-db:refresh-all-database (390ms)
-7-7-2026 10:02:49-debug: asset-db:worker-effect-data-processing (14ms)
-7-7-2026 10:02:49-debug: asset-db-hook-engine-extends-afterRefresh (15ms)
-7-7-2026 10:02:49-debug: refresh asset D:\Tool\PlayableAdsLibrary\assets success
-7-7-2026 10:02:49-debug: remove asset D:\Tool\PlayableAdsLibrary\assets\Srpite success
-7-7-2026 10:02:50-debug: programming:execute-script (2ms)
-7-7-2026 10:02:50-debug: start remove asset D:\Tool\PlayableAdsLibrary\assets\PackageVFX...
-7-7-2026 10:02:50-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\PackageVFXbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:50-debug: refresh db internal success
-7-7-2026 10:02:50-log: The asset database is locked, asset operations(bound _refreshAsset) will delay response, please wait a moment.
-7-7-2026 10:02:51-debug: refresh db assets success
-7-7-2026 10:02:51-debug: refresh db scriptable-asset success
-7-7-2026 10:02:51-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:02:51-debug: start refresh asset from D:\Tool\PlayableAdsLibrary\assets\PackageVFX...
-7-7-2026 10:02:51-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:02:51-debug: asset-db:refresh-all-database (374ms)
-7-7-2026 10:02:51-debug: asset-db:worker-effect-data-processing (12ms)
-7-7-2026 10:02:51-debug: asset-db-hook-engine-extends-afterRefresh (12ms)
-7-7-2026 10:02:51-debug: refresh asset D:\Tool\PlayableAdsLibrary\assets success
-7-7-2026 10:02:51-debug: remove asset D:\Tool\PlayableAdsLibrary\assets\PackageVFX success
-7-7-2026 10:02:51-debug: programming:execute-script (1ms)
-7-7-2026 10:02:52-debug: start remove asset D:\Tool\PlayableAdsLibrary\assets\NewComponent.ts...
-7-7-2026 10:02:52-debug: start refresh asset from D:\Tool\PlayableAdsLibrary\assets\NewComponent.ts...
-7-7-2026 10:02:52-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\NewComponent.tsbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:02:52-log: The asset database is locked, asset operations(bound autoRefreshAssetLazy) will delay response, please wait a moment.
-7-7-2026 10:02:52-debug: remove asset D:\Tool\PlayableAdsLibrary\assets\NewComponent.ts success
-7-7-2026 10:02:52-debug: refresh asset D:\Tool\PlayableAdsLibrary\assets success
-7-7-2026 10:02:52-debug: refresh db internal success
-7-7-2026 10:02:53-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:02:53-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:false
-7-7-2026 10:02:53-debug: refresh db assets success
-7-7-2026 10:02:53-debug: refresh db scriptable-asset success
-7-7-2026 10:02:53-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:02:53-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:02:53-debug: asset-db:refresh-all-database (431ms)
-7-7-2026 10:02:53-debug: asset-db:worker-effect-data-processing (1ms)
-7-7-2026 10:02:53-debug: asset-db-hook-engine-extends-afterRefresh (1ms)
-7-7-2026 10:03:11-debug: refresh db internal success
-7-7-2026 10:03:12-debug: refresh db assets success
-7-7-2026 10:03:12-debug: refresh db scriptable-asset success
-7-7-2026 10:03:12-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:03:12-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:03:12-debug: asset-db:refresh-all-database (340ms)
-7-7-2026 10:03:12-debug: asset-db:worker-effect-data-processing (1ms)
-7-7-2026 10:03:12-debug: asset-db-hook-engine-extends-afterRefresh (1ms)
-7-7-2026 10:06:12-debug: programming:execute-script (5ms)
-7-7-2026 10:06:13-debug: start remove asset D:\Tool\PlayableAdsLibrary\assets\library-extension\Scripts...
-7-7-2026 10:06:13-debug: start remove asset D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect...
-7-7-2026 10:06:13-debug: refresh db internal success
-7-7-2026 10:06:13-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Effectbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:06:13-log: The asset database is locked, asset operations(bound _refreshAsset) will delay response, please wait a moment.
-7-7-2026 10:06:14-error: Error: ENOENT: no such file or directory, stat 'D:\Tool\PlayableAdsLibrary\assets\library-extension\Scripts'
-7-7-2026 10:06:14-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extensionbackground: #aaff85; color: #000;color: #000;
-7-7-2026 10:06:14-log: The asset database is locked, asset operations(bound _refreshAsset) will delay response, please wait a moment.
-7-7-2026 10:06:14-debug: refresh db assets success
-7-7-2026 10:06:14-debug: refresh db scriptable-asset success
-7-7-2026 10:06:14-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:06:14-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:06:14-debug: start refresh asset from D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect...
-7-7-2026 10:06:14-debug: asset-db:worker-effect-data-processing (14ms)
-7-7-2026 10:06:14-debug: asset-db:refresh-all-database (414ms)
-7-7-2026 10:06:14-debug: asset-db-hook-engine-extends-afterRefresh (14ms)
-7-7-2026 10:06:14-debug: start refresh asset from D:\Tool\PlayableAdsLibrary\assets\library-extension\Scripts...
-7-7-2026 10:06:14-debug: %cDestroy%c: D:\Tool\PlayableAdsLibrary\assets\library-extension\Scriptsbackground: #ffb8b8; color: #000;color: #000;
-7-7-2026 10:06:14-debug: refresh asset D:\Tool\PlayableAdsLibrary\assets\library-extension success
-7-7-2026 10:06:14-debug: remove asset D:\Tool\PlayableAdsLibrary\assets\library-extension\Effect success
-7-7-2026 10:06:14-debug: refresh asset D:\Tool\PlayableAdsLibrary\assets\library-extension success
-7-7-2026 10:06:14-debug: remove asset D:\Tool\PlayableAdsLibrary\assets\library-extension\Scripts success
-7-7-2026 10:06:14-debug: %cImport%c: D:\Tool\PlayableAdsLibrary\assets\library-extensionbackground: #aaff85; color: #000;color: #000;
-7-7-2026 10:06:21-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:06:21-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:false
-7-7-2026 10:06:22-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:06:22-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:false
-7-7-2026 10:34:24-debug: refresh db internal success
-7-7-2026 10:34:25-debug: refresh db assets success
-7-7-2026 10:34:25-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:34:25-debug: refresh db scriptable-asset success
-7-7-2026 10:34:25-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:34:25-debug: asset-db:refresh-all-database (453ms)
-7-7-2026 10:34:25-debug: asset-db:worker-effect-data-processing (7ms)
-7-7-2026 10:34:25-debug: asset-db-hook-engine-extends-afterRefresh (7ms)
-7-7-2026 10:34:25-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:34:27-log: [scriptable-asset]:[importer]:windowsLoad
-7-7-2026 10:34:28-warn: the importerscriptable_asset version need to upgrade.
-7-7-2026 10:34:34-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:34:34-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:true
-7-7-2026 10:34:34-log: Manager.Utils.queryAssets is deprecated in 3.8.3. Please use Manager.assetManager.queryAssets instead
-7-7-2026 10:34:34-log: [scriptable-asset]:[importer]:afterRefresh, execSceneFunced:false
-7-7-2026 10:43:39-debug: refresh db internal success
-7-7-2026 10:43:39-debug: refresh db assets success
-7-7-2026 10:43:39-debug: refresh db scriptable-asset success
-7-7-2026 10:43:39-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:43:39-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:43:39-debug: asset-db:refresh-all-database (446ms)
-7-7-2026 10:43:39-debug: asset-db:worker-effect-data-processing (1ms)
-7-7-2026 10:43:39-debug: asset-db-hook-engine-extends-afterRefresh (1ms)
-7-7-2026 10:43:41-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:43:43-log: [scriptable-asset]:[importer]:windowsLoad
-7-7-2026 10:43:43-warn: the importerscriptable_asset version need to upgrade.
-7-7-2026 10:43:45-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:43:45-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:true
-7-7-2026 10:43:45-log: Manager.Utils.queryAssets is deprecated in 3.8.3. Please use Manager.assetManager.queryAssets instead
-7-7-2026 10:43:45-log: [scriptable-asset]:[importer]:afterRefresh, execSceneFunced:false
-7-7-2026 10:47:30-debug: refresh db internal success
-7-7-2026 10:47:31-debug: refresh db assets success
-7-7-2026 10:47:31-debug: refresh db scriptable-asset success
-7-7-2026 10:47:31-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:47:31-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:47:31-debug: asset-db:refresh-all-database (356ms)
-7-7-2026 10:47:31-debug: asset-db:worker-effect-data-processing (2ms)
-7-7-2026 10:47:31-debug: asset-db-hook-engine-extends-afterRefresh (2ms)
-7-7-2026 10:58:08-debug: refresh db internal success
-7-7-2026 10:58:08-debug: refresh db assets success
-7-7-2026 10:58:08-debug: refresh db scriptable-asset success
-7-7-2026 10:58:08-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:58:08-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:58:08-debug: asset-db:refresh-all-database (382ms)
-7-7-2026 10:58:08-debug: asset-db-hook-engine-extends-afterRefresh (1ms)
-7-7-2026 10:58:09-debug: refresh db internal success
-7-7-2026 10:58:09-debug: refresh db assets success
-7-7-2026 10:58:09-debug: refresh db scriptable-asset success
-7-7-2026 10:58:09-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 10:58:09-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 10:58:09-debug: asset-db:refresh-all-database (349ms)
-7-7-2026 10:58:09-debug: asset-db-hook-engine-extends-afterRefresh (1ms)
-7-7-2026 10:58:15-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:58:17-log: [scriptable-asset]:[importer]:windowsLoad
-7-7-2026 10:58:17-warn: the importerscriptable_asset version need to upgrade.
-7-7-2026 10:58:19-log: [scriptable-asset]:[importer]:场景关闭了
-7-7-2026 10:58:19-log: [scriptable-asset]:[importer]:场景准备了,sceneReadyPush:true
-7-7-2026 10:58:19-log: Manager.Utils.queryAssets is deprecated in 3.8.3. Please use Manager.assetManager.queryAssets instead
-7-7-2026 10:58:19-log: [scriptable-asset]:[importer]:afterRefresh, execSceneFunced:false
-7-7-2026 22:15:12-debug: refresh db internal success
-7-7-2026 22:15:12-debug: refresh db assets success
-7-7-2026 22:15:12-debug: refresh db scriptable-asset success
-7-7-2026 22:15:12-debug: Run asset db hook engine-extends:afterRefresh ...
-7-7-2026 22:15:12-debug: Run asset db hook engine-extends:afterRefresh success!
-7-7-2026 22:15:12-debug: asset-db:refresh-all-database (502ms)
-7-7-2026 22:15:12-debug: asset-db:worker-effect-data-processing (7ms)
-7-7-2026 22:15:12-debug: asset-db-hook-engine-extends-afterRefresh (7ms)
-7-7-2026 22:15:22-log: [scriptable-asset]:[importer]:场景关闭了

@@ -1,0 +1,40 @@
+{
+  "__type__": "cc.Material",
+  "_name": "Bottle",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "42abfe69-3891-1164-da1c-fade81cd7d9f",
+    "__expectedType__": "cc.EffectAsset"
+  },
+  "_techIdx": 1,
+  "_defines": [
+    {
+      "USE_TEXTURE": true
+    }
+  ],
+  "_states": [
+    {}
+  ],
+  "_props": [
+    {
+      "mainColor": {
+        "__type__": "cc.Color",
+        "r": 50,
+        "g": 135,
+        "b": 200,
+        "a": 255
+      },
+      "mainTexture": {
+        "__uuid__": "31be259d-d3e1-2664-cb0e-c6ce6411d419@fd91f",
+        "__expectedType__": "cc.Texture2D"
+      },
+      "tilingOffset": [
+        1,
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

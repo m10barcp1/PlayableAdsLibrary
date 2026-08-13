@@ -5,6 +5,23 @@ import * as https from 'https';
 import { URL } from 'url';
 import { CatalogResponse } from '../mappers/types';
 
+/**
+ * Idle-socket timeout for every Hub request. This is an *inactivity* timeout,
+ * not a total-duration one, so a slow-but-progressing download of a large mesh
+ * or thumbnail is never cut off — only a server that has gone silent is. Without
+ * it an unreachable-but-routable host (the LAN Hub while off) leaves the promise
+ * pending forever and the caller's busy state never clears.
+ */
+const REQUEST_TIMEOUT_MS = 30000;
+
+/** Fail a stalled request instead of hanging on it forever. */
+function attachTimeout(req: http.ClientRequest, urlStr: string, reject: (e: Error) => void): void {
+    req.setTimeout(REQUEST_TIMEOUT_MS, () => {
+        reject(new Error(`Timeout after ${REQUEST_TIMEOUT_MS / 1000}s: ${urlStr}`));
+        req.destroy();
+    });
+}
+
 export class VFXApiClient {
     private serverUrl: string;
 
@@ -54,6 +71,7 @@ export class VFXApiClient {
             const req = mod.request(url, { method: 'HEAD' }, (res) => {
                 resolve(res.statusCode === 200);
             });
+            req.setTimeout(REQUEST_TIMEOUT_MS, () => { resolve(false); req.destroy(); });
             req.on('error', () => resolve(false));
             req.end();
         });
@@ -81,6 +99,7 @@ export class VFXApiClient {
                     }
                 });
             });
+            attachTimeout(req, urlStr, reject);
             req.on('error', (err) => reject(new Error(`Network error: ${err.message}`)));
         });
     }
@@ -100,6 +119,7 @@ export class VFXApiClient {
                 res.on('data', (chunk: Buffer) => chunks.push(chunk));
                 res.on('end', () => resolve(Buffer.concat(chunks)));
             });
+            attachTimeout(req, urlStr, reject);
             req.on('error', (err) => reject(new Error(`Network error: ${err.message}`)));
         });
     }

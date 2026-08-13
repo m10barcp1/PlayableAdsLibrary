@@ -1,0 +1,219 @@
+{
+  "ver": "2.3.14",
+  "importer": "fbx",
+  "imported": true,
+  "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda",
+  "files": [],
+  "subMetas": {
+    "4b2d8": {
+      "importer": "gltf-mesh",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@4b2d8",
+      "displayName": "",
+      "id": "4b2d8",
+      "name": "Bottle.mesh",
+      "userData": {
+        "gltfIndex": 0,
+        "triangleCount": 2142
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "48b1d": {
+      "importer": "gltf-mesh",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@48b1d",
+      "displayName": "",
+      "id": "48b1d",
+      "name": "Bottle_Cap.mesh",
+      "userData": {
+        "gltfIndex": 1,
+        "triangleCount": 298
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "b3b54": {
+      "importer": "gltf-mesh",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@b3b54",
+      "displayName": "",
+      "id": "b3b54",
+      "name": "Water.mesh",
+      "userData": {
+        "gltfIndex": 2,
+        "triangleCount": 1084
+      },
+      "ver": "1.1.1",
+      "imported": true,
+      "files": [
+        ".bin",
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "48b02": {
+      "importer": "gltf-embeded-image",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@48b02",
+      "displayName": "",
+      "id": "48b02",
+      "name": "base_color_texture.image",
+      "userData": {
+        "gltfIndex": 0,
+        "fixAlphaTransparencyArtifacts": true,
+        "hasAlpha": true,
+        "type": "texture"
+      },
+      "ver": "1.0.3",
+      "imported": true,
+      "files": [
+        ".json",
+        ".png"
+      ],
+      "subMetas": {}
+    },
+    "7d6ab": {
+      "importer": "texture",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@7d6ab",
+      "displayName": "",
+      "id": "7d6ab",
+      "name": "base_color_texture.texture",
+      "userData": {
+        "wrapModeS": "repeat",
+        "wrapModeT": "repeat",
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0,
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@48b02"
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "9aca9": {
+      "importer": "gltf-material",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@9aca9",
+      "displayName": "",
+      "id": "9aca9",
+      "name": "Bottle.material",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f82c1": {
+      "importer": "gltf-material",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@f82c1",
+      "displayName": "",
+      "id": "f82c1",
+      "name": "Box.material",
+      "userData": {
+        "gltfIndex": 1
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "dfbe1": {
+      "importer": "gltf-material",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@dfbe1",
+      "displayName": "",
+      "id": "dfbe1",
+      "name": "Water.material",
+      "userData": {
+        "gltfIndex": 2
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "c1308": {
+      "importer": "gltf-scene",
+      "uuid": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@c1308",
+      "displayName": "",
+      "id": "c1308",
+      "name": "Bottles.prefab",
+      "userData": {
+        "gltfIndex": 0
+      },
+      "ver": "1.0.14",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "fbx": {
+      "matchMeshNames": false,
+      "smartMaterialEnabled": true
+    },
+    "imageMetas": [
+      {
+        "name": "base_color_texture",
+        "uri": "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@48b02"
+      }
+    ],
+    "lods": {
+      "enable": false,
+      "hasBuiltinLOD": false,
+      "options": [
+        {
+          "screenRatio": 0.25,
+          "faceCount": 1
+        },
+        {
+          "screenRatio": 0.125,
+          "faceCount": 0.25
+        },
+        {
+          "screenRatio": 0.01,
+          "faceCount": 0.1
+        }
+      ]
+    },
+    "assetFinder": {
+      "meshes": [
+        "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@4b2d8",
+        "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@48b1d",
+        "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@b3b54"
+      ],
+      "skeletons": [],
+      "textures": [
+        "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@7d6ab"
+      ],
+      "materials": [
+        "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@9aca9",
+        "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@f82c1",
+        "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@dfbe1"
+      ],
+      "scenes": [
+        "0bd5f4fb-372e-5de4-09c7-353f7bd50cda@c1308"
+      ]
+    }
+  }
+}

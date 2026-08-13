@@ -73,6 +73,24 @@ export async function buildLocalManifest(proj: string, onProgress?: Progress): P
 
 function reqModule(u: URL) { return u.protocol === 'https:' ? https : http; }
 
+/**
+ * Idle-socket timeout for every sync request. Inactivity, not total duration —
+ * a large asset that keeps streaming is never cut off, but a server that has
+ * gone away (or a routable-yet-dead LAN host) fails fast instead of leaving the
+ * promise pending. That matters here because the panel disables its Sync
+ * buttons for the whole call: a hung request used to lock them until the panel
+ * was closed.
+ */
+const REQUEST_TIMEOUT_MS = 30000;
+
+/** Fail a stalled request instead of hanging on it forever. */
+function attachTimeout(req: http.ClientRequest, label: string, reject: (e: Error) => void): void {
+    req.setTimeout(REQUEST_TIMEOUT_MS, () => {
+        reject(new Error(`Timeout after ${REQUEST_TIMEOUT_MS / 1000}s: ${label}`));
+        req.destroy();
+    });
+}
+
 function withToken(headers: http.OutgoingHttpHeaders, token?: string): http.OutgoingHttpHeaders {
     if (token) { headers['x-sync-token'] = token; }
     return headers;
@@ -90,6 +108,7 @@ function getJson(urlStr: string, token?: string): Promise<any> {
                 try { resolve(JSON.parse(body)); } catch (e: any) { reject(new Error(`Bad JSON from ${urlStr}: ${e.message}`)); }
             });
         });
+        attachTimeout(req, urlStr, reject);
         req.on('error', (e) => reject(new Error(`Network error ${urlStr}: ${e.message}`)));
     });
 }
@@ -103,6 +122,7 @@ function getBuffer(urlStr: string, token?: string): Promise<Buffer> {
             res.on('data', (c: Buffer) => chunks.push(c));
             res.on('end', () => resolve(Buffer.concat(chunks)));
         });
+        attachTimeout(req, urlStr, reject);
         req.on('error', (e) => reject(new Error(`Network error ${urlStr}: ${e.message}`)));
     });
 }
@@ -122,6 +142,7 @@ function sendBuffer(method: string, urlStr: string, buf: Buffer, token?: string)
                 try { resolve(body ? JSON.parse(body) : {}); } catch { resolve({}); }
             });
         });
+        attachTimeout(req, `${method} ${urlStr}`, reject);
         req.on('error', (e) => reject(new Error(`Network error ${method} ${urlStr}: ${e.message}`)));
         req.end(buf);
     });

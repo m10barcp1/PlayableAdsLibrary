@@ -3,7 +3,7 @@
 import { browserStyle } from './style';
 import {
     ASSET_TYPES, LIBRARY_ROOT, DEFAULT_VFX_IMPORT_FOLDER, LEGACY_VFX_SCAN_ROOTS,
-    AssetTypeDef, libraryTypeDir, mimeForExt,
+    AssetTypeDef, assetTypeByKey, libraryTypeDir, mimeForExt,
 } from '../../library/asset-types';
 
 interface CatalogItem {
@@ -34,6 +34,28 @@ const ALBUMS: Array<{ key: string; label: string; def: AssetTypeDef }> =
     ASSET_TYPES.filter((t) => !HIDDEN_ALBUM_KEYS.has(t.key))
         .map((t) => ({ key: t.key, label: t.label, def: t }));
 
+// ---------------------------------------------------------------------------
+// Local page — the same grid, but over the WHOLE project (assets/**) instead of
+// the curated library folder. It needs two synthetic kinds the catalog doesn't
+// define: an "All" album that keeps every asset whatever its format, and an
+// "Other" bucket for files no AssetTypeDef claims (.scene, .tga, ...). Both
+// preview as a plain glyph, which also keeps "All" out of the bulk thumbnail
+// generator (see _maybeGenerateThumbs — render albums only).
+// ---------------------------------------------------------------------------
+const PROJECT_SCAN_ROOT = 'assets';
+const ALL_TYPE: AssetTypeDef = {
+    key: 'all', label: 'All', folder: '', extensions: [], preview: 'icon', icon: '✳',
+};
+const OTHER_TYPE: AssetTypeDef = {
+    key: 'other', label: 'Other', folder: '', extensions: [], preview: 'icon', icon: '📄',
+};
+const PROJECT_ALBUMS: Array<{ key: string; label: string; def: AssetTypeDef }> =
+    [{ key: ALL_TYPE.key, label: ALL_TYPE.label, def: ALL_TYPE }, ...ALBUMS];
+
+// Cards are plain DOM (no virtualisation) and a project-wide album can hold a
+// few thousand assets — render one page's worth and tell the user to narrow down.
+const MAX_CARDS = 500;
+
 // Thumbnail capture/encode quality profile — shared by every render-previewed
 // asset (VFX particles, Prefabs, Spine). Higher fidelity than the original
 // 160x100 / 12.5fps / sample-10 defaults:
@@ -58,10 +80,12 @@ module.exports = Editor.Panel.define({
         <div class="toolbar">
             <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span><span class="brand-name">Playable Ads Library</span><span class="brand-author" title="Author">by ThânNV</span></div>
             <div class="tabs">
+                <!-- Local = mọi asset trong assets/ của project. Library = thư viện curated
+                     assets/library-extension (đóng vai trò "online"/shared library). -->
+                <div class="tab" id="tabProject">Local</div>
                 <div class="tab active" id="tabLocal">Library</div>
                 <!-- VFX Hub tạm ẩn (chưa dùng). Logic được giữ nguyên để tái dùng: bỏ style="display:none" để bật lại tab. -->
                 <div class="tab" id="tabAll" style="display:none">VFX Hub</div>
-                <div class="tab" id="tabMcp">Cocos MCP</div>
                 <div class="tab" id="tabSettings">Settings</div>
             </div>
             <button id="importAll" style="display:none">Import All</button>
@@ -118,164 +142,6 @@ module.exports = Editor.Panel.define({
                     <div class="settings-row"><span class="settings-label">Trạng thái</span><span id="syncStatus" class="settings-status is-off">—</span></div>
                     <div class="settings-hint">Đồng bộ thư mục assets/library-extension với server riêng. Chỉ file mới/đổi mới truyền (so bằng hash SHA-256); giữ nguyên .meta nên UUID không đổi. Chạy server: thư mục library-sync-server (npm install &amp;&amp; npm start).</div>
                 </section>
-                <section class="settings-group">
-                    <div class="settings-group-title">HTML Export (Playable)</div>
-                    <label class="settings-toggle"><input type="checkbox" id="shObfuscate" /> Obfuscate code</label>
-                    <label class="settings-toggle"><input type="checkbox" id="shLandscape" /> Hiển thị logo ở layout ngang</label>
-                    <div class="settings-hint">Áp dụng khi build web-mobile → xuất playable HTML (build/super-html/). Lưu vào settings/super-html-options.json.</div>
-                </section>
-            </div>
-        </div>
-        <div class="mcp-page" id="mcpPage" style="display:none">
-            <div class="mcp-inner">
-                <div class="mcp-header">
-                    <div class="mcp-header-title">
-                        <span class="mcp-header-name">Cocos MCP Server</span>
-                        <span class="mcp-header-sub">Streamable HTTP · MCP 2025-03-26</span>
-                    </div>
-                    <div class="mcp-header-right">
-                        <span id="mcpLicChip" class="mcp-lic-chip off">—</span>
-                        <button id="mcpCheckUpdate" class="mcp-mini-btn">Kiểm tra cập nhật</button>
-                    </div>
-                </div>
-
-                <div class="mcp-subtabs">
-                    <button class="mcp-subtab active" id="mcpSubServer">Máy chủ</button>
-                    <button class="mcp-subtab" id="mcpSubTools">Công cụ</button>
-                    <button class="mcp-subtab" id="mcpSubConfig">Cấu hình nhanh</button>
-                    <button class="mcp-subtab" id="mcpSubLicense">Bản quyền</button>
-                </div>
-
-                <!-- ===== Máy chủ ===== -->
-                <div class="mcp-sub" id="mcpPanelServer">
-                    <section class="settings-group">
-                        <div class="settings-group-title">Trạng thái máy chủ</div>
-                        <div class="settings-row"><span class="settings-label">Trạng thái</span><span id="mcpStatus" class="settings-status is-off">—</span></div>
-                        <div class="settings-row" id="mcpConnRow" style="display:none"><span class="settings-label">Kết nối</span><span id="mcpConn" class="settings-value">0</span></div>
-                        <div class="settings-actions">
-                            <button id="mcpToggle" class="mcp-primary">Khởi động</button>
-                            <button id="mcpRefresh">Làm mới</button>
-                        </div>
-                    </section>
-                    <section class="settings-group">
-                        <div class="settings-group-title">Cài đặt máy chủ</div>
-                        <div class="settings-row"><span class="settings-label">Giao thức</span><span class="settings-value" style="color:var(--accent-text)">Streamable HTTP (MCP 2025-03-26)</span></div>
-                        <div class="settings-row"><label class="settings-label" for="mcpPort">Port</label><input type="number" id="mcpPort" class="settings-input" min="1024" max="65535" step="1" /></div>
-                        <label class="settings-toggle"><input type="checkbox" id="mcpAutoStart" /> Tự động khởi động cùng editor</label>
-                        <label class="settings-toggle"><input type="checkbox" id="mcpDebugLog" /> Bật ghi log gỡ lỗi</label>
-                        <div class="settings-row"><label class="settings-label" for="mcpMaxConn">Kết nối tối đa</label><input type="number" id="mcpMaxConn" class="settings-input" min="1" max="100" step="1" /></div>
-                        <div class="settings-actions"><button id="mcpSaveSettings" class="mcp-primary">Lưu cài đặt</button></div>
-                        <div class="settings-hint">Cài đặt lưu vào settings/mcp-server.json. Đổi Port khi server đang dừng.</div>
-                    </section>
-                    <section class="settings-group" id="mcpUrlGroup" style="display:none">
-                        <div class="settings-group-title">Thông tin kết nối</div>
-                        <div class="settings-row"><span class="settings-label">MCP URL</span><input type="text" id="mcpUrl" class="settings-input" readonly /><button id="mcpCopyUrl" class="mcp-mini-btn">Copy</button></div>
-                    </section>
-                </div>
-
-                <!-- ===== Công cụ ===== -->
-                <div class="mcp-sub" id="mcpPanelTools" style="display:none">
-                    <section class="settings-group">
-                        <div class="settings-group-title">Cấu hình công cụ</div>
-                        <div class="settings-row">
-                            <label class="settings-label" for="mcpConfigSel">Cấu hình</label>
-                            <select id="mcpConfigSel" class="settings-input"></select>
-                            <button id="mcpConfigApply" class="mcp-mini-btn">Áp dụng</button>
-                        </div>
-                        <div class="settings-actions">
-                            <button id="mcpConfigNew">Tạo mới</button>
-                            <button id="mcpConfigEdit">Sửa</button>
-                            <button id="mcpConfigDelete" class="mcp-danger">Xoá</button>
-                            <button id="mcpConfigImport">Nhập</button>
-                            <button id="mcpConfigExport">Xuất</button>
-                        </div>
-                    </section>
-                    <section class="settings-group">
-                        <div class="mcp-tools-bar">
-                            <div class="settings-group-title">Quản lý công cụ</div>
-                            <div class="mcp-tools-stats" id="mcpToolStats">—</div>
-                            <div class="settings-actions">
-                                <button id="mcpToolSelectAll">Chọn tất cả</button>
-                                <button id="mcpToolDeselectAll">Bỏ chọn</button>
-                                <button id="mcpToolSave" class="mcp-primary">Lưu thay đổi</button>
-                            </div>
-                        </div>
-                        <div class="mcp-tool-grid" id="mcpToolGrid"><div class="mcp-empty">Đang tải…</div></div>
-                    </section>
-                </div>
-
-                <!-- ===== Cấu hình nhanh ===== -->
-                <div class="mcp-sub" id="mcpPanelConfig" style="display:none">
-                    <section class="settings-group">
-                        <div class="settings-group-title">Thông tin máy chủ</div>
-                        <div class="settings-row"><label class="settings-label" for="mcpCfgName">Tên máy chủ</label><input type="text" id="mcpCfgName" class="settings-input" value="cocos-creator" /></div>
-                        <div class="settings-row"><span class="settings-label">Địa chỉ</span><input type="text" id="mcpCfgUrl" class="settings-input" readonly /></div>
-                    </section>
-                    <section class="settings-group">
-                        <div class="mcp-tools-bar">
-                            <div class="settings-group-title">Tự động cấu hình (IDE + Codex CLI)</div>
-                            <div class="settings-actions">
-                                <button id="mcpCfgAddAll" class="mcp-primary">Thêm tất cả</button>
-                                <button id="mcpCfgRemoveAll" class="mcp-danger">Gỡ tất cả</button>
-                                <button id="mcpCfgRefresh">Làm mới</button>
-                            </div>
-                        </div>
-                        <div class="settings-hint">Bấm nút để tự sửa file cấu hình (Cursor, Windsurf, Trae, Codex CLI). Cần server đang chạy.</div>
-                        <div class="mcp-client-list" id="mcpClientList"><div class="mcp-empty">Đang tải…</div></div>
-                    </section>
-                    <section class="settings-group">
-                        <div class="mcp-tools-bar">
-                            <div class="settings-group-title">Cấu hình thủ công (Claude CLI + Gemini CLI)</div>
-                            <div class="settings-actions">
-                                <button id="mcpCliUser" class="mcp-primary">Cấp User</button>
-                                <button id="mcpCliProject">Cấp Project</button>
-                            </div>
-                        </div>
-                        <div class="mcp-cli-box"><div class="mcp-cli-name">Claude CLI</div><pre id="mcpCliClaude">—</pre><button id="mcpCliCopyClaude" class="mcp-mini-btn">Copy</button></div>
-                        <div class="mcp-cli-box"><div class="mcp-cli-name">Gemini CLI</div><pre id="mcpCliGemini">—</pre><button id="mcpCliCopyGemini" class="mcp-mini-btn">Copy</button></div>
-                    </section>
-                    <section class="settings-group">
-                        <div class="settings-group-title">Nhật ký thao tác</div>
-                        <div class="mcp-log" id="mcpLog"><div class="mcp-log-empty">Chưa có thao tác</div></div>
-                    </section>
-                </div>
-
-                <!-- ===== Bản quyền ===== -->
-                <div class="mcp-sub" id="mcpPanelLicense" style="display:none">
-                    <section class="settings-group" id="mcpLicActivated" style="display:none">
-                        <div class="settings-group-title">Bản quyền</div>
-                        <div class="settings-row"><span class="settings-label">Email</span><span id="mcpLicEmail" class="settings-value">—</span></div>
-                        <div class="settings-row"><span class="settings-label">Loại</span><span id="mcpLicType" class="settings-value">—</span></div>
-                        <div class="settings-row"><span class="settings-label">Còn lại</span><span id="mcpLicDays" class="settings-value">—</span></div>
-                        <div class="settings-actions">
-                            <button id="mcpLicChange">Đổi mã</button>
-                            <button id="mcpLicLogout" class="mcp-danger">Đăng xuất</button>
-                        </div>
-                    </section>
-                    <section class="settings-group" id="mcpLicForm">
-                        <div class="settings-group-title">Kích hoạt bản quyền</div>
-                        <div class="settings-row"><label class="settings-label" for="mcpLicInEmail">Email</label><input type="email" id="mcpLicInEmail" class="settings-input" placeholder="Nhập email" /></div>
-                        <div class="settings-row"><label class="settings-label" for="mcpLicInCode">Mã kích hoạt</label><input type="text" id="mcpLicInCode" class="settings-input" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" /></div>
-                        <div class="mcp-lic-msg" id="mcpLicMsg"></div>
-                        <div class="settings-actions"><button id="mcpLicActivate" class="mcp-primary">Kích hoạt</button></div>
-                        <div class="settings-hint">Mua/gia hạn tại www.vberai.com/game-engines/cocos · Hỗ trợ: a549623165@gmail.com</div>
-                    </section>
-                    <section class="settings-group">
-                        <div class="settings-row"><span class="settings-label">Machine ID</span><span id="mcpMachineId" class="settings-value mcp-mono">—</span></div>
-                    </section>
-                </div>
-            </div>
-
-            <div class="mcp-modal" id="mcpModal" style="display:none">
-                <div class="mcp-modal-box">
-                    <div class="mcp-modal-head"><span id="mcpModalTitle">Cấu hình</span><button id="mcpModalClose" class="mcp-modal-close">×</button></div>
-                    <div class="mcp-modal-body">
-                        <div class="settings-row" id="mcpModalNameRow"><label class="settings-label" for="mcpModalName">Tên</label><input type="text" id="mcpModalName" class="settings-input" /></div>
-                        <div class="settings-row" id="mcpModalDescRow"><label class="settings-label" for="mcpModalDesc">Mô tả</label><input type="text" id="mcpModalDesc" class="settings-input" /></div>
-                        <div class="mcp-modal-jsonrow" id="mcpModalJsonRow" style="display:none"><label class="settings-label" for="mcpModalJson">JSON</label><textarea id="mcpModalJson" class="mcp-textarea" placeholder="Dán nội dung JSON cấu hình"></textarea></div>
-                    </div>
-                    <div class="mcp-modal-actions"><button id="mcpModalCancel">Huỷ</button><button id="mcpModalOk" class="mcp-primary">Lưu</button></div>
-                </div>
             </div>
         </div>
         <div class="status-bar" id="statusBar">Library</div>
@@ -285,92 +151,12 @@ module.exports = Editor.Panel.define({
 
     $: {
         serverUrl: '#serverUrl',
+        tabProject: '#tabProject',
         tabLocal: '#tabLocal',
         tabAll: '#tabAll',
         tabSettings: '#tabSettings',
-        tabMcp: '#tabMcp',
         mainBody: '.body',
         settingsPage: '#settingsPage',
-        mcpPage: '#mcpPage',
-        shObfuscate: '#shObfuscate',
-        shLandscape: '#shLandscape',
-        // Cocos MCP — sub-tabs
-        mcpSubServer: '#mcpSubServer',
-        mcpSubTools: '#mcpSubTools',
-        mcpSubConfig: '#mcpSubConfig',
-        mcpSubLicense: '#mcpSubLicense',
-        mcpPanelServer: '#mcpPanelServer',
-        mcpPanelTools: '#mcpPanelTools',
-        mcpPanelConfig: '#mcpPanelConfig',
-        mcpPanelLicense: '#mcpPanelLicense',
-        mcpLicChip: '#mcpLicChip',
-        mcpCheckUpdate: '#mcpCheckUpdate',
-        // Cocos MCP — server tab
-        mcpStatus: '#mcpStatus',
-        mcpConnRow: '#mcpConnRow',
-        mcpConn: '#mcpConn',
-        mcpToggle: '#mcpToggle',
-        mcpRefresh: '#mcpRefresh',
-        mcpPort: '#mcpPort',
-        mcpAutoStart: '#mcpAutoStart',
-        mcpDebugLog: '#mcpDebugLog',
-        mcpMaxConn: '#mcpMaxConn',
-        mcpSaveSettings: '#mcpSaveSettings',
-        mcpUrlGroup: '#mcpUrlGroup',
-        mcpUrl: '#mcpUrl',
-        mcpCopyUrl: '#mcpCopyUrl',
-        // Cocos MCP — tools tab
-        mcpConfigSel: '#mcpConfigSel',
-        mcpConfigApply: '#mcpConfigApply',
-        mcpConfigNew: '#mcpConfigNew',
-        mcpConfigEdit: '#mcpConfigEdit',
-        mcpConfigDelete: '#mcpConfigDelete',
-        mcpConfigImport: '#mcpConfigImport',
-        mcpConfigExport: '#mcpConfigExport',
-        mcpToolStats: '#mcpToolStats',
-        mcpToolSelectAll: '#mcpToolSelectAll',
-        mcpToolDeselectAll: '#mcpToolDeselectAll',
-        mcpToolSave: '#mcpToolSave',
-        mcpToolGrid: '#mcpToolGrid',
-        // Cocos MCP — quick config tab
-        mcpCfgName: '#mcpCfgName',
-        mcpCfgUrl: '#mcpCfgUrl',
-        mcpCfgAddAll: '#mcpCfgAddAll',
-        mcpCfgRemoveAll: '#mcpCfgRemoveAll',
-        mcpCfgRefresh: '#mcpCfgRefresh',
-        mcpClientList: '#mcpClientList',
-        mcpCliUser: '#mcpCliUser',
-        mcpCliProject: '#mcpCliProject',
-        mcpCliClaude: '#mcpCliClaude',
-        mcpCliGemini: '#mcpCliGemini',
-        mcpCliCopyClaude: '#mcpCliCopyClaude',
-        mcpCliCopyGemini: '#mcpCliCopyGemini',
-        mcpLog: '#mcpLog',
-        // Cocos MCP — license tab
-        mcpLicActivated: '#mcpLicActivated',
-        mcpLicEmail: '#mcpLicEmail',
-        mcpLicType: '#mcpLicType',
-        mcpLicDays: '#mcpLicDays',
-        mcpLicChange: '#mcpLicChange',
-        mcpLicLogout: '#mcpLicLogout',
-        mcpLicForm: '#mcpLicForm',
-        mcpLicInEmail: '#mcpLicInEmail',
-        mcpLicInCode: '#mcpLicInCode',
-        mcpLicMsg: '#mcpLicMsg',
-        mcpLicActivate: '#mcpLicActivate',
-        mcpMachineId: '#mcpMachineId',
-        // Cocos MCP — modal
-        mcpModal: '#mcpModal',
-        mcpModalTitle: '#mcpModalTitle',
-        mcpModalClose: '#mcpModalClose',
-        mcpModalNameRow: '#mcpModalNameRow',
-        mcpModalDescRow: '#mcpModalDescRow',
-        mcpModalName: '#mcpModalName',
-        mcpModalDesc: '#mcpModalDesc',
-        mcpModalJsonRow: '#mcpModalJsonRow',
-        mcpModalJson: '#mcpModalJson',
-        mcpModalCancel: '#mcpModalCancel',
-        mcpModalOk: '#mcpModalOk',
         syncUrl: '#syncUrl',
         syncToken: '#syncToken',
         syncMirror: '#syncMirror',
@@ -398,6 +184,9 @@ module.exports = Editor.Panel.define({
     _searchQuery: '',
     _page: 'local',
     _album: 'vfx',
+    // Album selection is per grid page, so switching Local <-> Library keeps
+    // each page on the format the user left it on.
+    _projectAlbum: 'all',
     _localItems: [] as any[],
     _importing: null as any,
     _imported: null as any,
@@ -422,6 +211,7 @@ module.exports = Editor.Panel.define({
         self._searchQuery = '';
         self._page = 'local';
         self._album = 'vfx';
+        self._projectAlbum = ALL_TYPE.key;
         self._localItems = [];
         self._importing = new Set<string>();
         self._imported = new Map<string, { path: string; uuid: string }>();
@@ -442,9 +232,9 @@ module.exports = Editor.Panel.define({
         self.$.serverUrl.addEventListener('change', () => {
             Editor.Profile.setProject('vfx-browser', 'serverUrl', self.$.serverUrl.value.replace(/\/+$/, ''));
         });
+        self.$.tabProject.addEventListener('click', () => { self._switchPage('project'); });
         self.$.tabLocal.addEventListener('click', () => { self._switchPage('local'); });
         self.$.tabAll.addEventListener('click', () => { self._switchPage('all'); });
-        self.$.tabMcp.addEventListener('click', () => { self._switchPage('mcp'); });
         self.$.tabSettings.addEventListener('click', () => { self._switchPage('settings'); });
         self.$.importAll.addEventListener('click', () => { self._importAll(); });
         self.$.bundleBtn.addEventListener('click', () => { self._bundleLibrary(); });
@@ -486,58 +276,6 @@ module.exports = Editor.Panel.define({
         });
         self._syncSearchClear();
 
-        // Settings: super-html build options.
-        self._loadSuperHtmlOptions();
-        self.$.shObfuscate.addEventListener('change', () => self._saveSuperHtmlOptions());
-        self.$.shLandscape.addEventListener('change', () => self._saveSuperHtmlOptions());
-
-        // ---- Cocos MCP page wiring (backend = cocos-mcp-server ext via IPC) ----
-        // Sub-tab nav
-        self.$.mcpSubServer.addEventListener('click', () => self._mcpSwitchSubTab('server'));
-        self.$.mcpSubTools.addEventListener('click', () => self._mcpSwitchSubTab('tools'));
-        self.$.mcpSubConfig.addEventListener('click', () => self._mcpSwitchSubTab('config'));
-        self.$.mcpSubLicense.addEventListener('click', () => self._mcpSwitchSubTab('license'));
-        self.$.mcpCheckUpdate.addEventListener('click', () => self._mcpCheckUpdate());
-        // Server tab
-        self.$.mcpToggle.addEventListener('click', () => self._mcpToggleServer());
-        self.$.mcpRefresh.addEventListener('click', () => self._mcpRefreshStatus());
-        self.$.mcpSaveSettings.addEventListener('click', () => self._mcpSaveSettings());
-        self.$.mcpCopyUrl.addEventListener('click', () => {
-            if (self._mcpCopy(self.$.mcpUrl.value)) self.$.statusBar.textContent = 'Đã copy MCP URL';
-        });
-        // Tools tab
-        self.$.mcpConfigSel.addEventListener('change', () => { self._mcpRenderTools(); });
-        self.$.mcpConfigApply.addEventListener('click', () => self._mcpApplyConfig());
-        self.$.mcpConfigNew.addEventListener('click', () => self._mcpOpenModal('new'));
-        self.$.mcpConfigEdit.addEventListener('click', () => self._mcpOpenModal('edit'));
-        self.$.mcpConfigDelete.addEventListener('click', () => self._mcpDeleteConfig());
-        self.$.mcpConfigImport.addEventListener('click', () => self._mcpOpenModal('import'));
-        self.$.mcpConfigExport.addEventListener('click', () => self._mcpExportConfig());
-        self.$.mcpToolSelectAll.addEventListener('click', () => self._mcpSelectAllTools(true));
-        self.$.mcpToolDeselectAll.addEventListener('click', () => self._mcpSelectAllTools(false));
-        self.$.mcpToolSave.addEventListener('click', () => self._mcpSaveTools());
-        // Modal
-        self.$.mcpModalClose.addEventListener('click', () => self._mcpCloseModal());
-        self.$.mcpModalCancel.addEventListener('click', () => self._mcpCloseModal());
-        self.$.mcpModalOk.addEventListener('click', () => self._mcpModalOk());
-        // Quick config tab
-        self.$.mcpCfgAddAll.addEventListener('click', () => self._mcpAddAll());
-        self.$.mcpCfgRemoveAll.addEventListener('click', () => self._mcpRemoveAll());
-        self.$.mcpCfgRefresh.addEventListener('click', () => self._mcpLoadClients());
-        self.$.mcpCfgName.addEventListener('change', () => { self._mcpRefreshCli(); });
-        self.$.mcpCliUser.addEventListener('click', () => self._mcpSetCliScope('user'));
-        self.$.mcpCliProject.addEventListener('click', () => self._mcpSetCliScope('project'));
-        self.$.mcpCliCopyClaude.addEventListener('click', () => {
-            if (self._mcpCopy(self.$.mcpCliClaude.textContent)) self.$.statusBar.textContent = 'Đã copy lệnh Claude CLI';
-        });
-        self.$.mcpCliCopyGemini.addEventListener('click', () => {
-            if (self._mcpCopy(self.$.mcpCliGemini.textContent)) self.$.statusBar.textContent = 'Đã copy lệnh Gemini CLI';
-        });
-        // License tab
-        self.$.mcpLicActivate.addEventListener('click', () => self._mcpActivate());
-        self.$.mcpLicChange.addEventListener('click', () => self._mcpChangeCode());
-        self.$.mcpLicLogout.addEventListener('click', () => self._mcpDeactivate());
-
         // Show the current bundle status (date + size) in the toolbar chip.
         self._refreshBundleInfo();
 
@@ -552,7 +290,13 @@ module.exports = Editor.Panel.define({
         self._importAllToken++; // cancel any in-flight batch import
         if (self._thumbObserver) { self._thumbObserver.disconnect(); self._thumbObserver = null; }
         if (self._stopAudio) { self._stopAudio(); }
-        Editor.Profile.setProject('vfx-browser', 'serverUrl', self.$.serverUrl.value);
+        // Free every blob URL still held by the visible cards (see _revokeListBlobs).
+        self._revokeListBlobs();
+        // NOTE: serverUrl is NOT written back here. ready() fills the input from the
+        // profile asynchronously, so a panel closed before that promise resolved would
+        // persist an empty string over the saved URL. The input's own 'change' handler
+        // already saves every edit (trailing slash stripped), so there is nothing to
+        // flush on close.
     },
 
     messages: {
@@ -584,9 +328,9 @@ module.exports = Editor.Panel.define({
                     path: result.prefabPath || '',
                     uuid: result.prefabUuid || '',
                 });
-                // The importer already cached the thumbnail; refresh the Library view
+                // The importer already cached the thumbnail; refresh the grid view
                 // including the sidebar (a new category may have just appeared).
-                if (self._page === 'local') {
+                if (self._isGridPage()) {
                     await self._loadLocal();
                     self._setupLocalSidebar();
                 }
@@ -619,8 +363,51 @@ module.exports = Editor.Panel.define({
 
         _renderCurrent() {
             const self = this as any;
-            if (self._page === 'local') { self._renderLocal(); }
+            if (self._isGridPage()) { self._renderLocal(); }
             else { self._renderList(); }
+        },
+
+        // ---- Grid pages (Library + Local) --------------------------------
+        // Both browse local assets through the same album rail / category tree /
+        // card grid; they differ only in what is scanned (assets/library-extension
+        // vs the whole project) and in which album set + selection applies.
+        _isGridPage(): boolean {
+            const self = this as any;
+            return self._page === 'local' || self._page === 'project';
+        },
+
+        _currentAlbums(): Array<{ key: string; label: string; def: AssetTypeDef }> {
+            const self = this as any;
+            return self._page === 'project' ? PROJECT_ALBUMS : ALBUMS;
+        },
+
+        _currentAlbumKey(): string {
+            const self = this as any;
+            return self._page === 'project' ? self._projectAlbum : self._album;
+        },
+
+        _setCurrentAlbumKey(key: string) {
+            const self = this as any;
+            if (self._page === 'project') { self._projectAlbum = key; }
+            else { self._album = key; }
+        },
+
+        _currentAlbum(): any {
+            const self = this as any;
+            const albums = self._currentAlbums();
+            const key = self._currentAlbumKey();
+            return albums.find((a: any) => a.key === key) || albums[0];
+        },
+
+        /** The type definition an item renders with — the All album mixes kinds. */
+        _defForKind(kind: string): AssetTypeDef {
+            return assetTypeByKey(kind) || OTHER_TYPE;
+        },
+
+        _listStatus(album: any): string {
+            const self = this as any;
+            const scope = self._page === 'project' ? 'Local' : 'Library';
+            return `${scope} · ${album ? album.label : ''} — ${self._localItems.length} items`;
         },
 
         // Fill the grid with shimmer placeholder cards while the All catalog loads.
@@ -629,6 +416,7 @@ module.exports = Editor.Panel.define({
         _renderSkeletons(n = 8) {
             const self = this as any;
             const list = self.$.vfxList;
+            self._revokeListBlobs();
             list.innerHTML = '';
             for (let i = 0; i < n; i++) {
                 const card = document.createElement('div');
@@ -649,7 +437,8 @@ module.exports = Editor.Panel.define({
             }
         },
 
-        // Switch between the Library page (local assets, instant) and the VFX Hub catalog (server).
+        // Switch between the Local page (whole project), the Library page
+        // (assets/library-extension) and the VFX Hub catalog (server).
         async _switchPage(page: string) {
             const self = this as any;
             self._thumbGenToken++; // cancel generation tied to the previous view
@@ -657,35 +446,29 @@ module.exports = Editor.Panel.define({
             self._importingAll = false;
             self._stopAudio();
             self._page = page;
+            self.$.tabProject.classList.toggle('active', page === 'project');
             self.$.tabLocal.classList.toggle('active', page === 'local');
             self.$.tabAll.classList.toggle('active', page === 'all');
-            self.$.tabMcp.classList.toggle('active', page === 'mcp');
             self.$.tabSettings.classList.toggle('active', page === 'settings');
 
-            // Settings and Cocos MCP are full-page views: swap the library/hub body for
-            // the page and hide the library-only toolbar actions.
+            // Settings is a full-page view: swap the grid body for the page. The
+            // bundle/sync actions operate on assets/library-extension only, so they
+            // belong to the Library page — not to Local (project-wide, read-only)
+            // and not to the hub.
             const isSettings = page === 'settings';
-            const isMcp = page === 'mcp';
-            const isLibrary = !isSettings && !isMcp;
-            self.$.mainBody.style.display = isLibrary ? '' : 'none';
+            const showGrid = !isSettings;
+            const showLibraryTools = page === 'local';
+            self.$.mainBody.style.display = showGrid ? '' : 'none';
             self.$.settingsPage.style.display = isSettings ? '' : 'none';
-            self.$.mcpPage.style.display = isMcp ? '' : 'none';
-            self.$.bundleBtn.style.display = isLibrary ? '' : 'none';
-            self.$.reimportBtn.style.display = isLibrary ? '' : 'none';
-            self.$.bundleInfo.style.display = isLibrary ? '' : 'none';
-            self.$.syncUpTop.style.display = isLibrary ? '' : 'none';
-            self.$.syncDownTop.style.display = isLibrary ? '' : 'none';
+            self.$.bundleBtn.style.display = showLibraryTools ? '' : 'none';
+            self.$.reimportBtn.style.display = showLibraryTools ? '' : 'none';
+            self.$.bundleInfo.style.display = showLibraryTools ? '' : 'none';
+            self.$.syncUpTop.style.display = showLibraryTools ? '' : 'none';
+            self.$.syncDownTop.style.display = showLibraryTools ? '' : 'none';
             if (isSettings) {
                 self.$.importAll.style.display = 'none';
-                self._loadSuperHtmlOptions();
                 self._refreshSyncStatus();
                 self.$.statusBar.textContent = 'Settings';
-                return;
-            }
-            if (isMcp) {
-                self.$.importAll.style.display = 'none';
-                self.$.statusBar.textContent = 'Cocos MCP';
-                self._mcpInit();
                 return;
             }
 
@@ -702,10 +485,10 @@ module.exports = Editor.Panel.define({
             } else {
                 self.$.albumBar.style.display = '';
                 self._renderAlbumBar();
+                self.$.statusBar.textContent = page === 'project' ? 'Scanning project assets...' : 'Loading...';
                 await self._loadLocal();
                 self._setupLocalSidebar();
-                const album = ALBUMS.find((a) => a.key === self._album);
-                self.$.statusBar.textContent = `${album ? album.label : 'Library'} — ${self._localItems.length} items`;
+                self.$.statusBar.textContent = self._listStatus(self._currentAlbum());
                 self._renderLocal();
                 self._maybeGenerateThumbs();
             }
@@ -716,9 +499,12 @@ module.exports = Editor.Panel.define({
             const self = this as any;
             const bar = self.$.albumBar;
             bar.innerHTML = '';
-            for (const a of ALBUMS) {
+            const activeKey = self._currentAlbumKey();
+            for (const a of self._currentAlbums()) {
                 const item = document.createElement('div');
-                item.className = 'type-item' + (self._album === a.key ? ' active' : '');
+                item.className = 'type-item'
+                    + (a.key === ALL_TYPE.key ? ' type-item-all' : '')
+                    + (activeKey === a.key ? ' active' : '');
                 const glyph = document.createElement('span');
                 glyph.className = 'type-glyph';
                 glyph.setAttribute('aria-hidden', 'true');
@@ -733,7 +519,9 @@ module.exports = Editor.Panel.define({
             }
             // Render-previewed albums (VFX / Prefab) get a regenerate control: re-scan
             // the cache and (re)generate any thumbnail still missing or previously failed.
-            const album = ALBUMS.find((a) => a.key === self._album);
+            // "All" is deliberately excluded (preview 'icon'): a project-wide mixed
+            // album would kick off thousands of captures.
+            const album = self._currentAlbum();
             if (album && album.def.preview === 'render') {
                 const btn = document.createElement('button');
                 btn.className = 'album-regen' + (self._thumbGenRunning ? ' running' : '');
@@ -750,7 +538,7 @@ module.exports = Editor.Panel.define({
             const self = this as any;
             self._thumbGenToken++; // cancel generation tied to the previous album
             self._stopAudio();
-            self._album = key;
+            self._setCurrentAlbumKey(key);
             self._renderAlbumBar();
             self.$.searchInput.value = '';
             self._searchQuery = '';
@@ -758,8 +546,7 @@ module.exports = Editor.Panel.define({
             self._selectedCategory = 'All'; // reset folder filter when changing album
             await self._loadLocal();
             self._setupLocalSidebar();
-            const album = ALBUMS.find((a) => a.key === key);
-            self.$.statusBar.textContent = `${album ? album.label : 'Library'} — ${self._localItems.length} items`;
+            self.$.statusBar.textContent = self._listStatus(self._currentAlbum());
             self._renderLocal();
             self._maybeGenerateThumbs();
         },
@@ -775,762 +562,104 @@ module.exports = Editor.Panel.define({
             return (Editor as any).Project?.path || (Editor as any).projectPath || process.cwd();
         },
 
-        // ---- Settings: HTML export (playable) options (settings/super-html-options.json) ----
-        // Our bundled builder hook (html-export/) reads this file at build time as the
-        // highest-priority override: `enable_obfuscator` -> config.is_obfuscator,
-        // `landscape_enable` -> landscape logo. The filename stays super-html-options.json
-        // for compatibility with the vendored engine that reads it.
-        async _superHtmlOptionsPath(): Promise<string> {
-            const path = require('path');
-            return path.join(await (this as any)._projectRoot(), 'settings', 'super-html-options.json');
-        },
-        async _loadSuperHtmlOptions() {
-            const self = this as any;
-            try {
-                const fs = require('fs');
-                const p = await self._superHtmlOptionsPath();
-                let opts: any = {};
-                try { if (fs.existsSync(p)) opts = JSON.parse(fs.readFileSync(p, 'utf-8')); } catch { /* defaults */ }
-                // Both default ON (super-html config defaults: obfuscate + landscape enabled).
-                self.$.shObfuscate.checked = opts.enable_obfuscator !== false;
-                self.$.shLandscape.checked = opts.landscape_enable !== false;
-            } catch { /* ignore */ }
-        },
-        async _saveSuperHtmlOptions() {
-            const self = this as any;
-            try {
-                const fs = require('fs');
-                const path = require('path');
-                const p = await self._superHtmlOptionsPath();
-                fs.mkdirSync(path.dirname(p), { recursive: true });
-                let opts: any = {};
-                try { if (fs.existsSync(p)) opts = JSON.parse(fs.readFileSync(p, 'utf-8')); } catch { /* overwrite */ }
-                opts.enable_obfuscator = self.$.shObfuscate.checked;
-                opts.landscape_enable = self.$.shLandscape.checked;
-                fs.writeFileSync(p, JSON.stringify(opts, null, 2), 'utf-8');
-                self.$.statusBar.textContent = 'Đã lưu tùy chọn HTML Export';
-            } catch (e: any) {
-                self.$.statusBar.textContent = 'Lưu super-html-options lỗi: ' + (e && e.message);
-            }
-        },
-
-        // ================= Cocos MCP page =================
-        // The MCP server engine lives in the separate (obfuscated) `cocos-mcp-server`
-        // extension. This page reimplements its UI in the Playable Ads style and drives
-        // the engine over cross-extension IPC + reads/writes the settings JSON directly
-        // (settings/mcp-server.json, settings/tool-manager.json) as the source of truth.
-
-        _mcpSettingsPath(): Promise<string> {
-            return (this as any)._projectRoot().then((root: string) => require('path').join(root, 'settings', 'mcp-server.json'));
-        },
-        _mcpToolPath(): Promise<string> {
-            return (this as any)._projectRoot().then((root: string) => require('path').join(root, 'settings', 'tool-manager.json'));
-        },
-        // Small clipboard helper (navigator.clipboard, falling back to execCommand).
-        _mcpCopy(text: string): boolean {
-            if (!text) { return false; }
-            try {
-                if ((navigator as any).clipboard && (navigator as any).clipboard.writeText) {
-                    (navigator as any).clipboard.writeText(text);
-                    return true;
-                }
-            } catch { /* fall through */ }
-            try {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                return true;
-            } catch { return false; }
-        },
-        _mcpUuid(): string {
-            try { return require('crypto').randomUUID(); }
-            catch { return 'cfg-' + Date.now() + '-' + Math.floor(Math.random() * 1e6); }
-        },
-
-        // First open of the page: paint the current sub-tab + load server/license state.
-        async _mcpInit() {
-            const self = this as any;
-            if (!self._mcpSub) { self._mcpSub = 'server'; }
-            self._mcpSwitchSubTab(self._mcpSub);
-            await self._mcpRefreshStatus();
-            await self._mcpLoadSettings();
-            await self._mcpLoadLicense();
-        },
-
-        _mcpSwitchSubTab(sub: string) {
-            const self = this as any;
-            self._mcpSub = sub;
-            self.$.mcpSubServer.classList.toggle('active', sub === 'server');
-            self.$.mcpSubTools.classList.toggle('active', sub === 'tools');
-            self.$.mcpSubConfig.classList.toggle('active', sub === 'config');
-            self.$.mcpSubLicense.classList.toggle('active', sub === 'license');
-            self.$.mcpPanelServer.style.display = sub === 'server' ? '' : 'none';
-            self.$.mcpPanelTools.style.display = sub === 'tools' ? '' : 'none';
-            self.$.mcpPanelConfig.style.display = sub === 'config' ? '' : 'none';
-            self.$.mcpPanelLicense.style.display = sub === 'license' ? '' : 'none';
-            if (sub === 'tools' && !self._mcpToolsLoaded) { self._mcpLoadTools(); }
-            if (sub === 'config' && !self._mcpCfgLoaded) {
-                self._mcpCfgLoaded = true;
-                self._mcpUpdateCfgUrl();
-                self._mcpLoadClients();
-                self._mcpRefreshCli();
-            }
-            if (sub === 'license') { self._mcpLoadLicense(); }
-        },
-
-        // ---- Server sub-tab ----
-        async _mcpRefreshStatus() {
-            const self = this as any;
-            let running = false, port: any = null, conns: any = null, available = true;
-            try {
-                const st: any = await Editor.Message.request('cocos-mcp-server', 'get-server-status');
-                running = st === true || !!(st && (st.running || st.isRunning || st.started || st.active));
-                if (st && typeof st === 'object') {
-                    if (st.port != null) { port = st.port; }
-                    conns = st.connections != null ? st.connections
-                        : (st.connectedClients != null ? st.connectedClients
-                            : (st.clients != null ? st.clients : null));
-                }
-            } catch { available = false; }
-            self._mcpServerRunning = running;
-            if (!available) {
-                self.$.mcpStatus.textContent = 'không khả dụng (cocos-mcp chưa bật?)';
-                self.$.mcpStatus.className = 'settings-status is-off';
-            } else {
-                self.$.mcpStatus.textContent = running ? '● Đang chạy' : '○ Đã dừng';
-                self.$.mcpStatus.className = 'settings-status ' + (running ? 'is-on' : 'is-off');
-            }
-            self.$.mcpToggle.textContent = running ? 'Dừng máy chủ' : 'Khởi động';
-            self.$.mcpToggle.classList.toggle('mcp-danger', running);
-            self.$.mcpToggle.classList.toggle('mcp-primary', !running);
-            self.$.mcpConnRow.style.display = (running && conns != null) ? '' : 'none';
-            if (conns != null) { self.$.mcpConn.textContent = String(conns); }
-            if (port == null) {
-                try {
-                    const fs = require('fs');
-                    const f = await self._mcpSettingsPath();
-                    if (fs.existsSync(f)) { port = JSON.parse(fs.readFileSync(f, 'utf-8')).port; }
-                } catch { /* ignore */ }
-            }
-            const showUrl = running && port != null;
-            self.$.mcpUrlGroup.style.display = showUrl ? '' : 'none';
-            if (port != null) { self.$.mcpUrl.value = `http://127.0.0.1:${port}/mcp`; }
-            self.$.mcpPort.disabled = running;
-            self._mcpUpdateCfgUrl();
-        },
-
-        async _mcpToggleServer() {
-            const self = this as any;
-            const running = self._mcpServerRunning;
-            self.$.mcpToggle.disabled = true;
-            try {
-                await Editor.Message.request('cocos-mcp-server', running ? 'stop-server' : 'start-server');
-                self.$.statusBar.textContent = running ? 'MCP: đã gửi lệnh dừng' : 'MCP: đã gửi lệnh khởi động';
-            } catch (e: any) {
-                self.$.statusBar.textContent = 'MCP lỗi: ' + (e && e.message) + ' (kiểm tra Bản quyền?)';
-            }
-            setTimeout(async () => { await self._mcpRefreshStatus(); self.$.mcpToggle.disabled = false; }, 700);
-        },
-
-        async _mcpLoadSettings() {
-            const self = this as any;
-            let s: any = {};
-            try {
-                const r: any = await Editor.Message.request('cocos-mcp-server', 'get-server-settings');
-                if (r && typeof r === 'object') { s = r; }
-            } catch { /* fall back to file */ }
-            try {
-                const fs = require('fs');
-                const f = await self._mcpSettingsPath();
-                if (fs.existsSync(f)) { s = Object.assign({}, JSON.parse(fs.readFileSync(f, 'utf-8')), s); }
-            } catch { /* ignore */ }
-            const port = s.port != null ? s.port : 3000;
-            const autoStart = s.autoStart != null ? s.autoStart : false;
-            const debug = s.debugLog != null ? s.debugLog : (s.enableDebugLog != null ? s.enableDebugLog : false);
-            const maxConn = s.maxConnections != null ? s.maxConnections : 10;
-            // Always show the current port (the field is disabled while running, but the
-            // value should still reflect the active port). _mcpLoadSettings only runs at
-            // page init, so this never clobbers a value the user is typing.
-            self.$.mcpPort.value = String(port);
-            self.$.mcpAutoStart.checked = !!autoStart;
-            self.$.mcpDebugLog.checked = !!debug;
-            self.$.mcpMaxConn.value = String(maxConn);
-        },
-
-        async _mcpSaveSettings() {
-            const self = this as any;
-            const fs = require('fs');
-            const path = require('path');
-            const f = await self._mcpSettingsPath();
-            let s: any = {};
-            try { if (fs.existsSync(f)) { s = JSON.parse(fs.readFileSync(f, 'utf-8')); } } catch { /* overwrite */ }
-            const port = parseInt(self.$.mcpPort.value, 10);
-            if (!isNaN(port)) { s.port = port; }
-            s.autoStart = self.$.mcpAutoStart.checked;
-            s.enableDebugLog = self.$.mcpDebugLog.checked;
-            const mc = parseInt(self.$.mcpMaxConn.value, 10);
-            if (!isNaN(mc)) { s.maxConnections = mc; }
-            if (!s.allowedOrigins) { s.allowedOrigins = ['*']; }
-            try {
-                fs.mkdirSync(path.dirname(f), { recursive: true });
-                fs.writeFileSync(f, JSON.stringify(s, null, 2), 'utf-8');
-                self.$.statusBar.textContent = 'Đã lưu cài đặt MCP';
-            } catch (e: any) {
-                self.$.statusBar.textContent = 'Lưu cài đặt MCP lỗi: ' + (e && e.message);
-                return;
-            }
-            // Best-effort: let a running server pick the change up live.
-            try {
-                await Editor.Message.request('cocos-mcp-server', 'update-settings', {
-                    port: s.port, autoStart: s.autoStart,
-                    debugLog: s.enableDebugLog, enableDebugLog: s.enableDebugLog,
-                    maxConnections: s.maxConnections, allowedOrigins: s.allowedOrigins,
-                });
-            } catch { /* engine will read the file on next start */ }
-            self._mcpUpdateCfgUrl();
-        },
-
-        // ---- Tools sub-tab ----
-        async _mcpLoadTools() {
-            const self = this as any;
-            self._mcpToolsLoaded = true;
-            let cfg: any = null;
-            try {
-                const fs = require('fs');
-                const f = await self._mcpToolPath();
-                if (fs.existsSync(f)) { cfg = JSON.parse(fs.readFileSync(f, 'utf-8')); }
-            } catch { /* ignore */ }
-            if (!cfg || !Array.isArray(cfg.configurations)) {
-                cfg = { configurations: [], currentConfigId: '', maxConfigSlots: 5 };
-            }
-            self._mcpToolCfg = cfg;
-            self._mcpRenderConfigSel();
-            self._mcpRenderTools();
-        },
-        async _mcpWriteToolCfg() {
-            const self = this as any;
-            const fs = require('fs');
-            const path = require('path');
-            const f = await self._mcpToolPath();
-            fs.mkdirSync(path.dirname(f), { recursive: true });
-            fs.writeFileSync(f, JSON.stringify(self._mcpToolCfg, null, 2), 'utf-8');
-        },
-        _mcpSelectedConfig(): any {
-            const self = this as any;
-            const cfg = self._mcpToolCfg;
-            if (!cfg || !Array.isArray(cfg.configurations)) { return null; }
-            const id = self.$.mcpConfigSel.value;
-            return cfg.configurations.find((c: any) => c.id === id)
-                || cfg.configurations.find((c: any) => c.id === cfg.currentConfigId)
-                || cfg.configurations[0] || null;
-        },
-        _mcpCatName(cat: string): string {
-            if (cat === 'cocos') { return 'Cocos Creator'; }
-            return cat || 'Khác';
-        },
-        _mcpRenderConfigSel() {
-            const self = this as any;
-            const cfg = self._mcpToolCfg;
-            const sel = self.$.mcpConfigSel;
-            sel.innerHTML = '';
-            for (const c of cfg.configurations) {
-                const o = document.createElement('option');
-                o.value = c.id;
-                o.textContent = c.name || c.id;
-                if (c.id === cfg.currentConfigId) { o.selected = true; }
-                sel.appendChild(o);
-            }
-            if (!cfg.configurations.length) {
-                const o = document.createElement('option');
-                o.value = '';
-                o.textContent = '(chưa có cấu hình)';
-                sel.appendChild(o);
-            }
-        },
-        _mcpRenderTools() {
-            const self = this as any;
-            const grid = self.$.mcpToolGrid;
-            grid.innerHTML = '';
-            const conf = self._mcpSelectedConfig();
-            const tools = (conf && Array.isArray(conf.tools)) ? conf.tools : [];
-            if (!tools.length) {
-                grid.innerHTML = '<div class="mcp-empty">Không có công cụ trong cấu hình này.</div>';
-                self.$.mcpToolStats.textContent = '—';
-                return;
-            }
-            const groups: Record<string, any[]> = {};
-            for (const t of tools) {
-                const cat = t.category || 'khác';
-                (groups[cat] = groups[cat] || []).push(t);
-            }
-            for (const cat of Object.keys(groups)) {
-                const card = document.createElement('div');
-                card.className = 'mcp-tool-card';
-                const head = document.createElement('div');
-                head.className = 'mcp-tool-cat';
-                const title = document.createElement('span');
-                title.textContent = self._mcpCatName(cat);
-                const ctrls = document.createElement('div');
-                ctrls.className = 'mcp-tool-cat-ctrls';
-                const bAll = document.createElement('button');
-                bAll.className = 'mcp-mini-btn';
-                bAll.textContent = 'Tất cả';
-                bAll.addEventListener('click', () => self._mcpSetCategory(cat, true));
-                const bNone = document.createElement('button');
-                bNone.className = 'mcp-mini-btn';
-                bNone.textContent = 'Bỏ';
-                bNone.addEventListener('click', () => self._mcpSetCategory(cat, false));
-                ctrls.appendChild(bAll);
-                ctrls.appendChild(bNone);
-                head.appendChild(title);
-                head.appendChild(ctrls);
-                card.appendChild(head);
-                for (const t of groups[cat]) {
-                    const item = document.createElement('label');
-                    item.className = 'mcp-tool-item';
-                    const cb = document.createElement('input');
-                    cb.type = 'checkbox';
-                    cb.checked = !!t.enabled;
-                    cb.addEventListener('change', () => { t.enabled = cb.checked; self._mcpUpdateStats(); });
-                    const info = document.createElement('div');
-                    info.className = 'mcp-tool-info';
-                    const nm = document.createElement('div');
-                    nm.className = 'mcp-tool-name';
-                    nm.textContent = t.name;
-                    const ds = document.createElement('div');
-                    ds.className = 'mcp-tool-desc';
-                    ds.textContent = (t.description || '').split('\n')[0];
-                    ds.title = t.description || '';
-                    info.appendChild(nm);
-                    info.appendChild(ds);
-                    item.appendChild(cb);
-                    item.appendChild(info);
-                    card.appendChild(item);
-                }
-                grid.appendChild(card);
-            }
-            self._mcpUpdateStats();
-        },
-        _mcpUpdateStats() {
-            const self = this as any;
-            const conf = self._mcpSelectedConfig();
-            const tools = (conf && conf.tools) || [];
-            const total = tools.length;
-            const en = tools.filter((t: any) => t.enabled).length;
-            self.$.mcpToolStats.textContent = `${total} công cụ · ${en} bật · ${total - en} tắt`;
-        },
-        _mcpSetCategory(cat: string, val: boolean) {
-            const self = this as any;
-            const conf = self._mcpSelectedConfig();
-            if (!conf) { return; }
-            for (const t of conf.tools) { if ((t.category || 'khác') === cat) { t.enabled = val; } }
-            self._mcpRenderTools();
-        },
-        _mcpSelectAllTools(val: boolean) {
-            const self = this as any;
-            const conf = self._mcpSelectedConfig();
-            if (!conf) { return; }
-            for (const t of conf.tools) { t.enabled = val; }
-            self._mcpRenderTools();
-        },
-        async _mcpSaveTools() {
-            const self = this as any;
-            const conf = self._mcpSelectedConfig();
-            if (!self._mcpToolCfg || !conf) { self.$.statusBar.textContent = 'Chưa có cấu hình để lưu'; return; }
-            conf.updatedAt = new Date().toISOString();
-            try {
-                await self._mcpWriteToolCfg();
-                self.$.statusBar.textContent = 'Đã lưu cấu hình công cụ';
-            } catch (e: any) {
-                self.$.statusBar.textContent = 'Lưu công cụ lỗi: ' + (e && e.message);
-                return;
-            }
-            try {
-                const batch = conf.tools.map((t: any) => ({ category: t.category, name: t.name, enabled: t.enabled }));
-                await Editor.Message.request('cocos-mcp-server', 'updateToolStatusBatch', batch);
-            } catch { /* engine reloads config on next start */ }
-        },
-        async _mcpApplyConfig() {
-            const self = this as any;
-            const cfg = self._mcpToolCfg;
-            const id = self.$.mcpConfigSel.value;
-            if (!cfg || !id) { return; }
-            cfg.currentConfigId = id;
-            try { await self._mcpWriteToolCfg(); } catch { /* ignore */ }
-            try { await Editor.Message.request('cocos-mcp-server', 'setCurrentToolConfiguration', id); } catch { /* ignore */ }
-            self._mcpRenderTools();
-            self.$.statusBar.textContent = 'Đã áp dụng cấu hình';
-        },
-        async _mcpDeleteConfig() {
-            const self = this as any;
-            const cfg = self._mcpToolCfg;
-            const id = self.$.mcpConfigSel.value;
-            if (!cfg || !id) { return; }
-            const idx = cfg.configurations.findIndex((c: any) => c.id === id);
-            if (idx < 0) { return; }
-            cfg.configurations.splice(idx, 1);
-            if (cfg.currentConfigId === id) { cfg.currentConfigId = (cfg.configurations[0] && cfg.configurations[0].id) || ''; }
-            try { await Editor.Message.request('cocos-mcp-server', 'deleteToolConfiguration', id); } catch { /* ignore */ }
-            try { await self._mcpWriteToolCfg(); } catch { /* ignore */ }
-            self._mcpRenderConfigSel();
-            self._mcpRenderTools();
-            self.$.statusBar.textContent = 'Đã xoá cấu hình';
-        },
-        _mcpExportConfig() {
-            const self = this as any;
-            const c = self._mcpSelectedConfig();
-            if (!c) { return; }
-            const ok = self._mcpCopy(JSON.stringify(c, null, 2));
-            self.$.statusBar.textContent = ok ? 'Đã copy JSON cấu hình vào clipboard' : 'Copy thất bại';
-        },
-        _mcpOpenModal(mode: string) {
-            const self = this as any;
-            self._mcpModalMode = mode;
-            const isImport = mode === 'import';
-            self.$.mcpModalTitle.textContent = mode === 'new' ? 'Tạo cấu hình mới'
-                : (mode === 'edit' ? 'Sửa cấu hình' : 'Nhập cấu hình');
-            self.$.mcpModalNameRow.style.display = isImport ? 'none' : '';
-            self.$.mcpModalDescRow.style.display = isImport ? 'none' : '';
-            self.$.mcpModalJsonRow.style.display = isImport ? '' : 'none';
-            self.$.mcpModalName.value = '';
-            self.$.mcpModalDesc.value = '';
-            self.$.mcpModalJson.value = '';
-            if (mode === 'edit') {
-                const c = self._mcpSelectedConfig();
-                if (c) { self.$.mcpModalName.value = c.name || ''; self.$.mcpModalDesc.value = c.description || ''; }
-            }
-            self.$.mcpModal.style.display = '';
-        },
-        _mcpCloseModal() {
-            (this as any).$.mcpModal.style.display = 'none';
-        },
-        async _mcpModalOk() {
-            const self = this as any;
-            const cfg = self._mcpToolCfg;
-            const mode = self._mcpModalMode;
-            if (!cfg) { self._mcpCloseModal(); return; }
-            if (mode === 'new') {
-                if (cfg.configurations.length >= (cfg.maxConfigSlots || 5)) {
-                    self.$.statusBar.textContent = 'Đã đạt số slot cấu hình tối đa (' + (cfg.maxConfigSlots || 5) + ')';
-                    return;
-                }
-                const name = self.$.mcpModalName.value.trim();
-                if (!name) { self.$.statusBar.textContent = 'Vui lòng nhập tên cấu hình'; return; }
-                const id = self._mcpUuid();
-                const base = self._mcpSelectedConfig();
-                const tools = base ? JSON.parse(JSON.stringify(base.tools)) : [];
-                const now = new Date().toISOString();
-                cfg.configurations.push({ id, name, description: self.$.mcpModalDesc.value, tools, createdAt: now, updatedAt: now });
-                cfg.currentConfigId = id;
-                try { await Editor.Message.request('cocos-mcp-server', 'createToolConfiguration', { id, name, description: self.$.mcpModalDesc.value }); } catch { /* ignore */ }
-            } else if (mode === 'edit') {
-                const c = self._mcpSelectedConfig();
-                if (c) {
-                    c.name = self.$.mcpModalName.value.trim() || c.name;
-                    c.description = self.$.mcpModalDesc.value;
-                    c.updatedAt = new Date().toISOString();
-                    try { await Editor.Message.request('cocos-mcp-server', 'updateToolConfiguration', { id: c.id, name: c.name, description: c.description }); } catch { /* ignore */ }
-                }
-            } else if (mode === 'import') {
-                let obj: any;
-                try { obj = JSON.parse(self.$.mcpModalJson.value); }
-                catch { self.$.statusBar.textContent = 'JSON không hợp lệ'; return; }
-                const incoming = Array.isArray(obj.configurations) ? obj.configurations : [obj];
-                let added = 0;
-                for (const c of incoming) {
-                    if (!c || !Array.isArray(c.tools)) { continue; }
-                    if (!c.id) { c.id = self._mcpUuid(); }
-                    cfg.configurations.push(c);
-                    cfg.currentConfigId = c.id;
-                    added++;
-                }
-                if (!added) { self.$.statusBar.textContent = 'Không có cấu hình hợp lệ trong JSON'; return; }
-                try { await Editor.Message.request('cocos-mcp-server', 'importToolConfiguration', self.$.mcpModalJson.value); } catch { /* ignore */ }
-            }
-            try { await self._mcpWriteToolCfg(); } catch { /* ignore */ }
-            self._mcpCloseModal();
-            self._mcpRenderConfigSel();
-            self._mcpRenderTools();
-            self.$.statusBar.textContent = 'Đã cập nhật cấu hình công cụ';
-        },
-
-        // ---- Quick config sub-tab ----
-        async _mcpUpdateCfgUrl() {
-            const self = this as any;
-            let port: any = null;
-            try {
-                const fs = require('fs');
-                const f = await self._mcpSettingsPath();
-                if (fs.existsSync(f)) { port = JSON.parse(fs.readFileSync(f, 'utf-8')).port; }
-            } catch { /* ignore */ }
-            if (port == null && self.$.mcpPort.value) { port = parseInt(self.$.mcpPort.value, 10); }
-            if (port == null || isNaN(port)) { port = 3000; }
-            self.$.mcpCfgUrl.value = `http://127.0.0.1:${port}/mcp`;
-        },
-        _mcpNormClients(res: any): any[] {
-            let arr: any[] = [];
-            if (Array.isArray(res)) { arr = res; }
-            else if (res && Array.isArray(res.clients)) { arr = res.clients; }
-            else if (res && Array.isArray(res.data)) { arr = res.data; }
-            else if (res && typeof res === 'object') { arr = Object.keys(res).map((k) => Object.assign({ clientType: k }, res[k])); }
-            return arr.map((c: any) => ({
-                type: c.clientType || c.type || c.id || c.key || c.name,
-                name: c.clientName || c.name || c.clientType || c.type || 'Client',
-                path: c.configPath || c.path || c.file || '',
-                exists: !!(c.exists || c.configured || c.installed),
-            })).filter((c: any) => c.type);
-        },
-        async _mcpLoadClients() {
-            const self = this as any;
-            const list = self.$.mcpClientList;
-            list.innerHTML = '<div class="mcp-empty">Đang tải…</div>';
-            let res: any = null;
-            try { res = await Editor.Message.request('cocos-mcp-server', 'get-config-status'); } catch { /* ignore */ }
-            const clients = self._mcpNormClients(res);
-            list.innerHTML = '';
-            if (!clients.length) {
-                list.innerHTML = '<div class="mcp-empty">Không lấy được danh sách client (cocos-mcp chưa bật?).</div>';
-                return;
-            }
-            for (const c of clients) {
-                const row = document.createElement('div');
-                row.className = 'mcp-client-item';
-                const info = document.createElement('div');
-                info.className = 'mcp-client-info';
-                const nm = document.createElement('div');
-                nm.className = 'mcp-client-name';
-                nm.textContent = c.name;
-                const pth = document.createElement('div');
-                pth.className = 'mcp-client-path';
-                pth.textContent = c.path || '';
-                const stt = document.createElement('div');
-                stt.className = 'mcp-client-status ' + (c.exists ? 'exists' : 'missing');
-                stt.textContent = c.exists ? '✓ Đã cấu hình' : '✗ Chưa cấu hình';
-                info.appendChild(nm);
-                info.appendChild(pth);
-                info.appendChild(stt);
-                const acts = document.createElement('div');
-                acts.className = 'mcp-client-actions';
-                const bAdd = document.createElement('button');
-                bAdd.className = 'mcp-mini-btn';
-                bAdd.textContent = 'Cấu hình';
-                bAdd.disabled = !!c.exists;
-                bAdd.addEventListener('click', () => self._mcpAddClient(c.type));
-                const bDel = document.createElement('button');
-                bDel.className = 'mcp-mini-btn mcp-danger';
-                bDel.textContent = 'Xoá';
-                bDel.disabled = !c.exists;
-                bDel.addEventListener('click', () => self._mcpRemoveClient(c.type));
-                const bCopy = document.createElement('button');
-                bCopy.className = 'mcp-mini-btn';
-                bCopy.textContent = 'Copy';
-                bCopy.addEventListener('click', () => self._mcpCopyClientConfig(c.type));
-                const bOpen = document.createElement('button');
-                bOpen.className = 'mcp-mini-btn';
-                bOpen.textContent = 'Mở';
-                bOpen.addEventListener('click', () => self._mcpOpenConfigFile(c.path));
-                acts.appendChild(bAdd);
-                acts.appendChild(bDel);
-                acts.appendChild(bCopy);
-                acts.appendChild(bOpen);
-                row.appendChild(info);
-                row.appendChild(acts);
-                list.appendChild(row);
-            }
-        },
-        async _mcpAddClient(type: string) {
-            const self = this as any;
-            try {
-                await Editor.Message.request('cocos-mcp-server', 'add-to-client', type, self.$.mcpCfgName.value || 'cocos-creator');
-                self._mcpLog('ok', 'Đã thêm cấu hình vào ' + type);
-            } catch (e: any) { self._mcpLog('err', 'Thêm ' + type + ' lỗi: ' + (e && e.message)); }
-            await self._mcpLoadClients();
-        },
-        async _mcpRemoveClient(type: string) {
-            const self = this as any;
-            try {
-                await Editor.Message.request('cocos-mcp-server', 'remove-from-client', type);
-                self._mcpLog('ok', 'Đã gỡ cấu hình khỏi ' + type);
-            } catch (e: any) { self._mcpLog('err', 'Gỡ ' + type + ' lỗi: ' + (e && e.message)); }
-            await self._mcpLoadClients();
-        },
-        async _mcpAddAll() {
-            const self = this as any;
-            try {
-                await Editor.Message.request('cocos-mcp-server', 'add-to-all-clients', self.$.mcpCfgName.value || 'cocos-creator');
-                self._mcpLog('ok', 'Đã thêm vào tất cả client');
-            } catch (e: any) { self._mcpLog('err', 'Thêm tất cả lỗi: ' + (e && e.message)); }
-            await self._mcpLoadClients();
-        },
-        async _mcpRemoveAll() {
-            const self = this as any;
-            try {
-                await Editor.Message.request('cocos-mcp-server', 'remove-from-all-clients');
-                self._mcpLog('ok', 'Đã gỡ khỏi tất cả client');
-            } catch (e: any) { self._mcpLog('err', 'Gỡ tất cả lỗi: ' + (e && e.message)); }
-            await self._mcpLoadClients();
-        },
-        async _mcpCopyClientConfig(type: string) {
-            const self = this as any;
-            try {
-                const r: any = await Editor.Message.request('cocos-mcp-server', 'generate-client-config', type, self.$.mcpCfgName.value || 'cocos-creator');
-                const text = typeof r === 'string' ? r : JSON.stringify(r, null, 2);
-                self._mcpCopy(text);
-                self._mcpLog('ok', 'Đã copy config ' + type + ' vào clipboard');
-            } catch (e: any) { self._mcpLog('err', 'Copy config lỗi: ' + (e && e.message)); }
-        },
-        async _mcpOpenConfigFile(p: string) {
-            const self = this as any;
-            try {
-                await Editor.Message.request('cocos-mcp-server', 'open-config-file', p);
-                self._mcpLog('ok', 'Đã mở file: ' + p);
-            } catch (e: any) { self._mcpLog('err', 'Mở file lỗi: ' + (e && e.message)); }
-        },
-        _mcpSetCliScope(scope: string) {
-            const self = this as any;
-            self._mcpCliScope = scope;
-            self.$.mcpCliUser.classList.toggle('mcp-primary', scope === 'user');
-            self.$.mcpCliProject.classList.toggle('mcp-primary', scope === 'project');
-            self._mcpRefreshCli();
-        },
-        _mcpPick(r: any, keys: string[]): string {
-            if (!r) { return ''; }
-            if (typeof r === 'string') { return r; }
-            for (const k of keys) { if (r[k]) { return r[k]; } }
-            if (r.commands) { for (const k of keys) { if (r.commands[k]) { return r.commands[k]; } } }
-            return '';
-        },
-        async _mcpRefreshCli() {
-            const self = this as any;
-            const scope = self._mcpCliScope || 'user';
-            let r: any = null;
-            try { r = await Editor.Message.request('cocos-mcp-server', 'generate-cli-commands', scope, self.$.mcpCfgName.value || 'cocos-creator'); } catch { /* ignore */ }
-            const claude = self._mcpPick(r, ['claude', 'claudeCli', 'claude_cli']);
-            const gemini = self._mcpPick(r, ['gemini', 'geminiCli', 'gemini_cli']);
-            self.$.mcpCliClaude.textContent = claude || '(không lấy được — cocos-mcp chưa bật?)';
-            self.$.mcpCliGemini.textContent = gemini || '(không lấy được)';
-        },
-        _mcpLog(type: string, msg: string) {
-            const self = this as any;
-            const box = self.$.mcpLog;
-            const empty = box.querySelector('.mcp-log-empty');
-            if (empty) { empty.remove(); }
-            const row = document.createElement('div');
-            row.className = 'mcp-log-item ' + (type || '');
-            const t = document.createElement('span');
-            t.className = 'mcp-log-time';
-            t.textContent = new Date().toLocaleTimeString();
-            const m = document.createElement('span');
-            m.className = 'mcp-log-msg';
-            m.textContent = msg;
-            row.appendChild(t);
-            row.appendChild(m);
-            box.insertBefore(row, box.firstChild);
-        },
-
-        // ---- License sub-tab ----
-        _mcpMaskEmail(e: string): string {
-            if (!e || typeof e !== 'string' || !e.includes('@')) { return e || '—'; }
-            const parts = e.split('@');
-            const a = parts[0];
-            return (a.length <= 2 ? a : a.slice(0, 2) + '***') + '@' + parts[1];
-        },
-        async _mcpLoadLicense() {
-            const self = this as any;
-            let info: any = null;
-            let machine: any = '';
-            try { info = await Editor.Message.request('cocos-mcp-server', 'get-license-info'); } catch { /* ignore */ }
-            if (!info) { try { info = await Editor.Message.request('cocos-mcp-server', 'check-license'); } catch { /* ignore */ } }
-            try { machine = await Editor.Message.request('cocos-mcp-server', 'get-machine-id'); } catch { /* ignore */ }
-            if (machine && typeof machine === 'object') { machine = machine.machineId || machine.id || ''; }
-            self.$.mcpMachineId.textContent = machine || '—';
-            const licensed = !!(info && (info.licensed || info.valid || info.isValid || info.active || info.activated));
-            const email = (info && (info.email || info.userEmail)) || '';
-            const type = (info && (info.licenseType || info.type || info.plan)) || '';
-            const days = info && (info.daysRemaining != null ? info.daysRemaining : info.remainingDays);
-            if (licensed) {
-                self.$.mcpLicActivated.style.display = '';
-                self.$.mcpLicForm.style.display = 'none';
-                self.$.mcpLicEmail.textContent = self._mcpMaskEmail(email);
-                self.$.mcpLicType.textContent = type || '—';
-                self.$.mcpLicDays.textContent = (days === 9999 || days == null) ? 'Vĩnh viễn' : (days + ' ngày');
-                self.$.mcpLicChip.textContent = '● Đã kích hoạt';
-                self.$.mcpLicChip.className = 'mcp-lic-chip on';
-            } else {
-                self.$.mcpLicActivated.style.display = 'none';
-                self.$.mcpLicForm.style.display = '';
-                self.$.mcpLicChip.textContent = info ? '○ Chưa kích hoạt' : '○ Không rõ';
-                self.$.mcpLicChip.className = 'mcp-lic-chip off';
-            }
-        },
-        async _mcpActivate() {
-            const self = this as any;
-            const email = self.$.mcpLicInEmail.value.trim();
-            const code = self.$.mcpLicInCode.value.trim();
-            if (!email || !code) {
-                self.$.mcpLicMsg.textContent = 'Vui lòng nhập email và mã kích hoạt';
-                self.$.mcpLicMsg.className = 'mcp-lic-msg err';
-                return;
-            }
-            self.$.mcpLicMsg.textContent = 'Đang kích hoạt…';
-            self.$.mcpLicMsg.className = 'mcp-lic-msg';
-            try {
-                const r: any = await Editor.Message.request('cocos-mcp-server', 'activate-license', { email, code });
-                const ok = r === true || (r && (r.success || r.ok || r.valid || r.licensed || r.activated));
-                if (ok || r == null) {
-                    self.$.mcpLicMsg.textContent = 'Kích hoạt thành công!';
-                    self.$.mcpLicMsg.className = 'mcp-lic-msg ok';
-                } else {
-                    self.$.mcpLicMsg.textContent = 'Kích hoạt thất bại: ' + ((r && (r.message || r.error)) || 'mã không hợp lệ');
-                    self.$.mcpLicMsg.className = 'mcp-lic-msg err';
-                }
-            } catch (e: any) {
-                self.$.mcpLicMsg.textContent = 'Kích hoạt lỗi: ' + (e && e.message);
-                self.$.mcpLicMsg.className = 'mcp-lic-msg err';
-            }
-            await self._mcpLoadLicense();
-        },
-        async _mcpDeactivate() {
-            const self = this as any;
-            try { await Editor.Message.request('cocos-mcp-server', 'deactivate-license'); } catch { /* ignore */ }
-            self.$.statusBar.textContent = 'Đã đăng xuất bản quyền';
-            await self._mcpLoadLicense();
-        },
-        _mcpChangeCode() {
-            const self = this as any;
-            self.$.mcpLicForm.style.display = '';
-            self.$.mcpLicMsg.textContent = 'Nhập mã mới rồi bấm Kích hoạt để đổi.';
-            self.$.mcpLicMsg.className = 'mcp-lic-msg';
-            self.$.mcpLicInCode.focus();
-        },
-        async _mcpCheckUpdate() {
-            const self = this as any;
-            const btn = self.$.mcpCheckUpdate;
-            const old = btn.textContent;
-            btn.disabled = true;
-            btn.textContent = 'Đang kiểm tra…';
-            try {
-                const r: any = await Editor.Message.request('cocos-mcp-server', 'check-update');
-                const has = r && (r.hasUpdate || r.updateAvailable || r.available
-                    || (r.latestVersion && r.currentVersion && r.latestVersion !== r.currentVersion));
-                self.$.statusBar.textContent = has
-                    ? ('Có bản cập nhật mới: v' + (r.latestVersion || ''))
-                    : 'Đang dùng phiên bản mới nhất';
-            } catch (e: any) {
-                self.$.statusBar.textContent = 'Kiểm tra cập nhật lỗi: ' + (e && e.message);
-            }
-            btn.textContent = old;
-            btn.disabled = false;
-        },
-
-        // Load the items for the currently-selected album (one album per asset format).
+        // Load the items for the currently-selected album. Library scans the curated
+        // format folders; Local scans the whole project.
         async _loadLocal() {
             const self = this as any;
-            const album = ALBUMS.find((a) => a.key === self._album) || ALBUMS[0];
-            await self._loadLibrary(album);
+            const album = self._currentAlbum();
+            if (self._page === 'project') { await self._loadProject(album); }
+            else { await self._loadLibrary(album); }
+        },
+
+        // Which library kind a project asset belongs to. Extension + importer decide,
+        // in ASSET_TYPES order, with one exception: '.prefab' only counts as VFX
+        // inside a _VFX folder (or a legacy VFX root) — anywhere else in the project a
+        // prefab is just a prefab, otherwise the VFX and Prefab albums would be twins.
+        // Unclaimed extensions (.scene, .tga, ...) fall into the Other bucket, which
+        // only the All album shows.
+        _classifyProjectKind(url: string, ext: string, importer: string): string {
+            for (const def of ASSET_TYPES) {
+                if (!def.extensions.includes(ext)) continue;
+                if (def.importers && importer && !def.importers.includes(importer)) continue;
+                if (def.key === 'vfx') {
+                    const isVfxPath = /\/_VFX\//i.test(url)
+                        || LEGACY_VFX_SCAN_ROOTS.some((r) => url.startsWith(`db://${r.folder}/`));
+                    if (!isVfxPath) continue;
+                }
+                return def.key;
+            }
+            return OTHER_TYPE.key;
+        },
+
+        // Scan the whole project (assets/**) for the Local page. The album picks the
+        // kind — "All" keeps every asset and classifies each one individually — and an
+        // item's category is its own folder path under assets/, so the category tree
+        // mirrors the project's folder structure. Previews reuse the library's rules
+        // and the same uuid-keyed thumbnail cache, so an asset already rendered on the
+        // Library page shows its GIF here too.
+        async _loadProject(album: any) {
+            const self = this as any;
+            const path = require('path');
+            const proj = await self._projectRoot();
+            self._packThumbDir = path.join(proj, 'local', 'vfx-thumbs', 'packs');
+            self._spineThumbDir = path.join(proj, 'local', 'vfx-thumbs', 'spine');
+
+            const isAll = album.key === ALL_TYPE.key;
+            let assets: any[] = [];
+            try {
+                assets = (await Editor.Message.request('asset-db', 'query-assets', {
+                    pattern: `db://${PROJECT_SCAN_ROOT}/**/*`,
+                })) || [];
+            } catch { /* asset-db not ready */ }
+
+            const prefix = `db://${PROJECT_SCAN_ROOT}/`;
+            const items: any[] = [];
+            const seenUuid = new Set<string>();
+            const seenStem = new Set<string>();
+            for (const a of assets) {
+                const url: string = a.url || a.path || a.source || '';
+                if (!url.startsWith(prefix)) continue;
+                if (a.isDirectory || a.importer === 'directory') continue;
+                const uuid: string = a.uuid || '';
+                // '@' marks virtual sub-assets (e.g. the prefab inside an imported .glb).
+                if (uuid.includes('@')) continue;
+                if (uuid && seenUuid.has(uuid)) continue;
+
+                const rel = url.slice(prefix.length);
+                const base = rel.split('/').pop() || '';
+                const dot = base.lastIndexOf('.');
+                const ext = dot > 0 ? base.slice(dot).toLowerCase() : '';
+                if (!ext || ext === '.meta') continue;
+
+                const kind = self._classifyProjectKind(url, ext, a.importer || '');
+                if (!isAll && kind !== album.key) continue;
+                // A skeleton shipped as both .json and .skel is one item, not two.
+                if (kind === 'spine') {
+                    const stemKey = url.slice(0, url.length - ext.length).toLowerCase();
+                    if (seenStem.has(stemKey)) continue;
+                    seenStem.add(stemKey);
+                }
+                if (uuid) seenUuid.add(uuid);
+
+                const absPath = path.join(proj, url.replace('db://', ''));
+                const item: any = {
+                    name: base.slice(0, base.length - ext.length),
+                    ext, kind,
+                    category: rel.includes('/') ? rel.slice(0, rel.lastIndexOf('/')) : '',
+                    assetPath: url, assetUuid: uuid,
+                    _ccType: a.type || '',
+                    _absPath: absPath,
+                    _thumbAbs: '', _thumbMime: '', _webmAbs: '', _audioAbs: '',
+                    _renderable: false, _needsThumb: false,
+                };
+                self._applyPreview(item, self._defForKind(kind), absPath, ext, uuid);
+                items.push(item);
+            }
+
+            // Folder first, then name: the grid reads in the same order as the tree.
+            items.sort((a, b) =>
+                (a.category || '').localeCompare(b.category || '') || a.name.localeCompare(b.name));
+            self._localItems = items;
         },
 
         // Scan assets/library-extension/<Format> for the album's file extensions and
@@ -1544,12 +673,10 @@ module.exports = Editor.Panel.define({
         async _loadLibrary(album: any) {
             const self = this as any;
             const path = require('path');
-            const fs = require('fs');
             const def: AssetTypeDef = album.def;
             const proj = await self._projectRoot();
             const typeDir = libraryTypeDir(def);
-            const thumbDir = path.join(proj, 'local', 'vfx-thumbs', 'packs');
-            self._packThumbDir = thumbDir;
+            self._packThumbDir = path.join(proj, 'local', 'vfx-thumbs', 'packs');
             self._spineThumbDir = path.join(proj, 'local', 'vfx-thumbs', 'spine');
 
             // Folder roots to scan. The VFX album also covers the pre-conversion
@@ -1640,80 +767,7 @@ module.exports = Editor.Panel.define({
                         _renderable: false, _needsThumb: false,
                     };
 
-                    if (def.key === 'spine') {
-                        // Animated capture per (skin, animation). Lists/defaults come
-                        // from the sidecar of an earlier capture, else the .json
-                        // skeleton itself; the first capture reports them otherwise.
-                        item._renderable = true;
-                        let info: any = null;
-                        let fromSidecar = false;
-                        try {
-                            const sc = path.join(self._spineThumbDir, `${uuid}.json`);
-                            if (uuid && fs.existsSync(sc)) {
-                                info = JSON.parse(fs.readFileSync(sc, 'utf-8'));
-                                fromSidecar = true;
-                            }
-                        } catch { /* sidecar unreadable */ }
-                        if (!info && ext === '.json') {
-                            try {
-                                const j = JSON.parse(fs.readFileSync(absPath, 'utf-8'));
-                                // Prefer a skin that actually has attachments — the
-                                // implicit "default" skin is empty in skin-based exports.
-                                let skinNames: string[] = [];
-                                let best = '';
-                                if (Array.isArray(j.skins)) {
-                                    skinNames = j.skins.map((s: any) => s.name);
-                                    const w = j.skins.find((s: any) => s.attachments && Object.keys(s.attachments).length > 0);
-                                    best = w ? w.name : '';
-                                } else {
-                                    const entries = Object.entries(j.skins || {});
-                                    skinNames = entries.map(([n]) => n);
-                                    const w = entries.find(([, v]: any) => v && Object.keys(v as any).length > 0);
-                                    best = w ? (w[0] as string) : '';
-                                }
-                                info = { skins: skinNames, animations: Object.keys(j.animations || {}), defaultSkin: best };
-                            } catch { /* not a parsable skeleton json */ }
-                        }
-                        item._spineSkins = (info && info.skins) || [];
-                        item._spineAnims = (info && info.animations) || [];
-                        item._spineSkin = (info && info.defaultSkin)
-                            || (item._spineSkins.indexOf('default') >= 0 ? 'default' : (item._spineSkins[0] || ''));
-                        item._spineAnim = (info && info.defaultAnim) || item._spineAnims[0] || '';
-                        // Only a sidecar combo is capture-verified; a parsed guess must
-                        // not be sent as an explicit skin (it would disable the scene's
-                        // empty-skin fallback).
-                        item._spineComboExplicit = fromSidecar;
-                        const gif = self._spineGifPath(item);
-                        let hasGif = false;
-                        try { hasGif = !!gif && fs.existsSync(gif); } catch { /* ignore */ }
-                        if (hasGif) {
-                            item._thumbAbs = gif;
-                            item._thumbMime = 'image/gif';
-                        } else {
-                            item._needsThumb = true;
-                            // Static skeleton texture stands in until the capture lands.
-                            const sib = self._findSiblingImage(absPath);
-                            if (sib) {
-                                item._thumbAbs = sib;
-                                const idot = sib.lastIndexOf('.');
-                                item._thumbMime = mimeForExt(idot >= 0 ? sib.slice(idot) : '');
-                            }
-                        }
-                    } else if (def.preview === 'render') {
-                        item._renderable = true;
-                        const gif = uuid ? path.join(thumbDir, `${uuid}.gif`) : '';
-                        try {
-                            if (gif && fs.existsSync(gif)) { item._thumbAbs = gif; item._thumbMime = 'image/gif'; }
-                            else { item._needsThumb = true; }
-                        } catch { item._needsThumb = true; }
-                    } else if (def.preview === 'image') {
-                        if (absPath) {
-                            item._thumbAbs = absPath;
-                            item._thumbMime = mimeForExt(ext);
-                        }
-                    } else if (def.preview === 'audio') {
-                        item._audioAbs = absPath;
-                    }
+                    self._applyPreview(item, def, absPath, ext, uuid);
 
                     items.push(item);
                 }
@@ -1726,6 +780,100 @@ module.exports = Editor.Panel.define({
                 items.sort((a, b) => a.name.localeCompare(b.name));
             }
             self._localItems = items;
+        },
+
+        // Resolve where a card's thumbnail comes from, by the kind's preview mode:
+        //   render (VFX/Prefab/FBX/Material): GIF cached at local/vfx-thumbs/packs/<uuid>.gif
+        //   spine: animated capture per (skin, animation), with a sibling texture stand-in
+        //   image (Texture/Effect): the file itself
+        //   audio: play/pause via a Blob URL
+        //   icon (Animation/Script/Other): static glyph placeholder — nothing to resolve
+        // Shared by the Library scan and the project-wide Local scan; the cache is
+        // keyed by uuid only, so both pages hit the same thumbnails.
+        _applyPreview(item: any, def: AssetTypeDef, absPath: string, ext: string, uuid: string) {
+            const self = this as any;
+            const path = require('path');
+            const fs = require('fs');
+            if (def.key === 'spine') {
+                // Animated capture per (skin, animation). Lists/defaults come
+                // from the sidecar of an earlier capture, else the .json
+                // skeleton itself; the first capture reports them otherwise.
+                item._renderable = true;
+                let info: any = null;
+                let fromSidecar = false;
+                try {
+                    const sc = path.join(self._spineThumbDir, `${uuid}.json`);
+                    if (uuid && fs.existsSync(sc)) {
+                        info = JSON.parse(fs.readFileSync(sc, 'utf-8'));
+                        fromSidecar = true;
+                    }
+                } catch { /* sidecar unreadable */ }
+                if (!info && ext === '.json') {
+                    try {
+                        const j = JSON.parse(fs.readFileSync(absPath, 'utf-8'));
+                        // Prefer a skin that actually has attachments — the
+                        // implicit "default" skin is empty in skin-based exports.
+                        let skinNames: string[] = [];
+                        let best = '';
+                        if (Array.isArray(j.skins)) {
+                            skinNames = j.skins.map((s: any) => s.name);
+                            const w = j.skins.find((s: any) => s.attachments && Object.keys(s.attachments).length > 0);
+                            best = w ? w.name : '';
+                        } else {
+                            const entries = Object.entries(j.skins || {});
+                            skinNames = entries.map(([n]) => n);
+                            const w = entries.find(([, v]: any) => v && Object.keys(v as any).length > 0);
+                            best = w ? (w[0] as string) : '';
+                        }
+                        info = { skins: skinNames, animations: Object.keys(j.animations || {}), defaultSkin: best };
+                    } catch { /* not a parsable skeleton json */ }
+                }
+                item._spineSkins = (info && info.skins) || [];
+                item._spineAnims = (info && info.animations) || [];
+                item._spineSkin = (info && info.defaultSkin)
+                    || (item._spineSkins.indexOf('default') >= 0 ? 'default' : (item._spineSkins[0] || ''));
+                item._spineAnim = (info && info.defaultAnim) || item._spineAnims[0] || '';
+                // Only a sidecar combo is capture-verified; a parsed guess must
+                // not be sent as an explicit skin (it would disable the scene's
+                // empty-skin fallback).
+                item._spineComboExplicit = fromSidecar;
+                const gif = self._spineGifPath(item);
+                let hasGif = false;
+                try { hasGif = !!gif && fs.existsSync(gif); } catch { /* ignore */ }
+                if (hasGif) {
+                    item._thumbAbs = gif;
+                    item._thumbMime = 'image/gif';
+                } else {
+                    item._needsThumb = true;
+                    // Static skeleton texture stands in until the capture lands.
+                    const sib = self._findSiblingImage(absPath);
+                    if (sib) {
+                        item._thumbAbs = sib;
+                        const idot = sib.lastIndexOf('.');
+                        item._thumbMime = mimeForExt(idot >= 0 ? sib.slice(idot) : '');
+                    }
+                }
+            } else if (def.preview === 'render') {
+                item._renderable = true;
+                const gif = uuid ? path.join(self._packThumbDir, `${uuid}.gif`) : '';
+                try {
+                    if (gif && fs.existsSync(gif)) { item._thumbAbs = gif; item._thumbMime = 'image/gif'; }
+                    else { item._needsThumb = true; }
+                } catch { item._needsThumb = true; }
+            } else if (def.preview === 'image') {
+                // The file itself when it IS an image (Texture); otherwise a sibling
+                // preview next to it — the documented .effect case (<name>.gif/.png),
+                // which would render as a broken thumbnail if pointed at the source.
+                const isImage = ['.png', '.jpg', '.jpeg', '.webp', '.gif'].includes(ext);
+                const src = isImage ? absPath : (absPath ? self._findSiblingImage(absPath) : '');
+                if (src) {
+                    item._thumbAbs = src;
+                    const sdot = src.lastIndexOf('.');
+                    item._thumbMime = mimeForExt(isImage ? ext : (sdot >= 0 ? src.slice(sdot) : ''));
+                }
+            } else if (def.preview === 'audio') {
+                item._audioAbs = absPath;
+            }
         },
 
         // Fold the importer's local cache (local/vfx-thumbs/*.json + .webm) into the
@@ -1854,8 +1002,8 @@ module.exports = Editor.Panel.define({
                 self._thumbGenRunning = false;
                 const queued = self._thumbGenPending;
                 self._thumbGenPending = null;
-                if (queued && self._page === 'local' && self._album === queued.albumKey) {
-                    const next = ALBUMS.find((a: any) => a.key === queued.albumKey);
+                if (queued && self._isGridPage() && self._currentAlbumKey() === queued.albumKey) {
+                    const next = self._currentAlbums().find((a: any) => a.key === queued.albumKey);
                     if (next) { self._startThumbGeneration(next, queued.force); }
                 }
             }
@@ -2048,6 +1196,28 @@ module.exports = Editor.Panel.define({
             }, { root: list, rootMargin: '120px' });
         },
 
+        // Release every blob URL the current grid still holds. A blob URL keeps its
+        // whole decoded payload alive until it is revoked (or the document unloads),
+        // and the thumbnails are 320x200x50-frame GIFs / full-size textures — so
+        // wiping the list with innerHTML='' (album switch, every search keystroke,
+        // re-render after a sync) used to strand one payload per card for the rest of
+        // the panel's life. Call this immediately BEFORE clearing the list.
+        _revokeListBlobs() {
+            const self = this as any;
+            const list = self.$.vfxList;
+            if (!list) { return; }
+            const nodes = list.querySelectorAll('img.card-thumb, video.card-thumb');
+            for (const el of Array.from(nodes) as Array<HTMLImageElement | HTMLVideoElement>) {
+                const src = el.src;
+                if (src && src.startsWith('blob:')) {
+                    try { URL.revokeObjectURL(src); } catch { /* already released */ }
+                }
+                // Drop the source as well: a <video> that is mid-load would otherwise
+                // keep decoding a buffer nothing can display any more.
+                el.removeAttribute('src');
+            }
+        },
+
         // Build a lazily-loaded <img> for a local image file (cached GIF, texture, ...).
         _makeThumbImg(localPath: string, mime?: string): HTMLImageElement {
             const self = this as any;
@@ -2085,8 +1255,11 @@ module.exports = Editor.Panel.define({
         // (only the prefabs still missing a thumbnail).
         _maybeGenerateThumbs() {
             const self = this as any;
-            if (self._page !== 'local') return;
-            const album = ALBUMS.find((a: any) => a.key === self._album);
+            if (!self._isGridPage()) return;
+            // Only single-format render albums auto-generate: the Local page's All
+            // album previews as 'icon' precisely so a project-wide mixed list doesn't
+            // queue thousands of captures (its cards still regenerate on click).
+            const album = self._currentAlbum();
             if (!album || album.def.preview !== 'render') return;
             self._startThumbGeneration(album, false);
         },
@@ -2138,21 +1311,21 @@ module.exports = Editor.Panel.define({
                                     : `skins=${d.skins} anims=${d.animations} tick=${d.ticked} nc=${d.nonClearFrac} oh=${d.orthoHeight}`;
                         self.$.statusBar.textContent = `${album.label} — ⚠ empty render (${detail})`;
                     } else {
-                        self.$.statusBar.textContent = `${album.label} — ${self._localItems.length} items`;
+                        self.$.statusBar.textContent = self._listStatus(album);
                     }
                 }
             } finally {
                 self._thumbGenRunning = false;
                 self.$.statusBar.classList.remove('busy');
-                if (self._page === 'local') { self._renderAlbumBar(); }
+                if (self._isGridPage()) { self._renderAlbumBar(); }
                 // Start the run queued while this one was still unwinding (album
                 // switch mid-generation) — but only if that album is still in view.
                 const queued = self._thumbGenPending;
                 self._thumbGenPending = null;
-                if (queued && self._page === 'local' && self._album === queued.albumKey) {
-                    const next = ALBUMS.find((a: any) => a.key === queued.albumKey);
+                if (queued && self._isGridPage() && self._currentAlbumKey() === queued.albumKey) {
+                    const next = self._currentAlbums().find((a: any) => a.key === queued.albumKey);
                     if (next) { self._startThumbGeneration(next, queued.force); }
-                } else if (self._thumbGenToken !== token && self._page === 'local' && self._album === album.key) {
+                } else if (self._thumbGenToken !== token && self._isGridPage() && self._currentAlbumKey() === album.key) {
                     // Manual Stop: replace the 'stopping generation...' notice once
                     // the loop has actually unwound. (Album/page switches set their
                     // own status and are excluded by the view checks above.)
@@ -2165,7 +1338,7 @@ module.exports = Editor.Panel.define({
         // missing or failed earlier this session. While running, acts as Stop.
         async _regenerateThumbs() {
             const self = this as any;
-            const album = ALBUMS.find((a) => a.key === self._album);
+            const album = self._currentAlbum();
             if (!album || album.def.preview !== 'render') return;
             if (self._thumbGenRunning) {
                 // Signal the running loop to stop; its finally block clears the flag
@@ -2534,15 +1707,18 @@ module.exports = Editor.Panel.define({
             return card;
         },
 
-        // Render the Library page for the current album (local assets, local previews).
+        // Render the current grid page (Library or Local) for its album — local
+        // assets, local previews.
         _renderLocal() {
             const self = this as any;
             const list = self.$.vfxList;
+            self._revokeListBlobs();
             list.innerHTML = '';
             self._resetThumbObserver();
 
-            const album = ALBUMS.find((a: any) => a.key === self._album) || ALBUMS[0];
+            const album = self._currentAlbum();
             const def: AssetTypeDef = album.def;
+            const isProject = self._page === 'project';
             const serverUrl = self.$.serverUrl.value.replace(/\/+$/, '');
             const { VFXApiClient } = require('../../services/api');
             const api = new VFXApiClient(serverUrl);
@@ -2559,17 +1735,29 @@ module.exports = Editor.Panel.define({
             if (filtered.length === 0) {
                 const empty = document.createElement('div');
                 empty.className = 'empty-hint';
-                empty.textContent = self._localItems.length === 0
-                    ? `${libraryTypeDir(def)} is empty. ${def.emptyHint}`
-                    : 'No assets match your search.';
+                if (self._localItems.length > 0) {
+                    empty.textContent = 'No assets match your search.';
+                } else if (isProject) {
+                    empty.textContent = album.key === ALL_TYPE.key
+                        ? `No assets found under ${PROJECT_SCAN_ROOT}/.`
+                        : `No ${def.label} assets found under ${PROJECT_SCAN_ROOT}/.`;
+                } else {
+                    empty.textContent = `${libraryTypeDir(def)} is empty. ${def.emptyHint}`;
+                }
                 list.appendChild(empty);
                 return;
             }
-            for (const rec of filtered) {
+            // The grid is plain DOM — cap it so a project-wide album can't stall the
+            // panel with thousands of cards (the sidebar + search narrow it down).
+            const shown = filtered.length > MAX_CARDS ? filtered.slice(0, MAX_CARDS) : filtered;
+            for (const rec of shown) {
+                // The All album mixes formats, so preview/icon/badge follow the item's
+                // own kind rather than the album's.
+                const rdef: AssetTypeDef = self._defForKind(rec.kind);
                 // webm (hub import) plays as video; GIF/texture/spine images as <img>;
                 // everything else falls back to the format glyph.
-                const isVideo = !!rec._webmAbs || (def.key === 'vfx' && !!rec.id && !rec._thumbAbs);
-                const hasMeta = def.key === 'vfx' && (rec.particleCount || rec.fileSize);
+                const isVideo = !!rec._webmAbs || (rec.kind === 'vfx' && !!rec.id && !rec._thumbAbs);
+                const hasMeta = rec.kind === 'vfx' && (rec.particleCount || rec.fileSize);
                 list.appendChild(self._makeCard({
                     drag: self._dragInfoForItem(rec),
                     name: rec.name,
@@ -2583,15 +1771,15 @@ module.exports = Editor.Panel.define({
                     thumbUuid: (rec._renderable && !rec._webmAbs) ? rec.assetUuid : undefined,
                     audioPath: rec._audioAbs || '',
                     audioMime: rec._audioAbs ? mimeForExt(rec.ext || '') : '',
-                    iconGlyph: def.icon,
+                    iconGlyph: rdef.icon,
                     // Always ".prefab" on render albums — and the regen affordance
                     // occupies the same corner — so only varying formats get the chip.
-                    extBadge: (def.preview !== 'render' && rec.ext) ? rec.ext.replace(/^\./, '').toUpperCase() : '',
+                    extBadge: (rdef.preview !== 'render' && rec.ext) ? rec.ext.replace(/^\./, '').toUpperCase() : '',
                     imported: { path: rec.assetPath || '', uuid: rec.assetUuid || '' },
                     actionLabel: 'Locate',
                     actionClass: 'card-locate',
                     hideMeta: !hasMeta,
-                    spine: def.key === 'spine' ? {
+                    spine: rec.kind === 'spine' ? {
                         uuid: rec.assetUuid,
                         skins: rec._spineSkins || [],
                         anims: rec._spineAnims || [],
@@ -2599,6 +1787,12 @@ module.exports = Editor.Panel.define({
                         anim: rec._spineAnim || '',
                     } : null,
                 }));
+            }
+            if (filtered.length > shown.length) {
+                const more = document.createElement('div');
+                more.className = 'list-more';
+                more.textContent = `Showing ${shown.length} of ${filtered.length} assets — pick a folder or search to narrow the list.`;
+                list.appendChild(more);
             }
         },
 
@@ -2695,7 +1889,10 @@ module.exports = Editor.Panel.define({
 
         // Build the folder/category tree from any item list (server catalog or the
         // local Hub library — both carry a `category` path).
-        _buildCategoryTree(items: any[]) {
+        // expandDepth: nodes at or above this depth start expanded (1 = only the top
+        // level unfolds). The project tree is deep and wide, so the Local page passes
+        // 1; the library albums keep the whole tree open.
+        _buildCategoryTree(items: any[], expandDepth = Number.POSITIVE_INFINITY) {
             const self = this as any;
             const catMap = new Map<string, number>();
             for (const item of items) {
@@ -2713,7 +1910,10 @@ module.exports = Editor.Panel.define({
             for (const fullPath of sortedKeys) {
                 const parts = fullPath.split('/');
                 const name = parts[parts.length - 1];
-                const node: CategoryNode = { name, fullPath, count: catMap.get(fullPath) || 0, children: [], expanded: true };
+                const node: CategoryNode = {
+                    name, fullPath, count: catMap.get(fullPath) || 0, children: [],
+                    expanded: parts.length <= expandDepth,
+                };
                 nodeMap.set(fullPath, node);
                 if (parts.length === 1) {
                     roots.push(node);
@@ -2738,8 +1938,8 @@ module.exports = Editor.Panel.define({
             const self = this as any;
             const sb = self.$.sidebar;
             sb.innerHTML = '';
-            // Count + click target follow the active page (server list vs local library).
-            const total = self._page === 'local' ? self._localItems.length : self._items.length;
+            // Count + click target follow the active page (server list vs local scan).
+            const total = self._isGridPage() ? self._localItems.length : self._items.length;
             const allDiv = document.createElement('div');
             allDiv.className = 'cat-item' + (self._selectedCategory === 'All' ? ' active' : '');
             allDiv.textContent = `All (${total})`;
@@ -2773,16 +1973,17 @@ module.exports = Editor.Panel.define({
             for (const root of self._categoryTree) { renderNode(root, 0); }
         },
 
-        // Show/build the category tree on the Library page. Categories come from the
-        // item's subfolder path inside the format folder (and, for hub-imported VFX,
-        // the server category) — albums whose items are all at the root stay flat.
+        // Show/build the category tree on a grid page. Categories come from the item's
+        // subfolder path — inside the format folder on Library (and, for hub-imported
+        // VFX, the server category), under assets/ on Local — so albums whose items
+        // are all at the root stay flat.
         _setupLocalSidebar() {
             const self = this as any;
             const categorized = self._localItems.filter((i: any) => i.category);
-            const showTree = self._page === 'local' && categorized.length > 0;
+            const showTree = self._isGridPage() && categorized.length > 0;
             self.$.sidebar.style.display = showTree ? '' : 'none';
             if (showTree) {
-                self._buildCategoryTree(categorized);
+                self._buildCategoryTree(categorized, self._page === 'project' ? 1 : undefined);
                 self._renderSidebar();
             }
         },
@@ -2854,6 +2055,7 @@ module.exports = Editor.Panel.define({
         _renderList() {
             const self = this as any;
             const list = self.$.vfxList;
+            self._revokeListBlobs();
             list.innerHTML = '';
             self._resetThumbObserver();
 
